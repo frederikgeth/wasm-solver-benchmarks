@@ -47,11 +47,12 @@ solver call. `asset_loading_ms` and preparation time make the main setup costs
 visible. All worker timings use `performance.now()`.
 
 The memory field is deliberately narrow: it is the post-solve capacity of the
-solver's `WebAssembly.Memory`, not process RSS or peak live allocation.
-POUNCE's solver memory is visible. The public `ipopt-wasm` wrapper does not
-expose its internal module memory, so that value is `null`; the separate NL
-evaluator's memory is reported. These figures must not be presented as a
-complete solver-memory comparison.
+solver's `WebAssembly.Memory`, not process RSS or peak live allocation. The
+local server appends a read-only `memoryBytes()` export to the installed
+ipopt-wasm wrapper as it serves that JavaScript module; it does not alter the
+solver Wasm. POUNCE exposes the same capacity through the benchmark adapter.
+The separate NL evaluator's memory is reported independently. These figures
+must not be presented as a complete solver-memory comparison.
 
 ## Interpretation boundary
 

@@ -1,5 +1,5 @@
 import { createReadStream } from "node:fs";
-import { stat } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import { createServer } from "node:http";
 import { extname, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -21,6 +21,27 @@ const contentTypes = new Map([
   [".nl", "text/plain; charset=utf-8"],
   [".wasm", "application/wasm"],
 ]);
+const instrumentedIpoptModules = new Map([
+  ["/vendor/ipopt-wasm/index-with-memory.mjs", "index.mjs"],
+  ["/vendor/ipopt-wasm/index64-with-memory.mjs", "index64.mjs"],
+]);
+
+async function serveInstrumentedIpoptModule(pathname, response) {
+  const sourceName = instrumentedIpoptModules.get(pathname);
+  if (!sourceName) return false;
+  const source = await readFile(resolve(webRoot, "node_modules/ipopt-wasm", sourceName), "utf8");
+  const memoryExport = [
+    "",
+    "// Benchmark-local read-only instrumentation; getModule is defined by the upstream wrapper.",
+    "export async function memoryBytes() {",
+    "  return (await getModule()).HEAPF64.buffer.byteLength;",
+    "}",
+    "",
+  ].join("\n");
+  response.setHeader("Content-Type", "text/javascript; charset=utf-8");
+  response.end(source + memoryExport);
+  return true;
+}
 
 function mappedPath(url) {
   const pathname = decodeURIComponent(new URL(url, "http://localhost").pathname);
@@ -36,6 +57,8 @@ function mappedPath(url) {
 const port = Number.parseInt(process.env.ACOPF_WEB_PORT ?? "4173", 10);
 const server = createServer(async (request, response) => {
   try {
+    const pathname = decodeURIComponent(new URL(request.url ?? "/", "http://localhost").pathname);
+    if (await serveInstrumentedIpoptModule(pathname, response)) return;
     const path = mappedPath(request.url ?? "/");
     if (!path || !(await stat(path)).isFile()) {
       response.writeHead(404).end("Not found\n");

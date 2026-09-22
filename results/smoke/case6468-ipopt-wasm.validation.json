@@ -1,0 +1,23 @@
+{
+  "base_mva": 100.0,
+  "candidate": "smoke/case6468-ipopt-wasm.json",
+  "candidate_objective": 2.0697301451210382e6,
+  "max_active_balance_mw": 1.2434497875801753e-12,
+  "max_active_balance_pu": 1.2434497875801753e-14,
+  "max_angle_limit_violation_rad": 0.0,
+  "max_branch_equation_residual_mva": 5.605363395666529e-10,
+  "max_branch_equation_residual_pu": 5.6053633956665294e-12,
+  "max_dc_loss_residual_pu": 0.0,
+  "max_reactive_balance_mvar": 5.10702591327572e-13,
+  "max_reactive_balance_pu": 5.10702591327572e-15,
+  "max_reference_angle_residual_rad": 2.4880866022147967e-31,
+  "max_thermal_limit_violation_mva": 2.8347643343806794e-6,
+  "max_thermal_limit_violation_pu": 2.8347643343806794e-8,
+  "max_variable_bound_violation": 2.8597296619636836e-7,
+  "objective": 2.0697301451210391e6,
+  "objective_difference": 9.313225746154785e-10,
+  "passed": true,
+  "schema": "acopf-wasm-bench.independent-validation/v1",
+  "tolerance": 1.0e-6,
+  "validator": "explicit AC equations from the source MATPOWER case"
+}

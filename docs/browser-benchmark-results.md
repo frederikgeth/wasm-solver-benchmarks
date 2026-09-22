@@ -48,6 +48,10 @@ and 45.9 MB, but the public ipopt-wasm wrapper does not expose the solver's own
 memory. These are memory capacities, not peak live allocations or browser RSS,
 so they do not support a solver-memory ranking.
 
+The later 6,468-bus scale probe adds benchmark-local read-only instrumentation
+to expose Ipopt's memory capacity. The historical representative JSON remains
+unchanged and retains `null` for that field.
+
 POUNCE has the simpler project-owned build and execution shape: one Rust/WASI
 module parses NL and calls the solver directly. The Ipopt product path uses a
 pinned prebuilt npm module plus a separate Rust evaluator and JavaScript

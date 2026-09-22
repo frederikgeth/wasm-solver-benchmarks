@@ -19,6 +19,7 @@
     "test:pounce:case300": "ACOPF_CASE=case300 node test/acopf-pounce-smoke.mjs",
     "test:case1354": "ACOPF_CASE=case1354 node test/acopf-ipopt-smoke.mjs",
     "test:pounce:case1354": "ACOPF_CASE=case1354 node test/acopf-pounce-smoke.mjs",
+    "test:case6468": "ACOPF_CASE=case6468 node test/acopf-ipopt-smoke.mjs",
     "test:solver-smoke": "pnpm run test:ipopt-smoke && pnpm run test:pounce:case3",
     "test:small-cases": "pnpm run test:case3 && pnpm run test:pounce:case3 && pnpm run test:case14 && pnpm run test:pounce:case14 && pnpm run test:case30 && pnpm run test:pounce:case30",
     "test:representative-cases": "pnpm run test:case118 && pnpm run test:pounce:case118 && pnpm run test:case300 && pnpm run test:pounce:case300 && pnpm run test:case1354 && pnpm run test:pounce:case1354"

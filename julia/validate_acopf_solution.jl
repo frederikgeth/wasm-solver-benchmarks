@@ -37,7 +37,7 @@ function validate_acopf_solution(
     x = Float64.(candidate["x"])
 
     length(names) == length(x) || error("column and primal-vector lengths differ")
-    candidate["status"] == 0 || error("candidate solver status is $(candidate["status"])")
+    solver_succeeded = candidate["status"] == 0
     primal_by_name = Dict(name => x[index] for (index, name) in enumerate(names))
     variable(name) = get(primal_by_name, name) do
         error("candidate is missing variable $name")
@@ -178,7 +178,7 @@ function validate_acopf_solution(
     objective_difference = objective - Float64(candidate["objective"])
 
     tolerance = 1.0e-6
-    passed = maximum((
+    passed = solver_succeeded && maximum((
         max_p_balance,
         max_q_balance,
         max_branch_equation,
@@ -193,6 +193,8 @@ function validate_acopf_solution(
         "schema" => "acopf-wasm-bench.independent-validation/v1",
         "validator" => "explicit AC equations from the source MATPOWER case",
         "candidate" => relpath(candidate_path, dirname(dirname(output_path))),
+        "candidate_status" => candidate["status"],
+        "candidate_raw_status" => get(candidate, "raw_status", nothing),
         "passed" => passed,
         "tolerance" => tolerance,
         "base_mva" => base_mva,

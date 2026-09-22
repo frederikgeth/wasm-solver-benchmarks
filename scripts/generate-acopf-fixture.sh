@@ -33,6 +33,11 @@ case "$case_name" in
     upstream_path="pglib-opf-23.07/pglib_opf_case1354_pegase.m"
     upstream_revision="v23.07; artifact tree 0e8968a89b6ad43910a8eda4ec30656add35cf91"
     ;;
+  case6468)
+    case_label="PGLib-OPF v23.07 case6468_rte"
+    upstream_path="pglib-opf-23.07/pglib_opf_case6468_rte.m"
+    upstream_revision="v23.07; artifact tree 0e8968a89b6ad43910a8eda4ec30656add35cf91"
+    ;;
   *)
     echo "case $case_name has no pinned provenance entry" >&2
     exit 2

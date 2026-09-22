@@ -18,6 +18,7 @@ function usage() {
     "",
     "  --browser chrome|edge      desktop browser executable (default: chrome)",
     "  --cases LIST               comma-separated case names",
+    "  --backends LIST            comma-separated browser backends",
     "  --runs N                  measured fresh-worker runs per pair (default: 7)",
     "  --warmups N               unmeasured warmups per pair (default: 1)",
     "  --cold-runs N             fresh-browser runs per pair (default: 1)",
@@ -40,6 +41,7 @@ function parseArguments(argv) {
   const options = {
     browser: "chrome",
     cases: ["case118", "case300", "case1354"],
+    backends: ["ipopt-wasm", "pounce-wasm"],
     runs: 7,
     warmups: 1,
     coldRuns: 1,
@@ -57,6 +59,7 @@ function parseArguments(argv) {
     };
     if (argument === "--browser") options.browser = next();
     else if (argument === "--cases") options.cases = next().split(",").filter(Boolean);
+    else if (argument === "--backends") options.backends = next().split(",").filter(Boolean);
     else if (argument === "--runs") options.runs = parsePositiveInteger(next(), argument);
     else if (argument === "--warmups") options.warmups = parsePositiveInteger(next(), argument, true);
     else if (argument === "--cold-runs") options.coldRuns = parsePositiveInteger(next(), argument, true);
@@ -73,6 +76,10 @@ function parseArguments(argv) {
   if (!options.output) throw new Error(`--output is required\n\n${usage()}`);
   if (!options.cases.length || options.cases.some((item) => !/^case[0-9]+$/.test(item))) {
     throw new Error("--cases must contain case names such as case118");
+  }
+  const supportedBackends = new Set(["ipopt-wasm", "ipopt-wasm64", "pounce-wasm"]);
+  if (!options.backends.length || options.backends.some((item) => !supportedBackends.has(item))) {
+    throw new Error("--backends must contain ipopt-wasm, ipopt-wasm64, or pounce-wasm");
   }
   if (!["chrome", "edge"].includes(options.browser)) {
     throw new Error("--browser must be chrome or edge");
@@ -231,7 +238,7 @@ async function main() {
     const coldStarts = [];
     let browserVersion = null;
     for (const caseName of options.cases) {
-      for (const backend of ["ipopt-wasm", "pounce-wasm"]) {
+      for (const backend of options.backends) {
         for (let run = 0; run < options.coldRuns; run += 1) {
           const launchStart = performance.now();
           const browser = await chromium.launch({ executablePath, headless: !options.headed });
@@ -267,7 +274,7 @@ async function main() {
       browserVersion ??= browser.version();
       steadyReport = await runPage(browser, {
         cases: options.cases,
-        backends: ["ipopt-wasm", "pounce-wasm"],
+        backends: options.backends,
         runs: options.runs,
         warmups: options.warmups,
         seed: options.seed,
@@ -324,7 +331,7 @@ async function main() {
       },
       protocol: {
         cases: options.cases,
-        backends: ["ipopt-wasm", "pounce-wasm"],
+        backends: options.backends,
         options: {
           tol: 1e-9,
           max_iter: 1000,
@@ -345,7 +352,7 @@ async function main() {
         timing_clock: "browser performance.now() except outer cold-start lifecycle fields, which use Node performance.now()",
         observed_total_definition: "worker construction through receipt and compaction of the complete solution message, including asset fetch, instantiation, preparation, solve, and worker-to-page transfer",
         optimization_definition: "synchronous solver call only; excludes model loading, Wasm instantiation, and solution message transfer",
-        memory_measurement: "post-solve WebAssembly.Memory buffer capacity, not process RSS or peak live allocation; ipopt-wasm memory is unavailable through its public wrapper and is null, while its separate evaluator memory is reported",
+        memory_measurement: "post-solve WebAssembly.Memory buffer capacity, not process RSS or peak live allocation; the local server adds a read-only capacity export to the upstream ipopt-wasm JavaScript wrapper, and the separate evaluator memory is reported independently",
         solver_warm_start: false,
         logging_during_timed_solve: false,
       },
@@ -358,6 +365,7 @@ async function main() {
           "target/wasm32-wasip1/release/acopf_pounce_browser_wasm.wasm",
         ),
         ipopt_wasm: await artifactRecord("web/node_modules/ipopt-wasm/ipopt.wasm"),
+        ipopt_wasm64: await artifactRecord("web/node_modules/ipopt-wasm/ipopt64.wasm"),
       },
       cold_starts: coldStarts,
       warmups: steadyReport.warmups,
@@ -365,12 +373,12 @@ async function main() {
       summaries: summarize(
         steadyReport.observations,
         options.cases,
-        ["ipopt-wasm", "pounce-wasm"],
+        options.backends,
       ),
       cold_start_summaries: summarize(
         coldStarts,
         options.cases,
-        ["ipopt-wasm", "pounce-wasm"],
+        options.backends,
       ),
     };
     await mkdir(path.dirname(options.output), { recursive: true });

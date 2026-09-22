@@ -43,7 +43,7 @@ async function resolveSmokeCase(caseName) {
   };
 }
 
-async function runIpopt(smokeCase, totalStart) {
+async function runIpopt(smokeCase, totalStart, addressModel = "wasm32") {
   self.postMessage({ type: "phase", phase: "loading" });
   const loadStart = performance.now();
   const [wasmBytes, nlBytes] = await Promise.all([
@@ -54,8 +54,11 @@ async function runIpopt(smokeCase, totalStart) {
 
   self.postMessage({ type: "phase", phase: "preparing" });
   const prepareStart = performance.now();
-  const [{ solve }, evaluator] = await Promise.all([
-    import("/vendor/ipopt-wasm/index.mjs"),
+  const modulePath = addressModel === "memory64"
+    ? "/vendor/ipopt-wasm/index64-with-memory.mjs"
+    : "/vendor/ipopt-wasm/index-with-memory.mjs";
+  const [ipoptModule, evaluator] = await Promise.all([
+    import(modulePath),
     createNlEvaluator(wasmBytes, new Uint8Array(nlBytes)),
   ]);
   const prepareMilliseconds = performance.now() - prepareStart;
@@ -63,7 +66,7 @@ async function runIpopt(smokeCase, totalStart) {
   try {
     self.postMessage({ type: "phase", phase: "solving" });
     const solveStart = performance.now();
-    const result = await solve(evaluator.problem, {
+    const result = await ipoptModule.solve(evaluator.problem, {
       print_level: 0,
       tol: 1e-9,
       max_iter: smokeCase.maxIterations,
@@ -96,7 +99,7 @@ async function runIpopt(smokeCase, totalStart) {
 
     return {
       schema: "acopf-wasm-bench.smoke-result/v1",
-      backend: "ipopt-wasm",
+      backend: addressModel === "memory64" ? "ipopt-wasm64" : "ipopt-wasm",
       environment: "browser-worker",
       case: smokeCase.label,
       model_sha256: smokeCase.modelSha256,
@@ -110,8 +113,9 @@ async function runIpopt(smokeCase, totalStart) {
       raw_constraint_tolerance: smokeCase.rawConstraintTolerance,
       wasm_linear_memory_bytes: {
         evaluator: evaluator.memoryBytes(),
-        ipopt_wasm: null,
+        ipopt_wasm: await ipoptModule.memoryBytes(),
       },
+      wasm_address_model: addressModel,
       dimensions: {
         variables: evaluator.problem.n,
         constraints: evaluator.problem.m,
@@ -230,7 +234,9 @@ self.onmessage = async ({ data }) => {
     const backend = data.backend ?? "ipopt-wasm";
     let result;
     if (backend === "ipopt-wasm") {
-      result = await runIpopt(smokeCase, totalStart);
+      result = await runIpopt(smokeCase, totalStart, "wasm32");
+    } else if (backend === "ipopt-wasm64") {
+      result = await runIpopt(smokeCase, totalStart, "memory64");
     } else if (backend === "pounce-wasm") {
       result = await runPounce(smokeCase, totalStart);
     } else {

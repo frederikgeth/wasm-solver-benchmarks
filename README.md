@@ -10,6 +10,8 @@ by `ipopt-wasm`. The second milestone carries the same path through frozen
 PowerModels 3-, 14-, and 30-bus AC OPFs and validates every solution
 independently from the shared evaluator. The third milestone extends that
 correctness path to PGLib-OPF 118-, 300-, and 1,354-bus cases.
+An additional 6,468-bus RTE case probes solver robustness and the wasm32
+memory boundary.
 
 ## Current status
 
@@ -32,6 +34,11 @@ correctness path to PGLib-OPF 118-, 300-, and 1,354-bus cases.
 - A reproducible installed-browser harness now separates cold browser runs,
   unmeasured warm-ups, and seeded fresh-worker repetitions while retaining
   every failure in the denominator.
+- The installed package's default Ipopt entry point is wasm32. Its nominal
+  address space is 4 GiB, but the generated Emscripten wrapper currently caps
+  heap growth at 2 GiB. The package's Memory64 entry point is available as an
+  explicit benchmark backend, although its shipped wrapper retains that same
+  2 GiB growth cap.
 
 Run the current proof with:
 
@@ -91,6 +98,8 @@ The timing definitions and reproducibility controls are documented in
 [`docs/browser-benchmark-protocol.md`](docs/browser-benchmark-protocol.md).
 The first installed-Chrome result and recommendation are in
 [`docs/browser-benchmark-results.md`](docs/browser-benchmark-results.md).
+The 6,468-bus RTE result and memory-limit estimate are in
+[`docs/rte-scale-memory.md`](docs/rte-scale-memory.md).
 The non-MIT solver boundary is summarized in
 [`docs/solver-licenses.md`](docs/solver-licenses.md).
 
