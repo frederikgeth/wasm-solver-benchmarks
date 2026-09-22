@@ -15,12 +15,16 @@ function write_json(path::String, value)
     end
 end
 
-function export_nl_with_mapping(model::JuMP.Model, output_directory::String)
+function export_nl_with_mapping(
+    model::JuMP.Model,
+    output_directory::String,
+    artifact_stem::String,
+)
     nl_model = MOI.FileFormats.NL.Model()
     source = JuMP.backend(model)
     index_map = MOI.copy_to(nl_model, source)
 
-    nl_path = joinpath(output_directory, "case3-acopf.nl")
+    nl_path = joinpath(output_directory, "$artifact_stem.nl")
     open(nl_path, "w") do io
         write(io, nl_model)
     end
@@ -42,7 +46,7 @@ function export_nl_with_mapping(model::JuMP.Model, output_directory::String)
             "upper" => bound_value(info.upper),
         ))
     end
-    col_path = joinpath(output_directory, "case3-acopf.col")
+    col_path = joinpath(output_directory, "$artifact_stem.col")
     write(col_path, join(column_names, "\n") * "\n")
 
     nonlinear_count = length(nl_model.g)
@@ -77,7 +81,7 @@ function export_nl_with_mapping(model::JuMP.Model, output_directory::String)
     end
     @assert all(!isempty, row_names)
     sort!(constraint_mapping; by = row -> row["nl_index"])
-    row_path = joinpath(output_directory, "case3-acopf.row")
+    row_path = joinpath(output_directory, "$artifact_stem.row")
     write(row_path, join(row_names, "\n") * "\n")
 
     return (
@@ -90,11 +94,16 @@ function export_nl_with_mapping(model::JuMP.Model, output_directory::String)
     )
 end
 
-function export_case3_acopf(case_path::String, output_directory::String)
+function export_acopf_fixture(
+    case_path::String,
+    output_directory::String,
+    artifact_stem::String,
+    case_label::String,
+)
     mkpath(output_directory)
     data = PowerModels.parse_file(case_path)
     pm = PowerModels.instantiate_model(data, PowerModels.ACPPowerModel, PowerModels.build_opf)
-    exported = export_nl_with_mapping(pm.model, output_directory)
+    exported = export_nl_with_mapping(pm.model, output_directory, artifact_stem)
 
     optimizer = optimizer_with_attributes(
         Ipopt.Optimizer,
@@ -107,16 +116,16 @@ function export_case3_acopf(case_path::String, output_directory::String)
 
     mapping = Dict(
         "schema" => "acopf-wasm-bench.model-mapping/v1",
-        "case" => "PowerModels case3",
+        "case" => case_label,
         "formulation" => "PowerModels.ACPPowerModel",
         "objective" => "PowerModels.build_opf fuel and flow cost",
         "source_case" => Dict(
-            "path" => "fixtures/cases/case3.m",
+            "path" => "fixtures/cases/$(basename(case_path))",
             "sha256" => bytes2hex(sha256(read(case_path))),
-            "upstream" => "PowerModels.jl/test/data/matpower/case3.m",
+            "upstream" => "PowerModels.jl/test/data/matpower/$(basename(case_path))",
             "upstream_revision" => "f8ef54f762502cfae7760ea6314c4683b18b1ec5",
         ),
-        "generator" => "julia/export_case3_acopf.jl",
+        "generator" => "julia/export_acopf_fixture.jl",
         "versions" => Dict(
             "julia" => string(VERSION),
             "JuMP" => string(pkgversion(JuMP)),
@@ -136,7 +145,7 @@ function export_case3_acopf(case_path::String, output_directory::String)
         "variables" => exported.variables,
         "constraints" => exported.constraints,
     )
-    write_json(joinpath(output_directory, "case3-acopf.mapping.json"), mapping)
+    write_json(joinpath(output_directory, "$artifact_stem.mapping.json"), mapping)
 
     reference = Dict(
         "schema" => "acopf-wasm-bench.reference-result/v1",
@@ -153,15 +162,18 @@ function export_case3_acopf(case_path::String, output_directory::String)
             "linear_solver" => "mumps",
         ),
     )
-    write_json(joinpath(output_directory, "case3-acopf.reference.json"), reference)
+    write_json(joinpath(output_directory, "$artifact_stem.reference.json"), reference)
     return reference
 end
 
 if abspath(PROGRAM_FILE) == @__FILE__
     root = abspath(joinpath(@__DIR__, ".."))
     case_path = length(ARGS) >= 1 ? abspath(ARGS[1]) : joinpath(root, "fixtures", "cases", "case3.m")
-    output_directory = length(ARGS) >= 2 ? abspath(ARGS[2]) : joinpath(root, "fixtures", "acopf", "case3")
-    reference = export_case3_acopf(case_path, output_directory)
+    case_name = splitext(basename(case_path))[1]
+    output_directory = length(ARGS) >= 2 ? abspath(ARGS[2]) : joinpath(root, "fixtures", "acopf", case_name)
+    artifact_stem = length(ARGS) >= 3 ? ARGS[3] : "$case_name-acopf"
+    case_label = length(ARGS) >= 4 ? ARGS[4] : "PowerModels $case_name"
+    reference = export_acopf_fixture(case_path, output_directory, artifact_stem, case_label)
     println(JSON.json(Dict(
         "output_directory" => output_directory,
         "termination_status" => reference["termination_status"],

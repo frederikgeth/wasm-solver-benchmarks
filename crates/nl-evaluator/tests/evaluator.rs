@@ -5,6 +5,8 @@ use std::rc::Rc;
 
 const HS071: &str = include_str!("../../../fixtures/tiny/hs071.nl");
 const CASE3_ACOPF: &str = include_str!("../../../fixtures/acopf/case3/case3-acopf.nl");
+const CASE14_ACOPF: &str = include_str!("../../../fixtures/acopf/case14/case14-acopf.nl");
+const CASE30_ACOPF: &str = include_str!("../../../fixtures/acopf/case30/case30-acopf.nl");
 
 fn assert_close(actual: &[f64], expected: &[f64], tolerance: f64) {
     assert_eq!(actual.len(), expected.len());
@@ -229,13 +231,17 @@ fn pounce_solves_the_same_evaluator() {
     assert!(application.statistics().final_declared_constr_viol <= 1.0e-6);
 }
 
-#[test]
-fn evaluates_and_solves_power_models_case3_acopf() {
-    let mut evaluator = NlEvaluator::from_nl_str(CASE3_ACOPF).unwrap();
-    assert_eq!(evaluator.problem().dimensions.variables, 28);
-    assert_eq!(evaluator.problem().dimensions.constraints, 29);
-    assert_eq!(evaluator.problem().dimensions.jacobian_nonzeros, 103);
-    assert_eq!(evaluator.problem().dimensions.hessian_nonzeros, 35);
+fn assert_evaluates_and_solves_power_models_acopf(
+    nl: &str,
+    dimensions: (usize, usize, usize, usize),
+    expected_objective: f64,
+) {
+    let mut evaluator = NlEvaluator::from_nl_str(nl).unwrap();
+    let actual_dimensions = &evaluator.problem().dimensions;
+    assert_eq!(actual_dimensions.variables, dimensions.0);
+    assert_eq!(actual_dimensions.constraints, dimensions.1);
+    assert_eq!(actual_dimensions.jacobian_nonzeros, dimensions.2);
+    assert_eq!(actual_dimensions.hessian_nonzeros, dimensions.3);
 
     let initial_point = evaluator.problem().initial_point.clone();
     assert!(evaluator.objective(&initial_point).unwrap().is_finite());
@@ -262,7 +268,7 @@ fn evaluates_and_solves_power_models_case3_acopf() {
     );
     assert!(
         evaluator
-            .hessian_values(&initial_point, 1.0, &[0.0; 29])
+            .hessian_values(&initial_point, 1.0, &vec![0.0; dimensions.1])
             .unwrap()
             .iter()
             .all(|value| value.is_finite())
@@ -278,6 +284,33 @@ fn evaluates_and_solves_power_models_case3_acopf() {
 
     assert_eq!(status, ApplicationReturnStatus::SolveSucceeded);
     let evaluator = tnlp.borrow();
-    assert!((evaluator.final_obj() - 5_906.879_416_645_711).abs() <= 1.0e-3);
+    assert!((evaluator.final_obj() - expected_objective).abs() <= 1.0e-3);
     assert!(application.statistics().final_declared_constr_viol <= 1.0e-6);
+}
+
+#[test]
+fn evaluates_and_solves_power_models_case3_acopf() {
+    assert_evaluates_and_solves_power_models_acopf(
+        CASE3_ACOPF,
+        (28, 29, 103, 35),
+        5_906.879_416_645_711,
+    );
+}
+
+#[test]
+fn evaluates_and_solves_power_models_case14_acopf() {
+    assert_evaluates_and_solves_power_models_acopf(
+        CASE14_ACOPF,
+        (118, 129, 532, 127),
+        8_081.524_734_833_99,
+    );
+}
+
+#[test]
+fn evaluates_and_solves_power_models_case30_acopf() {
+    assert_evaluates_and_solves_power_models_acopf(
+        CASE30_ACOPF,
+        (236, 348, 1_245, 418),
+        204.968_350_791_294_82,
+    );
 }

@@ -8,13 +8,14 @@ import { solve } from "ipopt-wasm";
 import { createNlEvaluator } from "../nl-evaluator.mjs";
 
 const root = fileURLToPath(new URL("../..", import.meta.url));
+const caseName = process.env.ACOPF_CASE ?? "case3";
+const fixture = `${root}/fixtures/acopf/${caseName}/${caseName}-acopf`;
 const evaluatorWasm = await readFile(
   `${root}/target/wasm32-unknown-unknown/release/acopf_nl_evaluator_wasm.wasm`,
 );
-const nl = await readFile(`${root}/fixtures/acopf/case3/case3-acopf.nl`);
-const mapping = JSON.parse(
-  await readFile(`${root}/fixtures/acopf/case3/case3-acopf.mapping.json`, "utf8"),
-);
+const nl = await readFile(`${fixture}.nl`);
+const mapping = JSON.parse(await readFile(`${fixture}.mapping.json`, "utf8"));
+const reference = JSON.parse(await readFile(`${fixture}.reference.json`, "utf8"));
 const evaluator = await createNlEvaluator(evaluatorWasm, nl);
 
 try {
@@ -42,7 +43,7 @@ try {
     schema: "acopf-wasm-bench.solver-result/v1",
     backend: "ipopt-wasm",
     environment: "node",
-    case: "PowerModels case3 AC OPF",
+    case: mapping.case,
     model_sha256: mapping.artifacts.nl_sha256,
     solver: {
       package_version: "0.2.0",
@@ -80,7 +81,7 @@ try {
   }
 
   assert.equal(result.status, 0, `Ipopt returned status ${result.status}`);
-  assert.ok(Math.abs(result.objective - 5906.879416645711) <= 1e-3);
+  assert.ok(Math.abs(result.objective - reference.objective) <= Math.max(1e-3, Math.abs(reference.objective) * 1e-5));
   assert.ok(constraintViolation <= 1e-6);
   assert.ok(boundViolation <= 1e-6);
 } finally {

@@ -1,9 +1,9 @@
 # Shared `.nl` evaluator feasibility
 
 Status: native interface, POUNCE solve, WASM evaluator export, ipopt-wasm Node
-solve, and a dedicated real-browser worker are verified on both the HS071
-probe and a PowerModels 3-bus AC OPF. The smoke timing is diagnostic only, not
-benchmark evidence.
+solve, and dedicated real-browser workers are verified on the HS071 probe and
+PowerModels 3-, 14-, and 30-bus AC OPFs. The smoke timing is diagnostic only,
+not benchmark evidence.
 
 ## Verified source boundary
 
@@ -69,9 +69,9 @@ interface evidence, not a browser benchmark.
 
 1. Measure callback copying separately and add repeated cold-solve protocol;
    the current single browser smoke timing must not be treated as a benchmark.
-2. Extend the confirmed JuMP/PowerModels operation coverage from the 3-bus
-   export to 14- and 30-bus AC OPF. Imported AMPL functions are not available
-   on WASM and must be rejected explicitly.
+2. Extend the confirmed JuMP/PowerModels operation coverage beyond 30 buses.
+   Imported AMPL functions are not available on WASM and must be rejected
+   explicitly.
 3. Preserve `.col`/`.row` identities or an equivalent sidecar mapping; `.nl`
    text alone does not retain the names needed for benchmark diagnostics.
 
@@ -82,6 +82,6 @@ evaluator module and copies callback data across JavaScript into Ipopt's
 Emscripten memory. This is a relevant product-integration difference that the
 benchmark must measure and disclose, not an algorithm-only comparison.
 
-The shared-evaluator route is feasible on the first AC OPF and is the selected
-path for the next case-ladder step. There is no evidence yet that the bounded
-standalone Rust AC OPF fallback is needed.
+The shared-evaluator route is feasible across the small AC OPF ladder and is
+the selected path for the next scale step. There is no evidence yet that the
+bounded standalone Rust AC OPF fallback is needed.

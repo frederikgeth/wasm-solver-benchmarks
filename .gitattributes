@@ -1,0 +1,2 @@
+# Preserve upstream MATPOWER fixtures byte-for-byte, including source whitespace.
+fixtures/cases/*.m -whitespace

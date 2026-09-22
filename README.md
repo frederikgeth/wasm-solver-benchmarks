@@ -6,9 +6,9 @@ not integrate with Tellegen or PowerIO.
 
 The first milestone proved that one AMPL `.nl` model exported by JuMP can be
 parsed by POUNCE's evaluator and used to supply the callback contract expected
-by `ipopt-wasm`. The second milestone carries the same path through a frozen
-PowerModels 3-bus AC OPF and validates its solution independently from the
-shared evaluator.
+by `ipopt-wasm`. The second milestone carries the same path through frozen
+PowerModels 3-, 14-, and 30-bus AC OPFs and validates every solution
+independently from the shared evaluator.
 
 ## Current status
 
@@ -18,11 +18,11 @@ shared evaluator.
 - The evaluator reports zero-based sparse indices, matching `ipopt-wasm`.
 - `ipopt-wasm` requires exactly those callbacks and a lower-triangular
   Hessian. It does not parse `.nl` itself.
-- JuMP-exported HS071 and PowerModels 3-bus AC OPF fixtures, mappings, and
-  numerical interface tests are included.
+- JuMP-exported HS071 and PowerModels 3-, 14-, and 30-bus AC OPF fixtures,
+  mappings, and numerical interface tests are included.
 - Native and browser POUNCE plus browser Ipopt/MUMPS solve the same frozen
-  model to the same local solution on the 3-bus fixture.
-- Both 3-bus browser-solver candidates pass explicit AC branch-flow, bus-balance,
+  models to the same local solutions across the small-case ladder.
+- Every browser-solver candidate passes explicit AC branch-flow, bus-balance,
   DC-loss, limit, bound, reference-angle, and objective checks reconstructed
   from the original MATPOWER case. This validator does not call the shared
   `.nl` evaluator.
@@ -36,14 +36,14 @@ rustup target add wasm32-unknown-unknown wasm32-wasip1
 cargo test --workspace
 ./scripts/build-evaluator-wasm.sh
 ./scripts/build-pounce-wasm.sh
-cd web && pnpm install --frozen-lockfile && pnpm test:solver-smoke
+cd web && pnpm install --frozen-lockfile && pnpm test:small-cases
 ```
 
-Build both browser paths, record both 3-bus solutions, and independently
+Build both browser paths, record all six small-case solutions, and independently
 validate them with:
 
 ```sh
-./scripts/run-case3-correctness.sh
+./scripts/run-small-case-correctness.sh
 ```
 
 For the real-browser worker harness, start `pnpm serve` in `web/` and open
@@ -60,13 +60,16 @@ Regenerate the tiny fixture with:
 Regenerate the frozen AC OPF model, identity maps, and native reference with:
 
 ```sh
-./scripts/generate-case3-acopf.sh
+./scripts/generate-acopf-fixture.sh case14
 ```
 
 See [`docs/nl-evaluator-feasibility.md`](docs/nl-evaluator-feasibility.md) for
-the verified compatibility boundary and [`docs/case3-acopf.md`](docs/case3-acopf.md)
-for the first power-system correctness result. The non-MIT solver boundary is
-summarized in [`docs/solver-licenses.md`](docs/solver-licenses.md).
+the verified compatibility boundary and
+[`docs/case3-acopf.md`](docs/case3-acopf.md) for the first power-system
+correctness result. The complete small-case result is in
+[`docs/small-case-correctness.md`](docs/small-case-correctness.md). The non-MIT
+solver boundary is summarized in
+[`docs/solver-licenses.md`](docs/solver-licenses.md).
 
 ## Intended layout
 

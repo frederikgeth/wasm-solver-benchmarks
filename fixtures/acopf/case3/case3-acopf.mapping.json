@@ -332,7 +332,7 @@
     "variables": 28
   },
   "formulation": "PowerModels.ACPPowerModel",
-  "generator": "julia/export_case3_acopf.jl",
+  "generator": "julia/export_acopf_fixture.jl",
   "objective": "PowerModels.build_opf fuel and flow cost",
   "schema": "acopf-wasm-bench.model-mapping/v1",
   "source_case": {

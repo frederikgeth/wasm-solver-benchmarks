@@ -18,6 +18,24 @@ const smokeCases = {
     objectiveTolerance: 1e-3,
     maxIterations: 1000,
   },
+  case14: {
+    label: "PowerModels case14",
+    nl: "/fixtures/acopf/case14/case14-acopf.nl",
+    col: "/fixtures/acopf/case14/case14-acopf.col",
+    row: "/fixtures/acopf/case14/case14-acopf.row",
+    objective: 8081.52473483399,
+    objectiveTolerance: 0.1,
+    maxIterations: 1000,
+  },
+  case30: {
+    label: "PowerModels case30",
+    nl: "/fixtures/acopf/case30/case30-acopf.nl",
+    col: "/fixtures/acopf/case30/case30-acopf.col",
+    row: "/fixtures/acopf/case30/case30-acopf.row",
+    objective: 204.96835079129482,
+    objectiveTolerance: 1e-3,
+    maxIterations: 1000,
+  },
 };
 
 async function fetchAsset(url, format = "bytes") {

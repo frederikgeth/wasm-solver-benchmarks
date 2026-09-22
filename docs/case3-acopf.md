@@ -32,7 +32,7 @@ benchmark sample.
 
 ## Independent validation
 
-`julia/validate_case3_solution.jl` reads the original MATPOWER case and the
+`julia/validate_acopf_solution.jl` reads the original MATPOWER case and the
 named primal vector. It uses PowerModels only to parse and normalize source
 data; it explicitly recomputes the polar AC branch equations, active/reactive
 bus balances, DC loss equation, both-end apparent-power limits, angle limits,

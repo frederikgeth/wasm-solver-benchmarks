@@ -24,7 +24,7 @@ function bound_value(value)
     error("unsupported bound value: $value")
 end
 
-function validate_solution(
+function validate_acopf_solution(
     case_path::String,
     mapping_path::String,
     candidate_path::String,
@@ -98,9 +98,10 @@ function validate_solution(
         p_balance[string(to)] += p_to
         q_balance[string(to)] += q_to
 
-        if isfinite(branch["rate_a"])
-            push!(thermal_violations, max(hypot(p_from, q_from) - branch["rate_a"], 0.0))
-            push!(thermal_violations, max(hypot(p_to, q_to) - branch["rate_a"], 0.0))
+        rate_a = get(branch, "rate_a", Inf)
+        if isfinite(rate_a)
+            push!(thermal_violations, max(hypot(p_from, q_from) - rate_a, 0.0))
+            push!(thermal_violations, max(hypot(p_to, q_to) - rate_a, 0.0))
         end
         push!(angle_violations, max(branch["angmin"] - angle_from, angle_from - branch["angmax"], 0.0))
     end
@@ -222,6 +223,6 @@ if abspath(PROGRAM_FILE) == @__FILE__
     mapping_path = length(ARGS) >= 2 ? abspath(ARGS[2]) : joinpath(root, "fixtures", "acopf", "case3", "case3-acopf.mapping.json")
     candidate_path = length(ARGS) >= 3 ? abspath(ARGS[3]) : joinpath(root, "results", "smoke", "case3-ipopt-wasm.json")
     output_path = length(ARGS) >= 4 ? abspath(ARGS[4]) : joinpath(root, "results", "smoke", "case3-ipopt-wasm.validation.json")
-    report = validate_solution(case_path, mapping_path, candidate_path, output_path)
+    report = validate_acopf_solution(case_path, mapping_path, candidate_path, output_path)
     println(JSON.json(report))
 end

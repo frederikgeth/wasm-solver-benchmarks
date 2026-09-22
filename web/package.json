@@ -5,10 +5,15 @@
   "scripts": {
     "serve": "node dev-server.mjs",
     "test:hs071": "node test/ipopt-smoke.mjs",
-    "test:case3": "node test/case3-acopf-smoke.mjs",
+    "test:case3": "ACOPF_CASE=case3 node test/acopf-ipopt-smoke.mjs",
+    "test:case14": "ACOPF_CASE=case14 node test/acopf-ipopt-smoke.mjs",
+    "test:case30": "ACOPF_CASE=case30 node test/acopf-ipopt-smoke.mjs",
     "test:ipopt-smoke": "pnpm run test:hs071 && pnpm run test:case3",
-    "test:pounce:case3": "node test/case3-pounce-smoke.mjs",
-    "test:solver-smoke": "pnpm run test:ipopt-smoke && pnpm run test:pounce:case3"
+    "test:pounce:case3": "ACOPF_CASE=case3 node test/acopf-pounce-smoke.mjs",
+    "test:pounce:case14": "ACOPF_CASE=case14 node test/acopf-pounce-smoke.mjs",
+    "test:pounce:case30": "ACOPF_CASE=case30 node test/acopf-pounce-smoke.mjs",
+    "test:solver-smoke": "pnpm run test:ipopt-smoke && pnpm run test:pounce:case3",
+    "test:small-cases": "pnpm run test:case3 && pnpm run test:pounce:case3 && pnpm run test:case14 && pnpm run test:pounce:case14 && pnpm run test:case30 && pnpm run test:pounce:case30"
   },
   "dependencies": {
     "ipopt-wasm": "0.2.0"

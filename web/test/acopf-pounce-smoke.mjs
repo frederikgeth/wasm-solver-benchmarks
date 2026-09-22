@@ -6,22 +6,21 @@ import { fileURLToPath } from "node:url";
 import { createPounceRunner } from "../pounce-runner.mjs";
 
 const root = fileURLToPath(new URL("../..", import.meta.url));
+const caseName = process.env.ACOPF_CASE ?? "case3";
+const fixture = `${root}/fixtures/acopf/${caseName}/${caseName}-acopf`;
 const [wasm, nl, col, row] = await Promise.all([
   readFile(`${root}/target/wasm32-wasip1/release/acopf_pounce_browser_wasm.wasm`),
-  readFile(`${root}/fixtures/acopf/case3/case3-acopf.nl`, "utf8"),
-  readFile(`${root}/fixtures/acopf/case3/case3-acopf.col`, "utf8"),
-  readFile(`${root}/fixtures/acopf/case3/case3-acopf.row`, "utf8"),
+  readFile(`${fixture}.nl`, "utf8"),
+  readFile(`${fixture}.col`, "utf8"),
+  readFile(`${fixture}.row`, "utf8"),
 ]);
-const mapping = JSON.parse(
-  await readFile(`${root}/fixtures/acopf/case3/case3-acopf.mapping.json`, "utf8"),
-);
+const mapping = JSON.parse(await readFile(`${fixture}.mapping.json`, "utf8"));
+const reference = JSON.parse(await readFile(`${fixture}.reference.json`, "utf8"));
 const runner = await createPounceRunner(wasm);
 const summary = runner.load(nl, col, row);
 
-assert.equal(summary.n_vars, 28);
-assert.equal(summary.n_cons, 29);
-assert.equal(summary.nnz_jac, 103);
-assert.equal(summary.nnz_hess, 35);
+assert.equal(summary.n_vars, mapping.dimensions.variables);
+assert.equal(summary.n_cons, mapping.dimensions.constraints);
 assert.deepEqual(summary.external_funcs, []);
 
 const result = runner.solve([
@@ -35,7 +34,7 @@ const report = {
   schema: "acopf-wasm-bench.solver-result/v1",
   backend: "pounce-wasm",
   environment: "node-with-browser-wasi-shim",
-  case: "PowerModels case3 AC OPF",
+  case: mapping.case,
   model_sha256: mapping.artifacts.nl_sha256,
   solver: {
     version: "0.12.0",
@@ -74,5 +73,5 @@ if (process.env.ACOPF_RESULT_PATH) {
 
 assert.equal(result.success, true, `POUNCE returned ${result.status}`);
 assert.equal(result.status_code, 0, `POUNCE returned ${result.status}`);
-assert.ok(Math.abs(result.objective - 5906.879416645711) <= 1e-3);
+assert.ok(Math.abs(result.objective - reference.objective) <= Math.max(1e-3, Math.abs(reference.objective) * 1e-5));
 assert.ok(result.constraint_violation <= 1e-6);

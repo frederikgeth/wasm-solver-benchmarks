@@ -2,7 +2,7 @@
   "schema": "acopf-wasm-bench.solver-result/v1",
   "backend": "pounce-wasm",
   "environment": "node-with-browser-wasi-shim",
-  "case": "PowerModels case3 AC OPF",
+  "case": "PowerModels case3",
   "model_sha256": "b84c2ec658f16859cb4edfd70700fce79260cddd93cb5216749b1bdca55cf99b",
   "solver": {
     "version": "0.12.0",
