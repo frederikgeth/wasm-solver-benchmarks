@@ -708,7 +708,7 @@ checksum = "a89322df9ebe1c1578d689c92318e070967d1042b512afbe49518723f4e6d5cd"
 [[package]]
 name = "pounce-algorithm"
 version = "0.12.0"
-source = "git+https://github.com/jkitchin/pounce.git?rev=5a141d4f08349be668802830c7b7820a680ea9d0#5a141d4f08349be668802830c7b7820a680ea9d0"
+source = "git+https://github.com/jkitchin/pounce.git?rev=925e75fbd036de309929e398159f946d42d0d94b#925e75fbd036de309929e398159f946d42d0d94b"
 dependencies = [
  "anstream",
  "anstyle",
@@ -730,7 +730,7 @@ dependencies = [
 [[package]]
 name = "pounce-common"
 version = "0.12.0"
-source = "git+https://github.com/jkitchin/pounce.git?rev=5a141d4f08349be668802830c7b7820a680ea9d0#5a141d4f08349be668802830c7b7820a680ea9d0"
+source = "git+https://github.com/jkitchin/pounce.git?rev=925e75fbd036de309929e398159f946d42d0d94b#925e75fbd036de309929e398159f946d42d0d94b"
 dependencies = [
  "anstyle",
  "anstyle-query",
@@ -740,7 +740,7 @@ dependencies = [
 [[package]]
 name = "pounce-feral"
 version = "0.12.0"
-source = "git+https://github.com/jkitchin/pounce.git?rev=5a141d4f08349be668802830c7b7820a680ea9d0#5a141d4f08349be668802830c7b7820a680ea9d0"
+source = "git+https://github.com/jkitchin/pounce.git?rev=925e75fbd036de309929e398159f946d42d0d94b#925e75fbd036de309929e398159f946d42d0d94b"
 dependencies = [
  "feral",
  "pounce-common",
@@ -752,7 +752,7 @@ dependencies = [
 [[package]]
 name = "pounce-l1penalty"
 version = "0.12.0"
-source = "git+https://github.com/jkitchin/pounce.git?rev=5a141d4f08349be668802830c7b7820a680ea9d0#5a141d4f08349be668802830c7b7820a680ea9d0"
+source = "git+https://github.com/jkitchin/pounce.git?rev=925e75fbd036de309929e398159f946d42d0d94b#925e75fbd036de309929e398159f946d42d0d94b"
 dependencies = [
  "pounce-common",
  "pounce-nlp",
@@ -761,7 +761,7 @@ dependencies = [
 [[package]]
 name = "pounce-linalg"
 version = "0.12.0"
-source = "git+https://github.com/jkitchin/pounce.git?rev=5a141d4f08349be668802830c7b7820a680ea9d0#5a141d4f08349be668802830c7b7820a680ea9d0"
+source = "git+https://github.com/jkitchin/pounce.git?rev=925e75fbd036de309929e398159f946d42d0d94b#925e75fbd036de309929e398159f946d42d0d94b"
 dependencies = [
  "pounce-common",
 ]
@@ -769,7 +769,7 @@ dependencies = [
 [[package]]
 name = "pounce-linsol"
 version = "0.12.0"
-source = "git+https://github.com/jkitchin/pounce.git?rev=5a141d4f08349be668802830c7b7820a680ea9d0#5a141d4f08349be668802830c7b7820a680ea9d0"
+source = "git+https://github.com/jkitchin/pounce.git?rev=925e75fbd036de309929e398159f946d42d0d94b#925e75fbd036de309929e398159f946d42d0d94b"
 dependencies = [
  "pounce-common",
  "pounce-linalg",
@@ -779,7 +779,7 @@ dependencies = [
 [[package]]
 name = "pounce-nl"
 version = "0.12.0"
-source = "git+https://github.com/jkitchin/pounce.git?rev=5a141d4f08349be668802830c7b7820a680ea9d0#5a141d4f08349be668802830c7b7820a680ea9d0"
+source = "git+https://github.com/jkitchin/pounce.git?rev=925e75fbd036de309929e398159f946d42d0d94b#925e75fbd036de309929e398159f946d42d0d94b"
 dependencies = [
  "libloading",
  "libm",
@@ -792,7 +792,7 @@ dependencies = [
 [[package]]
 name = "pounce-nlp"
 version = "0.12.0"
-source = "git+https://github.com/jkitchin/pounce.git?rev=5a141d4f08349be668802830c7b7820a680ea9d0#5a141d4f08349be668802830c7b7820a680ea9d0"
+source = "git+https://github.com/jkitchin/pounce.git?rev=925e75fbd036de309929e398159f946d42d0d94b#925e75fbd036de309929e398159f946d42d0d94b"
 dependencies = [
  "pounce-common",
  "pounce-linalg",
@@ -802,7 +802,7 @@ dependencies = [
 [[package]]
 name = "pounce-observability"
 version = "0.12.0"
-source = "git+https://github.com/jkitchin/pounce.git?rev=5a141d4f08349be668802830c7b7820a680ea9d0#5a141d4f08349be668802830c7b7820a680ea9d0"
+source = "git+https://github.com/jkitchin/pounce.git?rev=925e75fbd036de309929e398159f946d42d0d94b#925e75fbd036de309929e398159f946d42d0d94b"
 dependencies = [
  "anstyle",
  "anstyle-query",
@@ -816,7 +816,7 @@ dependencies = [
 [[package]]
 name = "pounce-presolve"
 version = "0.12.0"
-source = "git+https://github.com/jkitchin/pounce.git?rev=5a141d4f08349be668802830c7b7820a680ea9d0#5a141d4f08349be668802830c7b7820a680ea9d0"
+source = "git+https://github.com/jkitchin/pounce.git?rev=925e75fbd036de309929e398159f946d42d0d94b#925e75fbd036de309929e398159f946d42d0d94b"
 dependencies = [
  "pounce-common",
  "pounce-nlp",
@@ -826,7 +826,7 @@ dependencies = [
 [[package]]
 name = "pounce-qp"
 version = "0.12.0"
-source = "git+https://github.com/jkitchin/pounce.git?rev=5a141d4f08349be668802830c7b7820a680ea9d0#5a141d4f08349be668802830c7b7820a680ea9d0"
+source = "git+https://github.com/jkitchin/pounce.git?rev=925e75fbd036de309929e398159f946d42d0d94b#925e75fbd036de309929e398159f946d42d0d94b"
 dependencies = [
  "pounce-common",
  "pounce-linalg",
@@ -836,7 +836,7 @@ dependencies = [
 [[package]]
 name = "pounce-restoration"
 version = "0.12.0"
-source = "git+https://github.com/jkitchin/pounce.git?rev=5a141d4f08349be668802830c7b7820a680ea9d0#5a141d4f08349be668802830c7b7820a680ea9d0"
+source = "git+https://github.com/jkitchin/pounce.git?rev=925e75fbd036de309929e398159f946d42d0d94b#925e75fbd036de309929e398159f946d42d0d94b"
 dependencies = [
  "pounce-algorithm",
  "pounce-common",
@@ -849,7 +849,7 @@ dependencies = [
 [[package]]
 name = "pounce-rs"
 version = "0.12.0"
-source = "git+https://github.com/jkitchin/pounce.git?rev=5a141d4f08349be668802830c7b7820a680ea9d0#5a141d4f08349be668802830c7b7820a680ea9d0"
+source = "git+https://github.com/jkitchin/pounce.git?rev=925e75fbd036de309929e398159f946d42d0d94b#925e75fbd036de309929e398159f946d42d0d94b"
 dependencies = [
  "pounce-algorithm",
  "pounce-common",
@@ -862,7 +862,7 @@ dependencies = [
 [[package]]
 name = "pounce-solve-report"
 version = "0.12.0"
-source = "git+https://github.com/jkitchin/pounce.git?rev=5a141d4f08349be668802830c7b7820a680ea9d0#5a141d4f08349be668802830c7b7820a680ea9d0"
+source = "git+https://github.com/jkitchin/pounce.git?rev=925e75fbd036de309929e398159f946d42d0d94b#925e75fbd036de309929e398159f946d42d0d94b"
 dependencies = [
  "anstream",
  "anstyle",
@@ -876,13 +876,14 @@ dependencies = [
 [[package]]
 name = "pounce-wasm"
 version = "0.12.0"
-source = "git+https://github.com/jkitchin/pounce.git?rev=5a141d4f08349be668802830c7b7820a680ea9d0#5a141d4f08349be668802830c7b7820a680ea9d0"
+source = "git+https://github.com/jkitchin/pounce.git?rev=925e75fbd036de309929e398159f946d42d0d94b#925e75fbd036de309929e398159f946d42d0d94b"
 dependencies = [
  "pounce-algorithm",
  "pounce-common",
  "pounce-nl",
  "pounce-nlp",
  "pounce-presolve",
+ "pounce-restoration",
  "pounce-solve-report",
  "serde_json",
 ]

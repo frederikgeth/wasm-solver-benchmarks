@@ -9,4 +9,4 @@ rust-version.workspace = true
 crate-type = ["cdylib"]
 
 [dependencies]
-pounce-wasm = { git = "https://github.com/jkitchin/pounce.git", rev = "5a141d4f08349be668802830c7b7820a680ea9d0" }
+pounce-wasm = { git = "https://github.com/jkitchin/pounce.git", rev = "925e75fbd036de309929e398159f946d42d0d94b" }

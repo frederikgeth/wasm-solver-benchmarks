@@ -187,6 +187,8 @@ async function runPounce(smokeCase, totalStart) {
     passed,
     status: result.status_code,
     raw_status: result.status,
+    base_status: result.base_status,
+    second_opinion: result.second_opinion,
     objective: result.objective,
     x: result.x,
     constraints: result.g,

@@ -30,18 +30,24 @@ try {
     linear_solver: "mumps",
   });
 
-  const constraintViolation = Math.max(...result.constraints.map((value, row) => {
-    const lower = evaluator.problem.gl[row];
-    const upper = evaluator.problem.gu[row];
-    return Math.max(lower - value, value - upper, 0);
-  }), 0);
-  const boundViolation = Math.max(...result.x.map((value, column) => {
-    return Math.max(
+  let constraintViolation = 0;
+  for (let row = 0; row < result.constraints.length; row += 1) {
+    const value = result.constraints[row];
+    constraintViolation = Math.max(
+      constraintViolation,
+      evaluator.problem.gl[row] - value,
+      value - evaluator.problem.gu[row],
+    );
+  }
+  let boundViolation = 0;
+  for (let column = 0; column < result.x.length; column += 1) {
+    const value = result.x[column];
+    boundViolation = Math.max(
+      boundViolation,
       evaluator.problem.xl[column] - value,
       value - evaluator.problem.xu[column],
-      0,
     );
-  }), 0);
+  }
 
   const report = {
     schema: "acopf-wasm-bench.solver-result/v1",

@@ -2,6 +2,7 @@
 set -eu
 
 benchmark_root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+benchmark_node=${ACOPF_NODE:-node}
 case_name=${1:?usage: record-acopf-solver.sh CASE_NAME BACKEND}
 backend=${2:?usage: record-acopf-solver.sh CASE_NAME BACKEND}
 
@@ -17,6 +18,6 @@ esac
 candidate_path="$benchmark_root/results/smoke/$case_name-$backend.json"
 validation_path="$benchmark_root/results/smoke/$case_name-$backend.validation.json"
 
-ACOPF_CASE="$case_name" ACOPF_RESULT_PATH="$candidate_path" node "$runner"
+ACOPF_CASE="$case_name" ACOPF_RESULT_PATH="$candidate_path" "$benchmark_node" "$runner"
 "$benchmark_root/scripts/validate-acopf-solution.sh" \
   "$case_name" "$candidate_path" "$validation_path"
