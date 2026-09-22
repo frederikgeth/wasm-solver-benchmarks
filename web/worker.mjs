@@ -23,7 +23,7 @@ async function fetchAsset(url, format = "bytes") {
 
 async function resolveSmokeCase(caseName) {
   if (smokeCases[caseName]) return smokeCases[caseName];
-  if (!/^case[0-9]+$/.test(caseName)) throw new Error(`unknown smoke case ${caseName}`);
+  if (!/^case[0-9]+(?:api|sad)?$/.test(caseName)) throw new Error(`unknown smoke case ${caseName}`);
 
   const base = `/fixtures/acopf/${caseName}/${caseName}-acopf`;
   const [mapping, reference] = await Promise.all([

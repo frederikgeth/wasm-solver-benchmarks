@@ -74,8 +74,8 @@ function parseArguments(argv) {
     } else throw new Error(`unknown argument: ${argument}`);
   }
   if (!options.output) throw new Error(`--output is required\n\n${usage()}`);
-  if (!options.cases.length || options.cases.some((item) => !/^case[0-9]+$/.test(item))) {
-    throw new Error("--cases must contain case names such as case118");
+  if (!options.cases.length || options.cases.some((item) => !/^case[0-9]+(?:api|sad)?$/.test(item))) {
+    throw new Error("--cases must contain case names such as case118, case118api, or case1354sad");
   }
   const supportedBackends = new Set(["ipopt-wasm", "ipopt-wasm64", "pounce-wasm"]);
   if (!options.backends.length || options.backends.some((item) => !supportedBackends.has(item))) {
