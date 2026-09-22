@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-09-22T10:52:21.268",
+  "created_at": "2026-09-22T11:01:01.418",
   "host": {
     "architecture": "aarch64",
     "cpu_model": "Apple M4 Max",
@@ -83,423 +83,507 @@
   ],
   "observations": [
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case118",
       "objective": 97213.60692340179,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 97213.60692340179,
       "run_index": 1,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 75.193167,
-        "model_construction": 13.189209,
-        "optimization_wall": 62.003958,
-        "solver_reported": 52.34789848327637
+        "construction_plus_optimization": 76.0155,
+        "model_construction": 13.714958,
+        "optimization_wall": 62.300542,
+        "solver_reported": 52.664995193481445
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case118",
       "objective": 97213.60692340179,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 97213.60692340179,
       "run_index": 2,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 74.351084,
-        "model_construction": 12.773584,
-        "optimization_wall": 61.5775,
-        "solver_reported": 52.17409133911133
+        "construction_plus_optimization": 76.721375,
+        "model_construction": 13.47475,
+        "optimization_wall": 63.246625,
+        "solver_reported": 53.55501174926758
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case118",
       "objective": 97213.60692340179,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 97213.60692340179,
       "run_index": 3,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 85.303292,
-        "model_construction": 13.090875,
-        "optimization_wall": 72.212417,
-        "solver_reported": 62.64305114746094
+        "construction_plus_optimization": 88.256083,
+        "model_construction": 13.579541,
+        "optimization_wall": 74.676542,
+        "solver_reported": 64.849853515625
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case118",
       "objective": 97213.60692340179,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 97213.60692340179,
       "run_index": 4,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 75.620417,
-        "model_construction": 12.87425,
-        "optimization_wall": 62.746167,
-        "solver_reported": 53.06506156921387
+        "construction_plus_optimization": 77.111042,
+        "model_construction": 13.4995,
+        "optimization_wall": 63.611542,
+        "solver_reported": 53.86805534362793
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case118",
       "objective": 97213.60692340179,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 97213.60692340179,
       "run_index": 5,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 88.98425,
-        "model_construction": 15.917375,
-        "optimization_wall": 73.066875,
-        "solver_reported": 62.58511543273926
+        "construction_plus_optimization": 76.036208,
+        "model_construction": 13.525083,
+        "optimization_wall": 62.511125,
+        "solver_reported": 52.84619331359863
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case118",
       "objective": 97213.60692340179,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 97213.60692340179,
       "run_index": 6,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 83.617,
-        "model_construction": 14.721125,
-        "optimization_wall": 68.895875,
-        "solver_reported": 58.8078498840332
+        "construction_plus_optimization": 76.71662500000001,
+        "model_construction": 13.624458,
+        "optimization_wall": 63.092167,
+        "solver_reported": 53.28679084777832
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case118",
       "objective": 97213.60692340179,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 97213.60692340179,
       "run_index": 7,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 90.57404199999999,
-        "model_construction": 30.082042,
-        "optimization_wall": 60.492,
-        "solver_reported": 51.133155822753906
+        "construction_plus_optimization": 92.156125,
+        "model_construction": 29.23525,
+        "optimization_wall": 62.920875,
+        "solver_reported": 53.227901458740234
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case300",
       "objective": 565219.971834125,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 565219.971834125,
       "run_index": 1,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 299.958708,
-        "model_construction": 122.252167,
-        "optimization_wall": 177.706541,
-        "solver_reported": 157.850980758667
+        "construction_plus_optimization": 301.281917,
+        "model_construction": 122.73875,
+        "optimization_wall": 178.543167,
+        "solver_reported": 158.34307670593262
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case300",
       "objective": 565219.971834125,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 565219.971834125,
       "run_index": 2,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 202.603209,
-        "model_construction": 28.014917,
-        "optimization_wall": 174.588292,
-        "solver_reported": 154.35409545898438
+        "construction_plus_optimization": 208.775083,
+        "model_construction": 30.045541,
+        "optimization_wall": 178.729542,
+        "solver_reported": 157.7010154724121
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case300",
       "objective": 565219.971834125,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 565219.971834125,
       "run_index": 3,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 222.355708,
-        "model_construction": 30.996333,
-        "optimization_wall": 191.359375,
-        "solver_reported": 170.24898529052734
+        "construction_plus_optimization": 223.728125,
+        "model_construction": 31.954,
+        "optimization_wall": 191.774125,
+        "solver_reported": 154.72912788391113
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case300",
       "objective": 565219.971834125,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 565219.971834125,
       "run_index": 4,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 197.67587500000002,
-        "model_construction": 27.717417,
-        "optimization_wall": 169.958458,
-        "solver_reported": 150.01177787780762
+        "construction_plus_optimization": 210.20854200000002,
+        "model_construction": 29.452208,
+        "optimization_wall": 180.756334,
+        "solver_reported": 160.54201126098633
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case300",
       "objective": 565219.971834125,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 565219.971834125,
       "run_index": 5,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 203.604083,
-        "model_construction": 28.108,
-        "optimization_wall": 175.496083,
-        "solver_reported": 155.073881149292
+        "construction_plus_optimization": 203.164833,
+        "model_construction": 29.768833,
+        "optimization_wall": 173.396,
+        "solver_reported": 152.66108512878418
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case300",
       "objective": 565219.971834125,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 565219.971834125,
       "run_index": 6,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 222.800166,
-        "model_construction": 49.842041,
-        "optimization_wall": 172.958125,
-        "solver_reported": 152.98104286193848
+        "construction_plus_optimization": 227.981833,
+        "model_construction": 49.29225,
+        "optimization_wall": 178.689583,
+        "solver_reported": 158.843994140625
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case300",
       "objective": 565219.971834125,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 565219.971834125,
       "run_index": 7,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 206.374417,
-        "model_construction": 27.841375,
-        "optimization_wall": 178.533042,
-        "solver_reported": 158.38003158569336
+        "construction_plus_optimization": 207.76187499999997,
+        "model_construction": 29.486834,
+        "optimization_wall": 178.275041,
+        "solver_reported": 157.90319442749023
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case1354",
       "objective": 1.2588439849803096e6,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 1.2588439849803096e6,
       "run_index": 1,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 1748.1286249999998,
-        "model_construction": 141.600708,
-        "optimization_wall": 1606.527917,
-        "solver_reported": 1393.6419486999512
+        "construction_plus_optimization": 1795.005166,
+        "model_construction": 147.5485,
+        "optimization_wall": 1647.456666,
+        "solver_reported": 1430.0739765167236
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case1354",
       "objective": 1.2588439849803096e6,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 1.2588439849803096e6,
       "run_index": 2,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 1708.642167,
-        "model_construction": 170.161084,
-        "optimization_wall": 1538.481083,
-        "solver_reported": 1443.8490867614746
+        "construction_plus_optimization": 1781.280166,
+        "model_construction": 178.424916,
+        "optimization_wall": 1602.85525,
+        "solver_reported": 1504.3349266052246
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case1354",
       "objective": 1.2588439849803096e6,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 1.2588439849803096e6,
       "run_index": 3,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 1687.135916,
-        "model_construction": 139.957125,
-        "optimization_wall": 1547.178791,
-        "solver_reported": 1400.763988494873
+        "construction_plus_optimization": 1757.250917,
+        "model_construction": 150.118625,
+        "optimization_wall": 1607.132292,
+        "solver_reported": 1456.770896911621
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case1354",
       "objective": 1.2588439849803096e6,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 1.2588439849803096e6,
       "run_index": 4,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 1831.624876,
-        "model_construction": 183.313417,
-        "optimization_wall": 1648.311459,
-        "solver_reported": 1419.2829132080078
+        "construction_plus_optimization": 1856.098792,
+        "model_construction": 193.544,
+        "optimization_wall": 1662.554792,
+        "solver_reported": 1564.143180847168
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case1354",
       "objective": 1.2588439849803096e6,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 1.2588439849803096e6,
       "run_index": 5,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 1703.461125,
-        "model_construction": 139.278667,
-        "optimization_wall": 1564.182458,
-        "solver_reported": 1471.5118408203125
+        "construction_plus_optimization": 1752.123084,
+        "model_construction": 145.36825,
+        "optimization_wall": 1606.754834,
+        "solver_reported": 1510.434865951538
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case1354",
       "objective": 1.2588439849803096e6,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 1.2588439849803096e6,
       "run_index": 6,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 1824.8470419999999,
-        "model_construction": 142.721875,
-        "optimization_wall": 1682.125167,
-        "solver_reported": 1585.5848789215088
+        "construction_plus_optimization": 1842.672542,
+        "model_construction": 144.839375,
+        "optimization_wall": 1697.833167,
+        "solver_reported": 1600.5899906158447
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case1354",
       "objective": 1.2588439849803096e6,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 1.2588439849803096e6,
       "run_index": 7,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 1678.3792910000002,
-        "model_construction": 143.226041,
-        "optimization_wall": 1535.15325,
-        "solver_reported": 1438.2309913635254
+        "construction_plus_optimization": 1714.268333,
+        "model_construction": 146.285958,
+        "optimization_wall": 1567.982375,
+        "solver_reported": 1469.9900150299072
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case6468",
       "objective": 2.0697301451210186e6,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 2.0697301451210186e6,
       "run_index": 1,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 22442.998583,
-        "model_construction": 767.968458,
-        "optimization_wall": 21675.030125,
-        "solver_reported": 21104.79784011841
+        "construction_plus_optimization": 23498.587334000003,
+        "model_construction": 883.592584,
+        "optimization_wall": 22614.99475,
+        "solver_reported": 21898.160934448242
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case6468",
       "objective": 2.0697301451210186e6,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 2.0697301451210186e6,
       "run_index": 2,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 22916.977625,
-        "model_construction": 1004.732666,
-        "optimization_wall": 21912.244959,
-        "solver_reported": 21474.0788936615
+        "construction_plus_optimization": 22486.271791,
+        "model_construction": 988.298833,
+        "optimization_wall": 21497.972958,
+        "solver_reported": 20874.29904937744
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case6468",
       "objective": 2.0697301451210186e6,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 2.0697301451210186e6,
       "run_index": 3,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 23478.331499,
-        "model_construction": 748.487208,
-        "optimization_wall": 22729.844291,
-        "solver_reported": 22162.487030029297
+        "construction_plus_optimization": 23290.367125,
+        "model_construction": 782.393375,
+        "optimization_wall": 22507.97375,
+        "solver_reported": 21802.94895172119
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case6468",
       "objective": 2.0697301451210186e6,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 2.0697301451210186e6,
       "run_index": 4,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 23190.506167,
-        "model_construction": 779.123625,
-        "optimization_wall": 22411.382542,
-        "solver_reported": 21713.370084762573
+        "construction_plus_optimization": 24075.543959000002,
+        "model_construction": 814.042042,
+        "optimization_wall": 23261.501917,
+        "solver_reported": 22806.0200214386
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case6468",
       "objective": 2.0697301451210186e6,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 2.0697301451210186e6,
       "run_index": 5,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 23451.776124,
-        "model_construction": 788.539083,
-        "optimization_wall": 22663.237041,
-        "solver_reported": 22223.663091659546
+        "construction_plus_optimization": 23202.806957999997,
+        "model_construction": 835.941666,
+        "optimization_wall": 22366.865292,
+        "solver_reported": 21644.075870513916
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case6468",
       "objective": 2.0697301451210186e6,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 2.0697301451210186e6,
       "run_index": 6,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 23334.69625,
-        "model_construction": 812.809833,
-        "optimization_wall": 22521.886417,
-        "solver_reported": 22076.821088790894
+        "construction_plus_optimization": 22747.702583000002,
+        "model_construction": 995.500667,
+        "optimization_wall": 21752.201916,
+        "solver_reported": 21132.59506225586
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case6468",
       "objective": 2.0697301451210186e6,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 2.0697301451210186e6,
       "run_index": 7,
       "run_kind": "measured",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 22535.819208,
-        "model_construction": 857.987,
-        "optimization_wall": 21677.832208,
-        "solver_reported": 20950.886011123657
+        "construction_plus_optimization": 22809.056625,
+        "model_construction": 964.831041,
+        "optimization_wall": 21844.225584,
+        "solver_reported": 21227.776050567627
       }
     }
   ],
@@ -517,6 +601,7 @@
     "logging_during_timed_solve": false,
     "measured_fresh_model_runs_per_case": 7,
     "model_construction_definition": "wall time around PowerModels.instantiate_model with ACPPowerModel/build_opf; MATPOWER parsing is performed once per case outside measured runs",
+    "objective_gate": "isapprox(reference; atol=1e-6, rtol=1e-8)",
     "openblas_threads_environment": "1",
     "optimization_wall_definition": "wall time around PowerModels.optimize_model!, including optimizer attachment, JuMP-to-Ipopt model transfer, native solve, and PowerModels result extraction",
     "options": {
@@ -529,8 +614,8 @@
     "warmups_per_case": 1
   },
   "repository": {
-    "commit": "bdf0d2bab53627d310b0f6e2df9cb56b0caa23e6",
-    "worktree_dirty": true
+    "commit": "0b683fe0a416809a2d96f89083a70b301fa7f773",
+    "worktree_dirty": false
   },
   "runtime": {
     "Ipopt.jl": "1.16.0",
@@ -546,37 +631,37 @@
       "case": "case118",
       "construction_plus_optimization_ms": {
         "count": 7,
-        "max": 90.57404199999999,
-        "median": 83.617,
-        "min": 74.351084,
-        "p25": 75.406792,
-        "p75": 87.143771
+        "max": 92.156125,
+        "median": 76.721375,
+        "min": 76.0155,
+        "p25": 76.3764165,
+        "p75": 82.6835625
       },
       "failures": 0,
       "model_construction_ms": {
         "count": 7,
-        "max": 30.082042,
-        "median": 13.189209,
-        "min": 12.773584,
-        "p25": 12.9825625,
-        "p75": 15.31925
+        "max": 29.23525,
+        "median": 13.579541,
+        "min": 13.47475,
+        "p25": 13.5122915,
+        "p75": 13.669708
       },
       "objective": 97213.60692340179,
       "optimization_wall_ms": {
         "count": 7,
-        "max": 73.066875,
-        "median": 62.746167,
-        "min": 60.492,
-        "p25": 61.790729,
-        "p75": 70.554146
+        "max": 74.676542,
+        "median": 63.092167,
+        "min": 62.300542,
+        "p25": 62.716,
+        "p75": 63.429083500000004
       },
       "solver_reported_ms": {
         "count": 7,
-        "max": 62.64305114746094,
-        "median": 53.06506156921387,
-        "min": 51.133155822753906,
-        "p25": 52.26099491119385,
-        "p75": 60.69648265838623
+        "max": 64.849853515625,
+        "median": 53.28679084777832,
+        "min": 52.664995193481445,
+        "p25": 53.037047386169434,
+        "p75": 53.711533546447754
       },
       "successes": 7
     },
@@ -586,37 +671,37 @@
       "case": "case300",
       "construction_plus_optimization_ms": {
         "count": 7,
-        "max": 299.958708,
-        "median": 206.374417,
-        "min": 197.67587500000002,
-        "p25": 203.103646,
-        "p75": 222.577937
+        "max": 301.281917,
+        "median": 210.20854200000002,
+        "min": 203.164833,
+        "p25": 208.26847899999999,
+        "p75": 225.85497900000001
       },
       "failures": 0,
       "model_construction_ms": {
         "count": 7,
-        "max": 122.252167,
-        "median": 28.108,
-        "min": 27.717417,
-        "p25": 27.928145999999998,
-        "p75": 40.419187
+        "max": 122.73875,
+        "median": 30.045541,
+        "min": 29.452208,
+        "p25": 29.6278335,
+        "p75": 40.623125
       },
       "objective": 565219.971834125,
       "optimization_wall_ms": {
         "count": 7,
-        "max": 191.359375,
-        "median": 175.496083,
-        "min": 169.958458,
-        "p25": 173.7732085,
-        "p75": 178.1197915
+        "max": 191.774125,
+        "median": 178.689583,
+        "min": 173.396,
+        "p25": 178.409104,
+        "p75": 179.742938
       },
       "solver_reported_ms": {
         "count": 7,
-        "max": 170.24898529052734,
-        "median": 155.073881149292,
-        "min": 150.01177787780762,
-        "p25": 153.66756916046143,
-        "p75": 158.11550617218018
+        "max": 160.54201126098633,
+        "median": 157.90319442749023,
+        "min": 152.66108512878418,
+        "p25": 156.21507167816162,
+        "p75": 158.5935354232788
       },
       "successes": 7
     },
@@ -626,37 +711,37 @@
       "case": "case1354",
       "construction_plus_optimization_ms": {
         "count": 7,
-        "max": 1831.624876,
-        "median": 1708.642167,
-        "min": 1678.3792910000002,
-        "p25": 1695.2985205,
-        "p75": 1786.4878334999999
+        "max": 1856.098792,
+        "median": 1781.280166,
+        "min": 1714.268333,
+        "p25": 1754.6870005,
+        "p75": 1818.838854
       },
       "failures": 0,
       "model_construction_ms": {
         "count": 7,
-        "max": 183.313417,
-        "median": 142.721875,
-        "min": 139.278667,
-        "p25": 140.77891649999998,
-        "p75": 156.69356249999998
+        "max": 193.544,
+        "median": 147.5485,
+        "min": 144.839375,
+        "p25": 145.827104,
+        "p75": 164.2717705
       },
       "objective": 1.2588439849803096e6,
       "optimization_wall_ms": {
         "count": 7,
-        "max": 1682.125167,
-        "median": 1564.182458,
-        "min": 1535.15325,
-        "p25": 1542.829937,
-        "p75": 1627.419688
+        "max": 1697.833167,
+        "median": 1607.132292,
+        "min": 1567.982375,
+        "p25": 1604.805042,
+        "p75": 1655.005729
       },
       "solver_reported_ms": {
         "count": 7,
-        "max": 1585.5848789215088,
-        "median": 1438.2309913635254,
-        "min": 1393.6419486999512,
-        "p25": 1410.0234508514404,
-        "p75": 1457.6804637908936
+        "max": 1600.5899906158447,
+        "median": 1504.3349266052246,
+        "min": 1430.0739765167236,
+        "p25": 1463.3804559707642,
+        "p75": 1537.289023399353
       },
       "successes": 7
     },
@@ -666,100 +751,112 @@
       "case": "case6468",
       "construction_plus_optimization_ms": {
         "count": 7,
-        "max": 23478.331499,
-        "median": 23190.506167,
-        "min": 22442.998583,
-        "p25": 22726.3984165,
-        "p75": 23393.236187000002
+        "max": 24075.543959000002,
+        "median": 23202.806957999997,
+        "min": 22486.271791,
+        "p25": 22778.379604,
+        "p75": 23394.4772295
       },
       "failures": 0,
       "model_construction_ms": {
         "count": 7,
-        "max": 1004.732666,
-        "median": 788.539083,
-        "min": 748.487208,
-        "p25": 773.5460415,
-        "p75": 835.3984164999999
+        "max": 995.500667,
+        "median": 883.592584,
+        "min": 782.393375,
+        "p25": 824.9918540000001,
+        "p75": 976.564937
       },
       "objective": 2.0697301451210186e6,
       "optimization_wall_ms": {
         "count": 7,
-        "max": 22729.844291,
-        "median": 22411.382542,
-        "min": 21675.030125,
-        "p25": 21795.038583499998,
-        "p75": 22592.561729
+        "max": 23261.501917,
+        "median": 22366.865292,
+        "min": 21497.972958,
+        "p25": 21798.213750000003,
+        "p75": 22561.48425
       },
       "solver_reported_ms": {
         "count": 7,
-        "max": 22223.663091659546,
-        "median": 21713.370084762573,
-        "min": 20950.886011123657,
-        "p25": 21289.438366889954,
-        "p75": 22119.654059410095
+        "max": 22806.0200214386,
+        "median": 21644.075870513916,
+        "min": 20874.29904937744,
+        "p25": 21180.185556411743,
+        "p75": 21850.554943084717
       },
       "successes": 7
     }
   ],
   "warmups": [
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case118",
       "objective": 97213.60692340179,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 97213.60692340179,
       "run_index": 1,
       "run_kind": "warmup",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 2997.4790409999996,
-        "model_construction": 570.900625,
-        "optimization_wall": 2426.578416,
-        "solver_reported": 1624.5009899139404
+        "construction_plus_optimization": 3073.962458,
+        "model_construction": 581.915417,
+        "optimization_wall": 2492.047041,
+        "solver_reported": 1672.6288795471191
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case300",
       "objective": 565219.971834125,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 565219.971834125,
       "run_index": 1,
       "run_kind": "warmup",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 216.742208,
-        "model_construction": 39.282375,
-        "optimization_wall": 177.459833,
-        "solver_reported": 157.90200233459473
+        "construction_plus_optimization": 219.348251,
+        "model_construction": 40.926917,
+        "optimization_wall": 178.421334,
+        "solver_reported": 157.85980224609375
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case1354",
       "objective": 1.2588439849803096e6,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 1.2588439849803096e6,
       "run_index": 1,
       "run_kind": "warmup",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 1663.841458,
-        "model_construction": 143.078958,
-        "optimization_wall": 1520.7625,
-        "solver_reported": 1404.742956161499
+        "construction_plus_optimization": 1684.2095419999998,
+        "model_construction": 150.244583,
+        "optimization_wall": 1533.964959,
+        "solver_reported": 1414.0069484710693
       }
     },
     {
+      "absolute_objective_difference": 0.0,
       "backend": "PowerModels + native Ipopt/MUMPS",
       "case": "case6468",
       "objective": 2.0697301451210186e6,
+      "objective_matches_reference": true,
       "passed": true,
+      "reference_objective": 2.0697301451210186e6,
       "run_index": 1,
       "run_kind": "warmup",
       "termination_status": "LOCALLY_SOLVED",
       "timings_ms": {
-        "construction_plus_optimization": 22369.349208,
-        "model_construction": 984.998333,
-        "optimization_wall": 21384.350875,
-        "solver_reported": 20909.067153930664
+        "construction_plus_optimization": 22461.810042,
+        "model_construction": 1029.207125,
+        "optimization_wall": 21432.602917,
+        "solver_reported": 20928.659915924072
       }
     }
   ]

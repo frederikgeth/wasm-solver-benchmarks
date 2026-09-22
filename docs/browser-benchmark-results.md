@@ -57,13 +57,13 @@ The closest available calculation-time comparison is native Ipopt's
 
 | Case | Native PowerModels + Ipopt/MUMPS, solver median (IQR) | Browser Ipopt wasm32 | Browser/native |
 | --- | ---: | ---: | ---: |
-| case118 | 53.1 ms (52.3–60.7) | 155.8 ms (155.3–157.0) | 2.94× |
-| case300 | 155.1 ms (153.7–158.1) | 273.7 ms (272.8–274.3) | 1.77× |
-| case1354 | 1,438.2 ms (1,410.0–1,457.7) | 1,339.3 ms (1,339.2–1,344.0) | 0.93× |
-| case6468 RTE† | 21.71 s (21.29–22.12) | 17.84 s | 0.82× |
+| case118 | 53.3 ms (53.0–53.7) | 155.8 ms (155.3–157.0) | 2.92× |
+| case300 | 157.9 ms (156.2–158.6) | 273.7 ms (272.8–274.3) | 1.73× |
+| case1354 | 1,504.3 ms (1,463.4–1,537.3) | 1,339.3 ms (1,339.2–1,344.0) | 0.89× |
+| case6468 RTE† | 21.64 s (21.18–21.85) | 17.84 s | 0.82× |
 
-Thus native is 2.94× and 1.77× as fast on cases 118 and 300. Browser wasm32
-is 6.9% faster on case1354 in the repeated comparison. Its 17.8% advantage on
+Thus native is 2.92× and 1.73× as fast on cases 118 and 300. Browser wasm32
+is 11.0% faster on case1354 in the repeated comparison. Its 17.6% advantage on
 case6468 is only a one-browser-run observation and needs a repeated browser
 run before being treated as a stable crossover.
 
@@ -76,9 +76,9 @@ packaged builds. The mathematical model, start, exact-Hessian setting,
 and integration differences can explain the non-monotonic crossover.
 
 For wider timing scope, the native median around the complete
-`PowerModels.optimize_model!` call is 62.7, 175.5, 1,564.2, and 22,411.4 ms;
+`PowerModels.optimize_model!` call is 63.1, 178.7, 1,607.1, and 22,366.9 ms;
 fresh PowerModels construction raises construction-plus-optimization medians
-to 83.6, 206.4, 1,708.6, and 23,190.5 ms. MATPOWER parsing and Julia startup/JIT
+to 76.7, 210.2, 1,781.3, and 23,202.8 ms. MATPOWER parsing and Julia startup/JIT
 remain outside those measured medians.
 
 ## Larger-case robustness result
@@ -141,6 +141,12 @@ fails on the largest case. Runtime reinforces that choice—Ipopt wins two of
 the three repeated representative comparisons and has the material advantage
 at 1,354 buses. The successful 6,468-bus Ipopt solve extends the evidence that
 it is currently the safer scale path.
+
+The native baseline does not change that browser-backend ranking. It does show
+that native PowerModels timing is not a constant proxy for browser cost: native
+is materially faster on the two smaller representative cases, while the paths
+cross over on the larger cases under these evaluator and packaging choices.
+That crossover should be reproduced before it informs architecture decisions.
 
 This is a provisional integration ranking, not a production selection.
 Before a broad-browser or distribution decision, verify the leading result in
