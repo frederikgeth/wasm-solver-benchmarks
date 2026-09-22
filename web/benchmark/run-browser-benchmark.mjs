@@ -62,7 +62,7 @@ function parseArguments(argv) {
     else if (argument === "--cold-runs") options.coldRuns = parsePositiveInteger(next(), argument, true);
     else if (argument === "--seed") options.seed = parsePositiveInteger(next(), argument, true);
     else if (argument === "--timeout-ms") options.timeoutMs = parsePositiveInteger(next(), argument);
-    else if (argument === "--output") options.output = path.resolve(next());
+    else if (argument === "--output") options.output = path.resolve(repositoryRoot, next());
     else if (argument === "--headed") options.headed = true;
     else if (argument === "--") continue;
     else if (argument === "--help" || argument === "-h") {

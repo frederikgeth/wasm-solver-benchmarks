@@ -22,6 +22,7 @@ browser. Chrome is the default; `--browser edge` selects Microsoft Edge, and
 Git revision and dirty state, browser and Playwright versions, host details,
 artifact hashes and sizes, model hashes, initial-point hashes, solver options,
 every observation, failure counts, and summary statistics.
+Relative output paths are resolved from the repository root.
 
 ## Run definitions
 
