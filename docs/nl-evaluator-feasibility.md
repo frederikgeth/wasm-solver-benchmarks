@@ -2,12 +2,12 @@
 
 Status: native interface, POUNCE solve, WASM evaluator export, ipopt-wasm Node
 solve, and dedicated real-browser workers are verified on the HS071 probe,
-PowerModels 3-, 14-, and 30-bus AC OPFs, and PGLib-OPF cases through 1,354
+PowerModels 3-, 14-, and 30-bus AC OPFs, and PGLib-OPF cases through 9,241
 buses. The smoke timing is diagnostic only, not benchmark evidence.
 
 ## Verified source boundary
 
-At POUNCE revision `5a141d4f08349be668802830c7b7820a680ea9d0`,
+At POUNCE revision `925e75fbd036de309929e398159f946d42d0d94b`,
 `pounce-nl::nl_reader::NlTnlp` is a public evaluator implementing
 `pounce_nlp::tnlp::TNLP`. The interface supplies:
 
@@ -82,6 +82,6 @@ evaluator module and copies callback data across JavaScript into Ipopt's
 Emscripten memory. This is a relevant product-integration difference that the
 benchmark must measure and disclose, not an algorithm-only comparison.
 
-The shared-evaluator route is feasible through the 1,354-bus representative
-case and remains the selected path for timed measurement. There is no evidence
-yet that the bounded standalone Rust AC OPF fallback is needed.
+The shared-evaluator route is feasible through the 9,241-bus PEGASE case and
+remains the selected path for timed measurement. There is no evidence yet that
+the bounded standalone Rust AC OPF fallback is needed.

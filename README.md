@@ -9,9 +9,9 @@ parsed by POUNCE's evaluator and used to supply the callback contract expected
 by `ipopt-wasm`. The second milestone carries the same path through frozen
 PowerModels 3-, 14-, and 30-bus AC OPFs and validates every solution
 independently from the shared evaluator. The third milestone extends that
-correctness path to PGLib-OPF 118-, 300-, and 1,354-bus cases.
-An additional 6,468-bus RTE case probes solver robustness and the wasm32
-memory boundary.
+correctness path to PGLib-OPF 118-, 300-, and 1,354-bus cases. Three large
+PGLib probes now cover 6,468- and 6,515-bus RTE models plus a 9,241-bus PEGASE
+model and the wasm32 memory boundary.
 
 ## Current status
 
@@ -21,14 +21,15 @@ memory boundary.
 - The evaluator reports zero-based sparse indices, matching `ipopt-wasm`.
 - `ipopt-wasm` requires exactly those callbacks and a lower-triangular
   Hessian. It does not parse `.nl` itself.
-- JuMP-exported HS071, PowerModels small AC OPFs, and representative PGLib-OPF
-  fixtures through 1,354 buses are included with mappings and interface tests.
+- JuMP-exported HS071, PowerModels small AC OPFs, and PGLib-OPF fixtures
+  through 9,241 buses are included with mappings and interface tests.
 - Native and browser POUNCE plus browser Ipopt/MUMPS solve the same frozen
   models to the same local solutions across both correctness ladders.
-- On the additional 6,468-bus RTE scale case, browser Ipopt remains successful
-  and independently feasible while POUNCE returns `RestorationFailed` with an
-  infeasible candidate.
-- Every successful browser-solver candidate in the two correctness ladders
+- POUNCE revision `925e75fbd036de309929e398159f946d42d0d94b`, containing the
+  restoration fix from `jkitchin/pounce#961`, and browser Ipopt/MUMPS both
+  return independently feasible candidates on all nine AC fixtures, including
+  the three large cases.
+- Every successful browser-solver candidate in the AC fixture ladder
   passes explicit AC branch-flow, bus-balance, DC-loss, limit, bound,
   reference-angle, and objective checks reconstructed from the original
   MATPOWER case. This validator does not call the shared `.nl` evaluator.
@@ -72,7 +73,18 @@ Run the representative timing matrix in installed Chrome with:
 
 ```sh
 ./scripts/run-browser-benchmark.sh \
-  --output results/benchmarks/chrome-m4max-2026-09-22.json
+  --output results/benchmarks/chrome-m4max-pounce-pr961-2026-09-23.json
+```
+
+Run the fixed-revision large-case comparison with:
+
+```sh
+./scripts/run-browser-benchmark.sh \
+  --output results/benchmarks/chrome-large-pounce-pr961-m4max-2026-09-23.json \
+  --cases case6468,case6515,case9241 \
+  --backends ipopt-wasm,pounce-wasm \
+  --runs 1 --warmups 0 --cold-runs 0 --seed 20260923 \
+  --timeout-ms 300000
 ```
 
 Run the native PowerModels/Ipopt-MUMPS timing baseline, including the RTE
@@ -113,7 +125,7 @@ The timing definitions and reproducibility controls are documented in
 [`docs/browser-benchmark-protocol.md`](docs/browser-benchmark-protocol.md).
 The first installed-Chrome result and recommendation are in
 [`docs/browser-benchmark-results.md`](docs/browser-benchmark-results.md).
-The 6,468-bus RTE result and memory-limit estimate are in
+The large-case results and memory-limit estimate are in
 [`docs/rte-scale-memory.md`](docs/rte-scale-memory.md).
 The non-MIT solver boundary is summarized in
 [`docs/solver-licenses.md`](docs/solver-licenses.md).

@@ -1,164 +1,165 @@
 # Installed-Chrome benchmark result
 
-The controlled representative benchmark passed all 42 measured solves, all
-six warm-ups, and all six fresh-browser cold runs. It ran on 22 September
-2026 from clean commit `6eec6aa0dc771ff9e4bc4900fea4062f22d85677`
-using headless installed Chrome 153.0.8010.53 on an Apple M4 Max with 16
-logical processors and 48 GiB physical RAM. The exact machine-readable record
-is [`chrome-m4max-2026-09-22.json`](../results/benchmarks/chrome-m4max-2026-09-22.json).
+The POUNCE restoration fix in
+[`jkitchin/pounce#961`](https://github.com/jkitchin/pounce/pull/961) changes the
+robustness conclusion from the first benchmark. At pinned revision
+`925e75fbd036de309929e398159f946d42d0d94b`, POUNCE now solves `case6468_rte`
+and both additional large PGLib cases. Browser Ipopt/MUMPS and POUNCE/FERAL
+therefore each have independently feasible results for all nine AC fixtures.
 
-Each representative-case table entry is a median of seven seeded, randomized,
-serial runs after one unmeasured warm-up per case/backend pair. Every
-observation used a fresh worker and solver instance. The interquartile range
-is shown for the browser-visible total, which includes loading, preparation,
-optimization, and full solution transfer.
+The rerun used clean commit `1531ff8986fa654b7f14bcce5734c7a5a2076687`
+on 23 September 2026, with headless installed Chrome 153.0.8010.53 on an Apple
+M4 Max with 16 logical processors and 48 GiB physical RAM. The exact records
+are
+[`chrome-m4max-pounce-pr961-2026-09-23.json`](../results/benchmarks/chrome-m4max-pounce-pr961-2026-09-23.json)
+and
+[`chrome-large-pounce-pr961-m4max-2026-09-23.json`](../results/benchmarks/chrome-large-pounce-pr961-m4max-2026-09-23.json).
+
+## Browser performance
+
+The representative entries are medians of seven seeded, randomized, serial
+runs after one unmeasured warm-up per case/backend pair. Every observation
+used a fresh worker and solver instance. The interquartile range is shown for
+the browser-visible total, which includes loading, preparation, optimization,
+and full solution transfer.
 
 | Case | Backend | Successes | Optimization median | Browser-visible median (IQR) |
 | --- | --- | ---: | ---: | ---: |
-| case118 | ipopt-wasm | 7/7 | 155.8 ms | 191.1 ms (190.2–191.6) |
-| case118 | POUNCE WASM | 7/7 | 116.0 ms | 163.6 ms (163.0–164.6) |
-| case300 | ipopt-wasm | 7/7 | 273.7 ms | 327.9 ms (326.5–328.5) |
-| case300 | POUNCE WASM | 7/7 | 268.7 ms | 336.2 ms (334.9–339.9) |
-| case1354 | ipopt-wasm | 7/7 | 1,339.3 ms | 1,503.2 ms (1,502.4–1,506.9) |
-| case1354 | POUNCE WASM | 7/7 | 1,752.4 ms | 1,932.0 ms (1,924.3–1,934.7) |
-| case6468 RTE† | ipopt-wasm | 1/1 | 17.84 s | 18.46 s |
-| case6468 RTE† | Ipopt Memory64 | 1/1 | 19.45 s | 20.04 s |
-| case6468 RTE† | POUNCE WASM | 0/1 | 10.66 s to failure | 11.32 s to failure |
+| case118 | ipopt-wasm | 7/7 | 158.0 ms | 193.3 ms (191.9–194.7) |
+| case118 | POUNCE WASM | 7/7 | 116.0 ms | 165.4 ms (165.1–167.0) |
+| case300 | ipopt-wasm | 7/7 | 276.5 ms | 332.0 ms (331.1–332.6) |
+| case300 | POUNCE WASM | 7/7 | 275.0 ms | 344.2 ms (341.1–346.1) |
+| case1354 | ipopt-wasm | 7/7 | 1,377.1 ms | 1,547.3 ms (1,535.4–1,566.3) |
+| case1354 | POUNCE WASM | 7/7 | 1,812.6 ms | 1,991.6 ms (1,978.3–2,010.2) |
 
-† The RTE rows are single-run scale diagnostics from
-[`chrome-case6468-m4max-2026-09-22.json`](../results/benchmarks/chrome-case6468-m4max-2026-09-22.json),
-not seven-run medians. The failed POUNCE time is retained but is not a
-successful-solve performance result.
+POUNCE's browser-visible median is 14.4% lower on case118, 3.7% higher on
+case300, and 28.7% higher on case1354. Equivalently, Ipopt completes the
+case1354 end-to-end path 22.3% sooner. This preserves the ordering from the
+pre-fix run: wiring restoration into POUNCE does not materially penalize
+cases that do not invoke it.
 
-POUNCE's browser-visible median is 14.4% lower on case118. At case300 its
-optimization call is 1.8% lower but its end-to-end median is 2.5% higher. On
-case1354 its end-to-end median is 28.5% higher. Equivalently, Ipopt completes
-the largest case about 22.2% sooner. The narrow IQRs and second full run's
-similar ordering make this more persuasive than the earlier one-off smoke
-timings, but it remains one host and browser.
+The larger entries below are one-run scale diagnostics, not repeated timing
+estimates:
 
-All candidate objectives match the native PowerModels/Ipopt reference at the
-same local solutions, and the separately recorded explicit AC validator passes
-all six candidates at the `1e-6` p.u. gate. That independent evidence is in
-[`representative-scale-correctness.md`](representative-scale-correctness.md);
-the timing harness's raw-model checks also passed every attempt.
+| Case | Variables × constraints | Ipopt optimization / total | POUNCE optimization / total | Result |
+| --- | ---: | ---: | ---: | --- |
+| case6468 RTE | 49,734 × 75,002 | 17.40 / 17.99 s | 25.86 / 26.54 s | both pass; POUNCE used 3 restoration calls |
+| case6515 RTE | 50,546 × 75,357 | 15.69 / 16.29 s | 22.09 / 22.77 s | both pass; POUNCE used 1 restoration call |
+| case9241 PEGASE | 85,568 × 128,984 | 24.86 / 26.11 s | 24.57 / 26.01 s | both pass; POUNCE used no restoration |
+
+Ipopt is 32.7% faster than POUNCE in the case6468 solver call and 29.0% faster
+on case6515. Case9241 is effectively tied in this single observation: POUNCE's
+solver call is 1.2% lower and its total is 0.4% lower. The difference between
+the RTE and PEGASE results is a warning against extrapolating performance from
+bus count alone.
+
+## Correctness and the PR #961 rerun
+
+The old POUNCE build returned `RestorationFailed` at case6468 iteration 54
+without making a restoration call. PR #961 wires the restoration factory and
+second-opinion ladder into `pounce-wasm`. With the fixed revision, case6468
+returns `SolveSucceeded` after 146 iterations and three restoration calls at
+objective `2069730.1451210277`.
+
+Independent validation of that solution reports maximum active and reactive
+balance residuals of `4.72e-15` and `5.22e-15` p.u., branch-equation residual
+`5.46e-12` p.u., thermal excess `2.83e-8` p.u., and bound excess `2.86e-7`.
+The failure was therefore a missing WASM integration path, not evidence of an
+inherently weaker core algorithm on this model.
+
+The added case6515 RTE and case9241 PEGASE solutions from both backends also
+pass the independent `1e-6` p.u. AC-equation validator. On case9241, POUNCE's
+objective is `6243091.942201016` versus the native/Ipopt objective
+`6243090.382896348`; the relative difference is about `2.5e-7`, within the
+benchmark's objective gate, and the candidate itself is independently
+feasible. This should be described as objective agreement, not bit-identical
+primal convergence.
+
+The 9,241-bus sample also exposed a benchmark-harness bug: the Node smoke test
+spread all 128,984 constraint residuals into `Math.max`, exceeding the
+JavaScript call-stack argument limit after a successful Ipopt solve. The
+checker now reduces constraints and bounds with explicit loops. The browser
+worker already used loops and was unaffected.
 
 ## Native PowerModels/Ipopt-MUMPS comparison
 
-A separate native run now supplies the missing practical baseline. It uses
-PowerModels 0.21.6, Ipopt.jl 1.16.0, native Ipopt 3.14.19.2, and sequential
-MUMPS 5.9.1 with one Julia and one OpenBLAS thread. Each entry is the median
-of seven fresh PowerModels models after one warm-up; all 28 measured solves
-returned the recorded local reference objective. The exact record is
+The native baseline uses PowerModels 0.21.6, Ipopt.jl 1.16.0, native Ipopt
+3.14.19.2, and sequential MUMPS 5.9.1 with one Julia and one OpenBLAS thread.
+Each entry is the median of seven fresh PowerModels models after one warm-up.
+The exact record is
 [`native-powermodels-m4max-2026-09-22.json`](../results/benchmarks/native-powermodels-m4max-2026-09-22.json).
 
-The closest available calculation-time comparison is native Ipopt's
-`SolveTimeSec` against the browser wrapper's synchronous solver-call timer:
+The closest calculation-time comparison is native Ipopt's `SolveTimeSec`
+against the browser wrapper's synchronous solver-call timer:
 
 | Case | Native PowerModels + Ipopt/MUMPS, solver median (IQR) | Browser Ipopt wasm32 | Browser/native |
 | --- | ---: | ---: | ---: |
-| case118 | 53.3 ms (53.0–53.7) | 155.8 ms (155.3–157.0) | 2.92× |
-| case300 | 157.9 ms (156.2–158.6) | 273.7 ms (272.8–274.3) | 1.73× |
-| case1354 | 1,504.3 ms (1,463.4–1,537.3) | 1,339.3 ms (1,339.2–1,344.0) | 0.89× |
-| case6468 RTE† | 21.64 s (21.18–21.85) | 17.84 s | 0.82× |
+| case118 | 53.3 ms (53.0–53.7) | 158.0 ms | 2.96× |
+| case300 | 157.9 ms (156.2–158.6) | 276.5 ms | 1.75× |
+| case1354 | 1,504.3 ms (1,463.4–1,537.3) | 1,377.1 ms | 0.92× |
+| case6468 RTE† | 21.64 s (21.18–21.85) | 17.40 s | 0.80× |
 
-Thus native is 2.92× and 1.73× as fast on cases 118 and 300. Browser wasm32
-is 11.0% faster on case1354 in the repeated comparison. Its 17.6% advantage on
-case6468 is only a one-browser-run observation and needs a repeated browser
-run before being treated as a stable crossover.
+Native is substantially faster on the two smaller cases, while the paths
+cross over on the larger cases under these evaluator and packaging choices.
+Case6468 still has only one post-fix browser sample, so its apparent 19.6%
+browser advantage is not a stable native-versus-WASM claim.
 
-This is a product-path comparison, not a pure native-versus-Wasm compilation
-ratio. Native PowerModels evaluates the JuMP nonlinear model through Julia,
-whereas the browser build uses the frozen NL model and the Rust/Wasm evaluator
-through JavaScript callbacks. The Ipopt/MUMPS binaries are also independently
-packaged builds. The mathematical model, start, exact-Hessian setting,
-`tol = 1e-9`, `max_iter = 1000`, and local objectives match, but these runtime
-and integration differences can explain the non-monotonic crossover.
+This is a product-path comparison, not a pure compilation ratio. Native
+PowerModels evaluates the JuMP nonlinear model through Julia, whereas the
+browser build uses the frozen NL model and the Rust/WASM evaluator through
+JavaScript callbacks. The Ipopt/MUMPS binaries are independently packaged.
 
-For wider timing scope, the native median around the complete
-`PowerModels.optimize_model!` call is 63.1, 178.7, 1,607.1, and 22,366.9 ms;
-fresh PowerModels construction raises construction-plus-optimization medians
-to 76.7, 210.2, 1,781.3, and 23,202.8 ms. MATPOWER parsing and Julia startup/JIT
-remain outside those measured medians.
+## Memory and deployment tradeoffs
 
-## Larger-case robustness result
-
-The 6,468-bus `case6468_rte` probe changes the robustness picture.
-Ipopt wasm32 and Ipopt Memory64 both return the native-reference local solution,
-and the wasm32 result passes the independent physical validator. POUNCE returns
-`RestorationFailed` after 54 iterations; its candidate has 19.36 p.u. active
-balance error and a 530.50 p.u. branch-equation residual. This is a numerical
-failure, not an out-of-memory event or evidence that the AC OPF is infeasible.
-
-Across the complete AC fixture ladder, browser Ipopt therefore has seven
-independently feasible results from seven cases. Browser POUNCE has six from
-seven, with the failure occurring on the largest case. The exact scale record
-and failure-inclusive result are documented in
-[`rte-scale-memory.md`](rte-scale-memory.md).
-
-## Deployment tradeoffs
-
-The POUNCE Wasm artifact is 3,766,536 bytes. The ipopt-wasm module plus the
-separate NL evaluator total 4,545,683 bytes, so POUNCE's uncompressed Wasm
-payload is 17.1% smaller. Compression and JavaScript package overhead were not
+The fixed POUNCE WASM artifact is 4,035,733 bytes. The ipopt-wasm module plus
+the separate evaluator total 4,545,644 bytes, so POUNCE's uncompressed WASM
+payload is 11.2% smaller. Compression and JavaScript package overhead were not
 measured.
 
-The representative-scale POUNCE linear memories are 9.2, 18.1, and 80.4 MB for
-the three cases. The Ipopt path's separate evaluator memories are 5.2, 10.1,
-and 45.9 MB, but the public ipopt-wasm wrapper does not expose the solver's own
-memory. These are memory capacities, not peak live allocations or browser RSS,
-so they do not support a solver-memory ranking.
+| Case | Ipopt solver memory | Separate evaluator | Ipopt total linear memories | POUNCE linear memory |
+| --- | ---: | ---: | ---: | ---: |
+| case6468 | 622.75 MiB | 193.88 MiB | 816.63 MiB | 480.19 MiB |
+| case6515 | 625.50 MiB | 194.69 MiB | 820.19 MiB | 483.31 MiB |
+| case9241 | 912.56 MiB | 391.19 MiB | 1,303.75 MiB | 659.50 MiB |
 
-The later 6,468-bus scale probe adds benchmark-local read-only instrumentation
-to expose Ipopt's memory capacity. Ipopt wasm32 uses 622.75 MiB for the solver
-and 193.88 MiB in the separate evaluator; POUNCE reaches 337.19 MiB before its
-numerical failure. Because the POUNCE observation is not a successful solve,
-these numbers still do not establish a like-for-like memory winner. The
-historical representative JSON remains unchanged and retains `null` for
-Ipopt's solver-memory field.
+These are post-solve `WebAssembly.Memory` capacities, not peak live allocation
+or browser RSS. They nevertheless show that both successful paths remain well
+below their current address-space ceilings at 85,568 variables and that the
+POUNCE module reserves materially less linear memory on these samples.
 
 The default Ipopt module is wasm32. Its generated wrapper imposes a 2 GiB heap
-cap despite wasm32's nominal 4 GiB address space. The package's Memory64 module
-solves case6468 but its shipped wrapper currently retains the same 2 GiB cap.
-Measured scaling suggests a conservative transition range around
-100,000–120,000 variables, or roughly 13,000–16,000 similarly structured
-buses, until that Memory64 configuration is fixed and verified.
+cap despite wasm32's nominal 4 GiB address space; the shipped Memory64 wrapper
+currently retains the same cap. The new case9241 observation does not alter
+the conservative planning range of roughly 100,000–120,000 variables
+(approximately 13,000–16,000 similarly structured buses) before an explicit
+memory test. See [`rte-scale-memory.md`](rte-scale-memory.md).
 
 POUNCE has the simpler project-owned build and execution shape: one Rust/WASI
 module parses NL and calls the solver directly. The Ipopt product path uses a
 pinned prebuilt npm module plus a separate Rust evaluator and JavaScript
-callbacks. Its full upstream Fortran/LLVM source-build pipeline has not been
-reproduced here. Both solvers are EPL-2.0; ipopt-wasm additionally bundles
-MUMPS and its CeCILL-C obligations. Distribution review remains mandatory.
+callbacks. Both solvers are EPL-2.0; ipopt-wasm additionally bundles MUMPS and
+its CeCILL-C obligations. Distribution review remains mandatory.
 
 ## Recommendation
 
-For the first balanced AC OPF integration spike, use **ipopt-wasm as the
-leading backend** and retain POUNCE behind the same regression fixtures as the
-challenger. Robust independently feasible solve rate is the first decision
-criterion: Ipopt is 7/7 across the complete ladder, while POUNCE is 6/7 and
-fails on the largest case. Runtime reinforces that choice—Ipopt wins two of
-the three repeated representative comparisons and has the material advantage
-at 1,354 buses. The successful 6,468-bus Ipopt solve extends the evidence that
-it is currently the safer scale path.
+PR #961 removes robustness-at-case6468 as a reason to prefer Ipopt. The two
+backends are now tied at 9/9 independently feasible AC fixtures, and POUNCE has
+the simpler integration plus lower observed linear-memory capacity. Ipopt
+retains the stronger measured runtime on both ~6.5k-bus RTE samples and on the
+repeated 1,354-bus case; case9241 is a single-run tie.
 
-The native baseline does not change that browser-backend ranking. It does show
-that native PowerModels timing is not a constant proxy for browser cost: native
-is materially faster on the two smaller representative cases, while the paths
-cross over on the larger cases under these evaluator and packaging choices.
-That crossover should be reproduced before it informs architecture decisions.
+For Tellegen, keep the evaluator and worker contract solver-neutral and treat
+the initial backend choice as an integration tradeoff rather than a settled
+robustness decision. If minimizing implementation and memory complexity is
+the priority, POUNCE is now credible as the first adapter. If the measured RTE
+latency is the priority, Ipopt remains the evidence-backed lead. A short
+Tellegen integration spike for both adapters, followed by stressed starts and
+Firefox/WebKit runs, is now more defensible than selecting Ipopt solely from
+the old case6468 failure.
 
-This is a provisional integration ranking, not a production selection.
-Before a broad-browser or distribution decision, verify the leading result in
-Firefox and WebKit, reproduce or otherwise harden the ipopt-wasm artifact
-supply chain, fix and verify the Memory64 heap configuration, obtain comparable
-peak-memory measurements, and add seeded alternative starts plus
-stressed/congested cases. POUNCE's case6468 restoration failure should be
-diagnosed before reconsidering it for the lead. The later unbalanced four-wire
-study remains a separate formulation experiment.
-
-The single cold run per pair is retained in the JSON as a startup diagnostic,
-including browser launch and full page-driver elapsed time. It is not used to
-rank the solvers because browser launch variance dominates at that sample
-count. Full definitions are in
+Before production selection, add seeded alternative starts and
+stressed/congested cases, reproduce the complete ipopt-wasm source-build or
+otherwise harden its provenance, fix and verify Memory64 growth, obtain
+comparable peak-memory/browser-RSS measurements, and complete distribution
+review. Full timing definitions are in
 [`browser-benchmark-protocol.md`](browser-benchmark-protocol.md).

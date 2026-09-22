@@ -1,93 +1,92 @@
-# RTE scale and WebAssembly memory probe
+# Large-case and WebAssembly memory probe
 
-The original representative benchmark used `ipopt-wasm` 0.2.0's default
-`index.mjs` entry point. That loads `ipopt.wasm`, a wasm32 module. It did not
-use the package's `index64.mjs`/`ipopt64.wasm` Memory64 variant.
+The installed `ipopt-wasm` 0.2.0 package defaults to `index.mjs` and
+`ipopt.wasm`, which are wasm32. Although wasm32 has a nominal 4 GiB address
+space, this package's generated `ipopt.mjs` defines a 2,147,483,648-byte heap
+maximum. That 2 GiB setting—not the nominal 4 GiB address limit—is the
+effective Ipopt ceiling in the tested build.
 
-Although wasm32 has a nominal 4 GiB address space, the generated
-`ipopt.mjs` in this package defines `getHeapMax()` as 2,147,483,648 bytes.
-That is the effective Ipopt heap-growth ceiling for this build. Inspection of
-the shipped `ipopt64.mjs` finds the same 2 GiB value, so the Memory64 artifact
-does not currently remove the practical ceiling claimed by its README. The
-benchmark now exposes both entry points explicitly as `ipopt-wasm` and
-`ipopt-wasm64` so this can be regression-tested if upstream changes.
+The shipped `index64.mjs`/`ipopt64.wasm` Memory64 variant has the same 2 GiB
+growth setting. It solves case6468, but switching to it does not yet remove
+the practical ceiling. The harness exposes the variants as `ipopt-wasm` and
+`ipopt-wasm64` so this can be regression-tested when upstream changes.
 
-## PGLib case6468_rte
+## Successful large-case probes
 
-The added fixture is the unmodified PGLib-OPF v23.07
-`pglib_opf_case6468_rte.m`, SHA-256
-`b10fbfb66104bc8592e9546d4c7370497fe249406c8915fe53b3a01b1f2dc631`.
-PowerModels produces 49,734 variables, 75,002 constraints, 269,026 Jacobian
-nonzeros, and 87,664 lower-triangular Hessian nonzeros. Native
-PowerModels/Ipopt-MUMPS returns `LOCALLY_SOLVED` at objective
-2,069,730.1451210186.
+The original case6468 POUNCE failure was rerun at revision
+`925e75fbd036de309929e398159f946d42d0d94b`, containing the fix from
+[`jkitchin/pounce#961`](https://github.com/jkitchin/pounce/pull/961). Two more
+unmodified PGLib-OPF v23.07 cases were added to sample another RTE model and a
+larger PEGASE topology.
 
-Installed Chrome produced these single-run scale diagnostics:
+| Case | Family | Variables | Constraints | Jacobian nnz | Hessian nnz |
+| --- | --- | ---: | ---: | ---: | ---: |
+| case6468 | RTE | 49,734 | 75,002 | 269,026 | 87,664 |
+| case6515 | RTE | 50,546 | 75,357 | 270,715 | 88,109 |
+| case9241 | PEGASE | 85,568 | 128,984 | 488,296 | 148,747 |
 
-| Backend | Result | Optimization | Solver Wasm memory | Evaluator memory |
-| --- | --- | ---: | ---: | ---: |
-| Ipopt wasm32 | success, objective 2,069,730.1451210382 | 17.84 s | 622.75 MiB | 193.88 MiB |
-| Ipopt Memory64 | success, same objective | 19.45 s | 622.81 MiB | 193.88 MiB |
-| POUNCE wasm32 | `RestorationFailed`, 54 iterations | 10.66 s to failure | 337.19 MiB | included in solver module |
+Installed Chrome produced these single-run scale diagnostics from clean commit
+`1531ff8986fa654b7f14bcce5734c7a5a2076687`:
 
-For comparison, a separate single-threaded native PowerModels/Ipopt-MUMPS
-benchmark produced a 21.64 s median solver-reported time (21.18–21.85 s IQR)
-over seven measured fresh-model runs after one warm-up. The browser wasm32
-observation is 17.6% lower, but it has only one sample, so this is a scale
-diagnostic rather than evidence of a stable native/Wasm speed advantage. See
-[`browser-benchmark-results.md`](browser-benchmark-results.md) for the full
-cross-case comparison and timing-scope caveats.
+| Case | Backend | Result | Optimization | Solver memory | Evaluator memory |
+| --- | --- | --- | ---: | ---: | ---: |
+| case6468 | Ipopt wasm32 | success | 17.40 s | 622.75 MiB | 193.88 MiB |
+| case6468 | POUNCE wasm32 | success, 146 iterations, 3 restorations | 25.86 s | 480.19 MiB | included |
+| case6515 | Ipopt wasm32 | success | 15.69 s | 625.50 MiB | 194.69 MiB |
+| case6515 | POUNCE wasm32 | success, 137 iterations, 1 restoration | 22.09 s | 483.31 MiB | included |
+| case9241 | Ipopt wasm32 | success | 24.86 s | 912.56 MiB | 391.19 MiB |
+| case9241 | POUNCE wasm32 | success, 78 iterations, 0 restorations | 24.57 s | 659.50 MiB | included |
 
-The exact clean-revision record is
-[`chrome-case6468-m4max-2026-09-22.json`](../results/benchmarks/chrome-case6468-m4max-2026-09-22.json).
-Its overall `passed` field is correctly false because POUNCE's failed attempt
-remains in the denominator; both Ipopt observations pass.
+The exact result is
+[`chrome-large-pounce-pr961-m4max-2026-09-23.json`](../results/benchmarks/chrome-large-pounce-pr961-m4max-2026-09-23.json).
+These timings have one sample per pair and are scale diagnostics, not stable
+performance estimates. The memories are post-solve `WebAssembly.Memory`
+capacities, not live allocation, peak allocation, or browser RSS.
 
-The Ipopt wasm32 solution passes the independent explicit AC validator: the
-maximum active and reactive balance residuals are `1.24e-14` and `5.11e-15`
-p.u., branch-equation residual is `5.61e-12` p.u., thermal-limit excess is
-`2.83e-8` p.u., and variable-bound excess is `2.86e-7`.
+The previous Memory64 observation remains in
+[`chrome-case6468-m4max-2026-09-22.json`](../results/benchmarks/chrome-case6468-m4max-2026-09-22.json):
+it solved case6468 in 19.45 s with a 622.81 MiB Ipopt memory. The old POUNCE
+failure in that record is retained as historical evidence but is superseded
+by the fixed-revision result above.
 
-The POUNCE result is not a feasible candidate. Independent recomputation finds
-active and reactive balance residuals of 19.36 and 6.20 p.u. and a maximum
-branch-equation residual of 530.50 p.u. This is a restoration/robustness
-failure, not evidence of global infeasibility and not an out-of-memory event.
+Both solvers' candidates on all three cases pass the independent explicit AC
+validator. In particular, fixed POUNCE case6468 has maximum active and
+reactive balance residuals of `4.72e-15` and `5.22e-15` p.u. and a maximum
+branch-equation residual of `5.46e-12` p.u. The old failure occurred because
+the WASM wrapper did not install POUNCE's restoration path; it was not an
+out-of-memory event or evidence that the OPF was infeasible.
 
-The Ipopt memory values come from benchmark-local, read-only instrumentation
-of the installed JavaScript wrapper after the solve. They are linear-memory
-capacities, not live allocation or browser RSS. Timings are single-run scale
-checks and are not incorporated into the seven-run performance ranking.
+## Approximate Ipopt ceiling
 
-## Approximate ceiling
+The 1,354-, 6,468-, and 9,241-bus Ipopt probes use 117.94, 622.75, and 912.56
+MiB of solver memory for 11,192, 49,734, and 85,568 variables. A log-log fit
+across only those three points grows approximately as `variables^1.03` and
+intersects the wrapper's 2 GiB cap near 175,000 variables, or about 19,000
+buses at the case9241 variable-to-bus ratio.
 
-The 1,354-bus and 6,468-bus Ipopt probes use 117.94 and 622.75 MiB of solver
-memory for 11,192 and 49,734 variables. A power-law fit across only those two
-points grows approximately as `variables^1.12`. Extrapolating that fit to the
-actual 2 GiB wrapper cap gives roughly 145,000 variables, or about 18,800 buses
-at the case6468 variable-to-bus ratio. Upstream's own unrelated benchmark
-reports wasm32 out of memory at 160,000 variables, which is consistent with
-that order of magnitude.
+That extrapolation is not an operational guarantee. MUMPS factorization
+memory depends strongly on sparsity, ordering, and numerical behavior, so a
+difficult case can fail materially earlier. The conservative planning range
+remains 100,000–120,000 variables, approximately 13,000–16,000 similarly
+structured buses, followed by an explicit memory check. The evaluator has a
+separate WASM memory and the browser has additional non-WASM allocations.
 
-This is a planning estimate, not a guaranteed cutoff. MUMPS factorization
-memory depends strongly on network sparsity and ordering, so a difficult case
-can fail materially earlier. A conservative operational threshold for similar
-AC OPFs is therefore around 100,000–120,000 variables, approximately
-13,000–16,000 buses, followed by an explicit memory check. The evaluator uses
-a separate Wasm memory and the browser has additional non-Wasm allocations.
+Case9241 demonstrates success at 85,568 variables with 1,303.75 MiB across
+Ipopt's and the evaluator's two linear memories. Because only the 912.56 MiB
+Ipopt memory is subject to Ipopt's wrapper cap, those two capacities must not
+be added when estimating when that specific 2 GiB heap will stop growing.
 
-For problems expected to approach that range, the correct next step is to fix
-and verify the Memory64 package's heap-growth configuration rather than plan
-around a nominal 4 GiB wasm32 ceiling.
+For problems expected to approach the conservative range, the correct next
+step is to fix and verify the Memory64 package's growth configuration rather
+than plan around a nominal 4 GiB wasm32 ceiling.
 
-Reproduce the three browser observations with:
+Reproduce the fixed-revision large-case observations with:
 
 ```sh
 ./scripts/run-browser-benchmark.sh \
-  --output results/benchmarks/chrome-case6468-m4max-2026-09-22.json \
-  --cases case6468 \
-  --backends ipopt-wasm,ipopt-wasm64,pounce-wasm \
-  --runs 1 --warmups 0 --cold-runs 0 --seed 20260922
+  --output results/benchmarks/chrome-large-pounce-pr961-m4max-2026-09-23.json \
+  --cases case6468,case6515,case9241 \
+  --backends ipopt-wasm,pounce-wasm \
+  --runs 1 --warmups 0 --cold-runs 0 --seed 20260923 \
+  --timeout-ms 300000
 ```
-
-The command exits nonzero after writing the report because the POUNCE
-observation fails validation.

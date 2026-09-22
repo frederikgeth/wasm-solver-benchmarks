@@ -9,11 +9,11 @@ Run the default representative matrix with:
 
 ```sh
 ./scripts/run-browser-benchmark.sh \
-  --output results/benchmarks/chrome-m4max-2026-09-22.json \
+  --output results/benchmarks/chrome-m4max-pounce-pr961-2026-09-23.json \
   --runs 7 \
   --warmups 1 \
   --cold-runs 1 \
-  --seed 20260922
+  --seed 20260923
 ```
 
 The script rebuilds both project-owned Wasm artifacts before launching the
