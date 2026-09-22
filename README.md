@@ -11,7 +11,8 @@ PowerModels 3-, 14-, and 30-bus AC OPFs and validates every solution
 independently from the shared evaluator. The third milestone extends that
 correctness path to PGLib-OPF 118-, 300-, and 1,354-bus cases. Three large
 PGLib probes now cover 6,468- and 6,515-bus RTE models plus a 9,241-bus PEGASE
-model and the wasm32 memory boundary.
+model and the wasm32 memory boundary. A heavily loaded 118-bus `api` variant
+and a tight-angle 1,354-bus `sad` variant test two additional constraint regimes.
 
 ## Current status
 
@@ -27,8 +28,8 @@ model and the wasm32 memory boundary.
   models to the same local solutions across both correctness ladders.
 - POUNCE revision `925e75fbd036de309929e398159f946d42d0d94b`, containing the
   restoration fix from `jkitchin/pounce#961`, and browser Ipopt/MUMPS both
-  return independently feasible candidates on all nine AC fixtures, including
-  the three large cases.
+  return independently feasible candidates on all eleven AC fixtures,
+  including the three large cases and both stress variants.
 - Every successful browser-solver candidate in the AC fixture ladder
   passes explicit AC branch-flow, bus-balance, DC-loss, limit, bound,
   reference-angle, and objective checks reconstructed from the original
@@ -67,6 +68,12 @@ Run the equivalent 118-, 300-, and 1,354-bus correctness ladder with:
 
 ```sh
 ./scripts/run-representative-correctness.sh
+```
+
+Run the heavy-load and tight-angle variant checks with:
+
+```sh
+./scripts/run-stressed-correctness.sh
 ```
 
 Run the representative timing matrix in installed Chrome with:
@@ -127,6 +134,8 @@ The first installed-Chrome result and recommendation are in
 [`docs/browser-benchmark-results.md`](docs/browser-benchmark-results.md).
 The large-case results and memory-limit estimate are in
 [`docs/rte-scale-memory.md`](docs/rte-scale-memory.md).
+The two PGLib stress variants and their independent validation are in
+[`docs/stressed-case-correctness.md`](docs/stressed-case-correctness.md).
 The non-MIT solver boundary is summarized in
 [`docs/solver-licenses.md`](docs/solver-licenses.md).
 

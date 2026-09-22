@@ -16,7 +16,8 @@ case6468 WASM failure in
 [`jkitchin/pounce#961`](https://github.com/jkitchin/pounce/pull/961). The cause
 was that `pounce-wasm` had not wired in the solver's restoration phase. With
 that fix, both browser backends now produce independently feasible results on
-all nine AC fixtures, including two additional large PGLib cases.
+all eleven AC fixtures, including two additional large PGLib cases and two
+constraint-stress variants.
 
 I therefore no longer think the evidence supports choosing Ipopt on
 robustness alone. I propose that we:
@@ -46,6 +47,8 @@ The experiment is isolated in
 - Seven-run representative benchmarks for 118-, 300-, and 1,354-bus cases.
 - Single-run scale diagnostics for 6,468- and 6,515-bus RTE cases and the
   9,241-bus PEGASE case.
+- Single-run checks of heavily loaded `case118_ieee__api` and tight-angle
+  `case1354_pegase__sad` variants.
 - A seven-run, single-threaded native PowerModels + Ipopt/MUMPS baseline
   through case6468.
 
@@ -55,12 +58,12 @@ and solver instance. Failures remain in the denominator.
 
 ## Correctness and robustness
 
-Both backends now pass all nine AC cases:
+Both backends now pass all eleven AC cases:
 
 | Browser backend | Independently feasible cases |
 | --- | ---: |
-| Ipopt/MUMPS | 9/9 |
-| POUNCE/FERAL | 9/9 |
+| Ipopt/MUMPS | 11/11 |
+| POUNCE/FERAL | 11/11 |
 
 At the fixed POUNCE revision, `case6468_rte` returns `SolveSucceeded` after
 146 iterations and three restoration calls. Its independent maximum active
@@ -76,6 +79,11 @@ gate, and its candidate is independently feasible.
 This correction matters: the old `RestorationFailed` result reflected missing
 WASM integration plumbing, not evidence that POUNCE's core algorithm could
 not solve the model.
+
+The added heavy-load and tight-angle cases also pass both WASM backends and
+the independent physical validator. They exposed a case-name restriction in
+the browser harness, which has been fixed. Their one-run timings are recorded
+separately from the seven-run performance comparison.
 
 ## Browser performance
 
@@ -194,8 +202,8 @@ faster or more robust.
 
 - Repeat the benchmark in Firefox and WebKit.
 - Repeat the three large-case timings.
-- Add seeded alternative starts and stressed, congested, and weakly
-  conditioned cases.
+- Add seeded alternative starts and a broader set of stressed, congested,
+  and weakly conditioned cases beyond the two variants now checked.
 - Reproduce or otherwise harden the ipopt-wasm source-build and provenance
   chain.
 - Fix and verify Memory64 heap growth.
@@ -222,5 +230,6 @@ faster or more robust.
 - [Large-case and memory probe](https://github.com/frederikgeth/wasm-solver-benchmarks/blob/main/docs/rte-scale-memory.md)
 - [Browser benchmark protocol](https://github.com/frederikgeth/wasm-solver-benchmarks/blob/main/docs/browser-benchmark-protocol.md)
 - [Correctness evidence through 1,354 buses](https://github.com/frederikgeth/wasm-solver-benchmarks/blob/main/docs/representative-scale-correctness.md)
+- [PGLib stress-variant checks](https://github.com/frederikgeth/wasm-solver-benchmarks/blob/main/docs/stressed-case-correctness.md)
 - [Solver license boundary](https://github.com/frederikgeth/wasm-solver-benchmarks/blob/main/docs/solver-licenses.md)
 - [Machine-readable browser results](https://github.com/frederikgeth/wasm-solver-benchmarks/tree/main/results/benchmarks)

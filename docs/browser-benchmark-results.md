@@ -5,7 +5,10 @@ The POUNCE restoration fix in
 robustness conclusion from the first benchmark. At pinned revision
 `925e75fbd036de309929e398159f946d42d0d94b`, POUNCE now solves `case6468_rte`
 and both additional large PGLib cases. Browser Ipopt/MUMPS and POUNCE/FERAL
-therefore each have independently feasible results for all nine AC fixtures.
+therefore each have independently feasible results for all nine original AC
+fixtures. Two later PGLib stress variants also pass both backends, bringing
+the checked corpus to eleven; see
+[`stressed-case-correctness.md`](stressed-case-correctness.md).
 
 The rerun used clean commit `1531ff8986fa654b7f14bcce5734c7a5a2076687`
 on 23 September 2026, with headless installed Chrome 153.0.8010.53 on an Apple
@@ -143,7 +146,7 @@ its CeCILL-C obligations. Distribution review remains mandatory.
 ## Recommendation
 
 PR #961 removes robustness-at-case6468 as a reason to prefer Ipopt. The two
-backends are now tied at 9/9 independently feasible AC fixtures, and POUNCE has
+backends are now tied at 11/11 independently feasible AC fixtures, and POUNCE has
 the simpler integration plus lower observed linear-memory capacity. Ipopt
 retains the stronger measured runtime on both ~6.5k-bus RTE samples and on the
 repeated 1,354-bus case; case9241 is a single-run tie.
