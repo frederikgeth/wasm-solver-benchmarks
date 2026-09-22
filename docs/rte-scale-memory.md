@@ -26,9 +26,14 @@ Installed Chrome produced these single-run scale diagnostics:
 
 | Backend | Result | Optimization | Solver Wasm memory | Evaluator memory |
 | --- | --- | ---: | ---: | ---: |
-| Ipopt wasm32 | success, objective 2,069,730.1451210382 | 17.44 s | 622.75 MiB | 193.88 MiB |
-| Ipopt Memory64 | success, same objective | 18.86 s | 622.81 MiB | 193.88 MiB |
-| POUNCE wasm32 | `RestorationFailed`, 54 iterations | 9.86 s to failure | 337.19 MiB | included in solver module |
+| Ipopt wasm32 | success, objective 2,069,730.1451210382 | 17.84 s | 622.75 MiB | 193.88 MiB |
+| Ipopt Memory64 | success, same objective | 19.45 s | 622.81 MiB | 193.88 MiB |
+| POUNCE wasm32 | `RestorationFailed`, 54 iterations | 10.66 s to failure | 337.19 MiB | included in solver module |
+
+The exact clean-revision record is
+[`chrome-case6468-m4max-2026-09-22.json`](../results/benchmarks/chrome-case6468-m4max-2026-09-22.json).
+Its overall `passed` field is correctly false because POUNCE's failed attempt
+remains in the denominator; both Ipopt observations pass.
 
 The Ipopt wasm32 solution passes the independent explicit AC validator: the
 maximum active and reactive balance residuals are `1.24e-14` and `5.11e-15`
@@ -65,3 +70,16 @@ a separate Wasm memory and the browser has additional non-Wasm allocations.
 For problems expected to approach that range, the correct next step is to fix
 and verify the Memory64 package's heap-growth configuration rather than plan
 around a nominal 4 GiB wasm32 ceiling.
+
+Reproduce the three browser observations with:
+
+```sh
+./scripts/run-browser-benchmark.sh \
+  --output results/benchmarks/chrome-case6468-m4max-2026-09-22.json \
+  --cases case6468 \
+  --backends ipopt-wasm,ipopt-wasm64,pounce-wasm \
+  --runs 1 --warmups 0 --cold-runs 0 --seed 20260922
+```
+
+The command exits nonzero after writing the report because the POUNCE
+observation fails validation.
