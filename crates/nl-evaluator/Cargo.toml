@@ -9,3 +9,5 @@ rust-version.workspace = true
 pounce-nl = { git = "https://github.com/jkitchin/pounce.git", rev = "5a141d4f08349be668802830c7b7820a680ea9d0" }
 pounce-nlp = { git = "https://github.com/jkitchin/pounce.git", rev = "5a141d4f08349be668802830c7b7820a680ea9d0" }
 
+[dev-dependencies]
+pounce-rs = { git = "https://github.com/jkitchin/pounce.git", rev = "5a141d4f08349be668802830c7b7820a680ea9d0" }

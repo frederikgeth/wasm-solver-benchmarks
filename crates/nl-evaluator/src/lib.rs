@@ -163,6 +163,14 @@ impl NlEvaluator {
         &self.problem
     }
 
+    /// Consume the adapter and return the same evaluator as a POUNCE `TNLP`.
+    ///
+    /// This is the controlled-comparison handoff: POUNCE drives the exact
+    /// parsed evaluator that the browser Ipopt callbacks above expose.
+    pub fn into_tnlp(self) -> NlTnlp {
+        self.inner
+    }
+
     pub fn objective(&mut self, x: &[f64]) -> Result<f64, EvaluationError> {
         self.check_x(x)?;
         self.inner

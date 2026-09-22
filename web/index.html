@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AC OPF WASM evaluator smoke test</title>
+    <style>
+      :root { color-scheme: light dark; font-family: ui-monospace, SFMono-Regular, monospace; }
+      body { margin: 2rem auto; max-width: 72rem; padding: 0 1rem; }
+      .actions { display: flex; gap: 0.75rem; margin: 1rem 0; }
+      button { font: inherit; padding: 0.5rem 0.9rem; }
+      pre { border: 1px solid #8886; border-radius: 0.4rem; min-height: 16rem; padding: 1rem; overflow: auto; }
+      [data-state="passed"] { color: #16803a; }
+      [data-state="failed"] { color: #b42318; }
+    </style>
+  </head>
+  <body>
+    <h1>Shared NL evaluator smoke test</h1>
+    <p>JuMP NL → POUNCE evaluator WASM → ipopt-wasm/MUMPS, inside one dedicated worker.</p>
+    <div class="actions">
+      <button id="run" type="button">Run</button>
+      <button id="cancel" type="button" disabled>Cancel</button>
+    </div>
+    <p id="status">Ready.</p>
+    <pre id="output" aria-live="polite"></pre>
+    <script type="module">
+      const runButton = document.querySelector("#run");
+      const cancelButton = document.querySelector("#cancel");
+      const status = document.querySelector("#status");
+      const output = document.querySelector("#output");
+      let worker;
+
+      function finish(state, message) {
+        status.dataset.state = state;
+        status.textContent = message;
+        runButton.disabled = false;
+        cancelButton.disabled = true;
+      }
+
+      function run() {
+        worker?.terminate();
+        worker = new Worker("./worker.mjs", { type: "module" });
+        runButton.disabled = true;
+        cancelButton.disabled = false;
+        status.dataset.state = "running";
+        status.textContent = "Starting worker…";
+        output.textContent = "";
+        worker.onmessage = ({ data }) => {
+          if (data.type === "phase") {
+            status.textContent = `${data.phase}…`;
+          } else if (data.type === "result") {
+            output.textContent = JSON.stringify(data.result, null, 2);
+            finish(data.result.passed ? "passed" : "failed", data.result.passed ? "Passed." : "Failed validation.");
+          } else if (data.type === "error") {
+            output.textContent = data.error;
+            finish("failed", "Worker failed.");
+          }
+        };
+        worker.onerror = ({ message }) => finish("failed", `Worker error: ${message}`);
+        worker.postMessage({ type: "run" });
+      }
+
+      runButton.addEventListener("click", run);
+      cancelButton.addEventListener("click", () => {
+        worker?.terminate();
+        finish("failed", "Cancelled; the worker was terminated.");
+      });
+      if (new URL(location.href).searchParams.has("autorun")) run();
+    </script>
+  </body>
+</html>
+

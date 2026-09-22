@@ -18,12 +18,21 @@ supply the callback contract expected by `ipopt-wasm`. The native Rust
 - `ipopt-wasm` requires exactly those callbacks and a lower-triangular
   Hessian. It does not parse `.nl` itself.
 - A JuMP-exported HS071 fixture and numerical interface tests are included.
+- Native POUNCE and browser Ipopt/MUMPS both solve that evaluator to the same
+  local solution. The ipopt-wasm path currently has a Node smoke test; real
+  browser-worker timing is deliberately a later gate.
 
 Run the current proof with:
 
 ```sh
 cargo test --workspace
+./scripts/build-evaluator-wasm.sh
+cd web && pnpm install --frozen-lockfile && pnpm test:ipopt-smoke
 ```
+
+For the real-browser worker harness, start `pnpm serve` in `web/` and open
+`http://127.0.0.1:4173/?autorun=1`. Cancellation terminates the worker, which
+is also the recovery boundary for callback exceptions or a stuck solve.
 
 Regenerate the tiny fixture with:
 
@@ -48,4 +57,3 @@ results/     machine-readable benchmark records
 Solver and model-source revisions are immutable inputs recorded under
 `provenance/`. Benchmark results must record their exact inputs rather than
 relying on branch names or package defaults.
-

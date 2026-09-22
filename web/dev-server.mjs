@@ -1,0 +1,54 @@
+import { createReadStream } from "node:fs";
+import { stat } from "node:fs/promises";
+import { createServer } from "node:http";
+import { extname, resolve, sep } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const root = fileURLToPath(new URL("..", import.meta.url));
+const webRoot = resolve(root, "web");
+const routes = [
+  ["/vendor/ipopt-wasm/", resolve(webRoot, "node_modules/ipopt-wasm")],
+  ["/artifacts/", resolve(root, "target/wasm32-unknown-unknown/release")],
+  ["/fixtures/", resolve(root, "fixtures")],
+  ["/", webRoot],
+];
+const contentTypes = new Map([
+  [".html", "text/html; charset=utf-8"],
+  [".mjs", "text/javascript; charset=utf-8"],
+  [".js", "text/javascript; charset=utf-8"],
+  [".json", "application/json; charset=utf-8"],
+  [".nl", "text/plain; charset=utf-8"],
+  [".wasm", "application/wasm"],
+]);
+
+function mappedPath(url) {
+  const pathname = decodeURIComponent(new URL(url, "http://localhost").pathname);
+  for (const [prefix, directory] of routes) {
+    if (!pathname.startsWith(prefix)) continue;
+    const suffix = pathname.slice(prefix.length) || "index.html";
+    const candidate = resolve(directory, suffix);
+    if (candidate === directory || candidate.startsWith(`${directory}${sep}`)) return candidate;
+  }
+  return undefined;
+}
+
+const port = Number.parseInt(process.env.ACOPF_WEB_PORT ?? "4173", 10);
+const server = createServer(async (request, response) => {
+  try {
+    const path = mappedPath(request.url ?? "/");
+    if (!path || !(await stat(path)).isFile()) {
+      response.writeHead(404).end("Not found\n");
+      return;
+    }
+    response.setHeader("Content-Type", contentTypes.get(extname(path)) ?? "application/octet-stream");
+    response.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+    response.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+    createReadStream(path).pipe(response);
+  } catch (error) {
+    response.writeHead(error?.code === "ENOENT" ? 404 : 500).end(`${error}\n`);
+  }
+});
+
+server.listen(port, "127.0.0.1", () => {
+  console.log(`AC OPF WASM smoke page: http://127.0.0.1:${port}/?autorun=1`);
+});

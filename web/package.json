@@ -1,0 +1,12 @@
+{
+  "name": "acopf-wasm-bench-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "serve": "node dev-server.mjs",
+    "test:ipopt-smoke": "node test/ipopt-smoke.mjs"
+  },
+  "dependencies": {
+    "ipopt-wasm": "0.2.0"
+  }
+}

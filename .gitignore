@@ -1,4 +1,4 @@
 /.julia-depot/
 /target/
+/web/node_modules/
 *.sol
-

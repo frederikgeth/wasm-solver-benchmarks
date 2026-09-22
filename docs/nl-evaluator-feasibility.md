@@ -1,7 +1,8 @@
 # Shared `.nl` evaluator feasibility
 
-Status: native interface verified on the HS071 probe; WASM export and
-end-to-end browser solves remain to be implemented.
+Status: native interface, POUNCE solve, WASM evaluator export, ipopt-wasm Node
+solve, and a dedicated real-browser worker are verified on the HS071 probe.
+The smoke timing is diagnostic only, not benchmark evidence.
 
 ## Verified source boundary
 
@@ -40,6 +41,11 @@ artifact and checks at its declared initial point:
 - bounds, start values, dimensions, zero-based indexing, and lower-triangle
   convention.
 
+Central finite-difference step sweeps at two additional points check the
+objective gradient and sparse Jacobian. A directional finite-difference of
+the weighted Lagrangian gradient checks a Hessian-vector product with nonzero
+objective and constraint weights.
+
 JuMP's NL writer normalizes constants into the row expressions. In this
 fixture, for example, `product(x) >= 25` becomes `product(x) - 25 >= 0`.
 The evaluator therefore returns residual values `0` and `12` at the initial
@@ -52,17 +58,22 @@ HS071 equations, so the test is not circular with POUNCE's evaluator.
 
 ## Remaining risks before AC OPF
 
-1. Export the adapter as a small `wasm32-unknown-unknown` or
-   `wasm32-wasip1` module and measure the cost of copying values into
-   ipopt-wasm's separate Emscripten memory.
-2. Feed those callbacks to ipopt-wasm in Node as a smoke test, then in a real
-   browser worker. The browser measurement must not be inferred from Node.
-3. Run POUNCE on the same retained evaluator instance and compare the two
-   solutions with an independent HS071 calculation.
-4. Confirm JuMP/PowerModels `.nl` output uses only operations supported by
+The current `wasm32-unknown-unknown` adapter keeps reusable numeric buffers in
+its own linear memory. The JavaScript bridge copies callback inputs and outputs
+between that memory and ipopt-wasm's separate Emscripten memory. On HS071,
+native POUNCE converges in nine iterations, and POUNCE and ipopt-wasm both
+return objective `17.01401727293647` and the same primal point to displayed
+precision. The ipopt-wasm wrapper does not expose an iteration count. This is
+interface evidence, not a browser benchmark.
+
+1. Measure callback copying separately and add repeated cold-solve protocol;
+   the current single browser smoke timing must not be treated as a benchmark.
+2. Exercise POUNCE's browser build on the same fixture and record equivalent
+   machine-readable termination and validation fields.
+3. Confirm JuMP/PowerModels `.nl` output uses only operations supported by
    POUNCE on 3- and 14-bus AC OPF exports. Imported AMPL functions are not
    available on WASM and must be rejected explicitly.
-5. Preserve `.col`/`.row` identities or an equivalent sidecar mapping; `.nl`
+4. Preserve `.col`/`.row` identities or an equivalent sidecar mapping; `.nl`
    text alone does not retain the names needed for benchmark diagnostics.
 
 The shared-evaluator route is feasible enough to continue. There is no

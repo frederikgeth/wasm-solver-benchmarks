@@ -1,4 +1,7 @@
 use acopf_nl_evaluator::{NlEvaluator, SparseStructure};
+use pounce_rs::prelude::{ApplicationReturnStatus, IpoptApplication, TNLP};
+use std::cell::RefCell;
+use std::rc::Rc;
 
 const HS071: &str = include_str!("../../../fixtures/tiny/hs071.nl");
 
@@ -21,6 +24,38 @@ fn dense_symmetric(structure: &SparseStructure, values: &[f64], n: usize) -> Vec
         dense[column][row] = value;
     }
     dense
+}
+
+fn max_abs_difference(actual: &[f64], expected: &[f64]) -> f64 {
+    actual
+        .iter()
+        .zip(expected)
+        .map(|(actual, expected)| (actual - expected).abs())
+        .fold(0.0, f64::max)
+}
+
+fn lagrangian_gradient(
+    evaluator: &mut NlEvaluator,
+    x: &[f64],
+    objective_factor: f64,
+    lambda: &[f64],
+) -> Vec<f64> {
+    let mut gradient = evaluator.objective_gradient(x).unwrap();
+    for value in &mut gradient {
+        *value *= objective_factor;
+    }
+    let jacobian = evaluator.jacobian_values(x).unwrap();
+    for ((&row, &column), value) in evaluator
+        .problem()
+        .jacobian
+        .rows
+        .iter()
+        .zip(&evaluator.problem().jacobian.columns)
+        .zip(jacobian)
+    {
+        gradient[column as usize] += lambda[row as usize] * value;
+    }
+    gradient
 }
 
 #[test]
@@ -80,4 +115,115 @@ fn evaluates_values_and_derivatives_at_the_exported_start() {
     for (actual, expected) in hessian.iter().zip(expected) {
         assert_close(actual, &expected, 1.0e-13);
     }
+}
+
+#[test]
+fn finite_differences_validate_derivatives_at_multiple_points() {
+    let mut evaluator = NlEvaluator::from_nl_str(HS071).unwrap();
+    let points = [[1.2, 4.0, 3.5, 1.5], [2.0, 2.5, 3.0, 1.25]];
+    let step_sizes = [1.0e-4, 1.0e-5, 1.0e-6];
+
+    for point in points {
+        let exact_gradient = evaluator.objective_gradient(&point).unwrap();
+        let exact_jacobian = evaluator.jacobian_values(&point).unwrap();
+        let mut best_gradient_error = f64::INFINITY;
+        let mut best_jacobian_error = f64::INFINITY;
+
+        for step in step_sizes {
+            let mut fd_gradient = vec![0.0; point.len()];
+            let mut fd_jacobian = vec![0.0; exact_jacobian.len()];
+            for column in 0..point.len() {
+                let mut plus = point;
+                let mut minus = point;
+                plus[column] += step;
+                minus[column] -= step;
+                fd_gradient[column] = (evaluator.objective(&plus).unwrap()
+                    - evaluator.objective(&minus).unwrap())
+                    / (2.0 * step);
+                let g_plus = evaluator.constraints(&plus).unwrap();
+                let g_minus = evaluator.constraints(&minus).unwrap();
+                for (index, (&row, &entry_column)) in evaluator
+                    .problem()
+                    .jacobian
+                    .rows
+                    .iter()
+                    .zip(&evaluator.problem().jacobian.columns)
+                    .enumerate()
+                {
+                    if entry_column as usize == column {
+                        fd_jacobian[index] =
+                            (g_plus[row as usize] - g_minus[row as usize]) / (2.0 * step);
+                    }
+                }
+            }
+            best_gradient_error =
+                best_gradient_error.min(max_abs_difference(&fd_gradient, &exact_gradient));
+            best_jacobian_error =
+                best_jacobian_error.min(max_abs_difference(&fd_jacobian, &exact_jacobian));
+        }
+
+        assert!(
+            best_gradient_error <= 1.0e-7,
+            "gradient error {best_gradient_error}"
+        );
+        assert!(
+            best_jacobian_error <= 1.0e-7,
+            "Jacobian error {best_jacobian_error}"
+        );
+    }
+
+    let point = points[0];
+    let direction = [0.3, -0.7, 0.2, 0.5];
+    let objective_factor = 0.8;
+    let lambda = [0.4, -0.3];
+    let hessian_values = evaluator
+        .hessian_values(&point, objective_factor, &lambda)
+        .unwrap();
+    let hessian = dense_symmetric(&evaluator.problem().hessian, &hessian_values, point.len());
+    let exact_product: Vec<f64> = hessian
+        .iter()
+        .map(|row| row.iter().zip(direction).map(|(a, b)| a * b).sum())
+        .collect();
+    let mut best_hessian_error = f64::INFINITY;
+    for step in step_sizes {
+        let mut plus = point;
+        let mut minus = point;
+        for index in 0..point.len() {
+            plus[index] += step * direction[index];
+            minus[index] -= step * direction[index];
+        }
+        let plus_gradient = lagrangian_gradient(&mut evaluator, &plus, objective_factor, &lambda);
+        let minus_gradient = lagrangian_gradient(&mut evaluator, &minus, objective_factor, &lambda);
+        let finite_difference: Vec<f64> = plus_gradient
+            .iter()
+            .zip(minus_gradient)
+            .map(|(plus, minus)| (plus - minus) / (2.0 * step))
+            .collect();
+        best_hessian_error =
+            best_hessian_error.min(max_abs_difference(&finite_difference, &exact_product));
+    }
+    assert!(
+        best_hessian_error <= 1.0e-7,
+        "Hessian-vector error {best_hessian_error}"
+    );
+}
+
+#[test]
+fn pounce_solves_the_same_evaluator() {
+    let evaluator = NlEvaluator::from_nl_str(HS071).unwrap();
+    let tnlp = Rc::new(RefCell::new(evaluator.into_tnlp()));
+    let target = Rc::clone(&tnlp) as Rc<RefCell<dyn TNLP>>;
+
+    let mut application = IpoptApplication::new();
+    application
+        .initialize_with_options_str("print_level 0\ntol 1e-9\nmax_iter 100\n")
+        .unwrap();
+    let status = application.optimize_tnlp(target);
+
+    assert_eq!(status, ApplicationReturnStatus::SolveSucceeded);
+    let evaluator = tnlp.borrow();
+    let x = evaluator.final_x().unwrap();
+    assert!((evaluator.final_obj() - 17.014_017_145_179).abs() <= 1.0e-6);
+    assert!((x[0] - 1.0).abs() <= 1.0e-6);
+    assert!(application.statistics().final_declared_constr_viol <= 1.0e-6);
 }

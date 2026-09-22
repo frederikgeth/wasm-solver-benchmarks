@@ -1,0 +1,22 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      ipopt-wasm:
+        specifier: 0.2.0
+        version: 0.2.0
+
+packages:
+
+  ipopt-wasm@0.2.0:
+    resolution: {integrity: sha512-GvmC/wgpF3dud7pvpbB6h8z+cHB1Bd8LO7MzMEzwa5lQV+VtZKpIuAmnnBSWaC0KC3M5I9SgRTkhdr+WIRseZA==}
+
+snapshots:
+
+  ipopt-wasm@0.2.0: {}
