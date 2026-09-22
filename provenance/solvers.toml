@@ -1,0 +1,27 @@
+schema = "acopf-wasm-bench.provenance/v1"
+checked_at = "2026-09-22"
+
+[[source]]
+name = "POUNCE"
+url = "https://github.com/jkitchin/pounce"
+revision = "5a141d4f08349be668802830c7b7820a680ea9d0"
+version = "0.12.0"
+role = "NL parser, shared evaluator, and candidate solver"
+
+[[source]]
+name = "ipopt-wasm"
+url = "https://github.com/louisabraham/ipopt-wasm"
+revision = "6b5ee1bb23d3a77ed291193647e3fdbf262dfd08"
+role = "browser Ipopt/MUMPS candidate"
+
+[[source]]
+name = "PowerModels.jl"
+url = "https://github.com/lanl-ansi/PowerModels.jl"
+revision = "f8ef54f762502cfae7760ea6314c4683b18b1ec5"
+role = "AC OPF model and native reference path"
+
+[[source]]
+name = "JuMP.jl"
+url = "https://github.com/jump-dev/JuMP.jl"
+revision = "3d5bd2f9f1f00e3ed0b219d68da10fc681d7399c"
+role = "model construction and AMPL NL export"

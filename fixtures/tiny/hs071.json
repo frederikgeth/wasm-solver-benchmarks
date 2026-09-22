@@ -1,0 +1,12 @@
+{
+  "schema": "acopf-wasm-bench.fixture/v1",
+  "model": "HS071",
+  "generator": "julia/export_tiny_fixture.jl",
+  "sha256": "1f81f7e1e5cdcbb9bdf25b5f9ad35be87225a9f4ea6565859c0b4b542468a417",
+  "variables": ["x[1]", "x[2]", "x[3]", "x[4]"],
+  "constraints": [
+    {"name": "product_limit", "exported_expression": "x[1]*x[2]*x[3]*x[4] - 25", "lower": 0.0, "upper": "inf"},
+    {"name": "sphere", "exported_expression": "sum(x[i]^2 for i=1:4) - 40", "lower": 0.0, "upper": 0.0}
+  ],
+  "initial_point": [1.0, 5.0, 5.0, 1.0]
+}
