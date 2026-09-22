@@ -35,6 +35,21 @@ all six candidates at the `1e-6` p.u. gate. That independent evidence is in
 [`representative-scale-correctness.md`](representative-scale-correctness.md);
 the timing harness's raw-model checks also passed every attempt.
 
+## Larger-case robustness result
+
+The subsequent 6,468-bus `case6468_rte` probe changes the robustness picture.
+Ipopt wasm32 and Ipopt Memory64 both return the native-reference local solution,
+and the wasm32 result passes the independent physical validator. POUNCE returns
+`RestorationFailed` after 54 iterations; its candidate has 19.36 p.u. active
+balance error and a 530.50 p.u. branch-equation residual. This is a numerical
+failure, not an out-of-memory event or evidence that the AC OPF is infeasible.
+
+Across the complete AC fixture ladder, browser Ipopt therefore has seven
+independently feasible results from seven cases. Browser POUNCE has six from
+seven, with the failure occurring on the largest case. The exact scale record
+and failure-inclusive result are documented in
+[`rte-scale-memory.md`](rte-scale-memory.md).
+
 ## Deployment tradeoffs
 
 The POUNCE Wasm artifact is 3,766,536 bytes. The ipopt-wasm module plus the
@@ -42,15 +57,26 @@ separate NL evaluator total 4,545,683 bytes, so POUNCE's uncompressed Wasm
 payload is 17.1% smaller. Compression and JavaScript package overhead were not
 measured.
 
-The recorded post-solve POUNCE linear memories are 9.2, 18.1, and 80.4 MB for
+The representative-scale POUNCE linear memories are 9.2, 18.1, and 80.4 MB for
 the three cases. The Ipopt path's separate evaluator memories are 5.2, 10.1,
 and 45.9 MB, but the public ipopt-wasm wrapper does not expose the solver's own
 memory. These are memory capacities, not peak live allocations or browser RSS,
 so they do not support a solver-memory ranking.
 
 The later 6,468-bus scale probe adds benchmark-local read-only instrumentation
-to expose Ipopt's memory capacity. The historical representative JSON remains
-unchanged and retains `null` for that field.
+to expose Ipopt's memory capacity. Ipopt wasm32 uses 622.75 MiB for the solver
+and 193.88 MiB in the separate evaluator; POUNCE reaches 337.19 MiB before its
+numerical failure. Because the POUNCE observation is not a successful solve,
+these numbers still do not establish a like-for-like memory winner. The
+historical representative JSON remains unchanged and retains `null` for
+Ipopt's solver-memory field.
+
+The default Ipopt module is wasm32. Its generated wrapper imposes a 2 GiB heap
+cap despite wasm32's nominal 4 GiB address space. The package's Memory64 module
+solves case6468 but its shipped wrapper currently retains the same 2 GiB cap.
+Measured scaling suggests a conservative transition range around
+100,000–120,000 variables, or roughly 13,000–16,000 similarly structured
+buses, until that Memory64 configuration is fixed and verified.
 
 POUNCE has the simpler project-owned build and execution shape: one Rust/WASI
 module parses NL and calls the solver directly. The Ipopt product path uses a
@@ -63,16 +89,21 @@ MUMPS and its CeCILL-C obligations. Distribution review remains mandatory.
 
 For the first balanced AC OPF integration spike, use **ipopt-wasm as the
 leading backend** and retain POUNCE behind the same regression fixtures as the
-challenger. Both achieved a 100% independently feasible solve rate, so the
-next priority is runtime: Ipopt wins two of the three representative
-end-to-end cases and has the material advantage at the largest tested scale.
+challenger. Robust independently feasible solve rate is the first decision
+criterion: Ipopt is 7/7 across the complete ladder, while POUNCE is 6/7 and
+fails on the largest case. Runtime reinforces that choice—Ipopt wins two of
+the three repeated representative comparisons and has the material advantage
+at 1,354 buses. The successful 6,468-bus Ipopt solve extends the evidence that
+it is currently the safer scale path.
 
 This is a provisional integration ranking, not a production selection.
 Before a broad-browser or distribution decision, verify the leading result in
 Firefox and WebKit, reproduce or otherwise harden the ipopt-wasm artifact
-supply chain, obtain comparable peak-memory measurements, and add seeded
-alternative starts plus stressed/congested cases. The later unbalanced
-four-wire study remains a separate formulation experiment.
+supply chain, fix and verify the Memory64 heap configuration, obtain comparable
+peak-memory measurements, and add seeded alternative starts plus
+stressed/congested cases. POUNCE's case6468 restoration failure should be
+diagnosed before reconsidering it for the lead. The later unbalanced four-wire
+study remains a separate formulation experiment.
 
 The single cold run per pair is retained in the JSON as a startup diagnostic,
 including browser launch and full page-driver elapsed time. It is not used to

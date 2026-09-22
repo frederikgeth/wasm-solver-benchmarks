@@ -25,10 +25,13 @@ memory boundary.
   fixtures through 1,354 buses are included with mappings and interface tests.
 - Native and browser POUNCE plus browser Ipopt/MUMPS solve the same frozen
   models to the same local solutions across both correctness ladders.
-- Every browser-solver candidate passes explicit AC branch-flow, bus-balance,
-  DC-loss, limit, bound, reference-angle, and objective checks reconstructed
-  from the original MATPOWER case. This validator does not call the shared
-  `.nl` evaluator.
+- On the additional 6,468-bus RTE scale case, browser Ipopt remains successful
+  and independently feasible while POUNCE returns `RestorationFailed` with an
+  infeasible candidate.
+- Every successful browser-solver candidate in the two correctness ladders
+  passes explicit AC branch-flow, bus-balance, DC-loss, limit, bound,
+  reference-angle, and objective checks reconstructed from the original
+  MATPOWER case. This validator does not call the shared `.nl` evaluator.
 - The dedicated worker path has been exercised in a real browser. Single-run
   smoke timings remain diagnostic and are not benchmark evidence.
 - A reproducible installed-browser harness now separates cold browser runs,
