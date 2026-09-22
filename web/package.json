@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "serve": "node dev-server.mjs",
+    "benchmark:browser": "node benchmark/run-browser-benchmark.mjs",
     "test:hs071": "node test/ipopt-smoke.mjs",
     "test:case3": "ACOPF_CASE=case3 node test/acopf-ipopt-smoke.mjs",
     "test:case14": "ACOPF_CASE=case14 node test/acopf-ipopt-smoke.mjs",
@@ -24,5 +25,8 @@
   },
   "dependencies": {
     "ipopt-wasm": "0.2.0"
+  },
+  "devDependencies": {
+    "playwright-core": "1.62.1"
   }
 }

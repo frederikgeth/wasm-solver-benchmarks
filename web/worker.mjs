@@ -8,6 +8,7 @@ const smokeCases = {
     objective: 17.014017145179,
     objectiveTolerance: 1e-6,
     rawConstraintTolerance: 1e-6,
+    modelSha256: null,
     maxIterations: 100,
   },
 };
@@ -37,6 +38,7 @@ async function resolveSmokeCase(caseName) {
     objective: reference.objective,
     objectiveTolerance: Math.max(1e-3, Math.abs(reference.objective) * 1e-5),
     rawConstraintTolerance: 1e-5,
+    modelSha256: mapping.artifacts.nl_sha256,
     maxIterations: 1000,
   };
 }
@@ -97,6 +99,7 @@ async function runIpopt(smokeCase, totalStart) {
       backend: "ipopt-wasm",
       environment: "browser-worker",
       case: smokeCase.label,
+      model_sha256: smokeCase.modelSha256,
       passed,
       status: result.status,
       objective: result.objective,
@@ -105,6 +108,10 @@ async function runIpopt(smokeCase, totalStart) {
       max_constraint_violation: maxConstraintViolation,
       max_bound_violation: maxBoundViolation,
       raw_constraint_tolerance: smokeCase.rawConstraintTolerance,
+      wasm_linear_memory_bytes: {
+        evaluator: evaluator.memoryBytes(),
+        ipopt_wasm: null,
+      },
       dimensions: {
         variables: evaluator.problem.n,
         constraints: evaluator.problem.m,
@@ -120,6 +127,12 @@ async function runIpopt(smokeCase, totalStart) {
         evaluator_and_solver_preparation: prepareMilliseconds,
         optimization: solveMilliseconds,
         total: performance.now() - totalStart,
+      },
+      options: {
+        print_level: 0,
+        tol: 1e-9,
+        max_iter: smokeCase.maxIterations,
+        linear_solver: "mumps",
       },
     };
   } finally {
@@ -166,6 +179,7 @@ async function runPounce(smokeCase, totalStart) {
     backend: "pounce-wasm",
     environment: "browser-worker",
     case: smokeCase.label,
+    model_sha256: smokeCase.modelSha256,
     passed,
     status: result.status_code,
     raw_status: result.status,
@@ -175,6 +189,9 @@ async function runPounce(smokeCase, totalStart) {
     max_constraint_violation: result.constraint_violation,
     raw_constraint_tolerance: smokeCase.rawConstraintTolerance,
     solution_transport: result.preview_truncated ? "full CSV export" : "solve JSON",
+    wasm_linear_memory_bytes: {
+      pounce_wasm: runner.memoryBytes(),
+    },
     iterations: result.iterations,
     restoration_calls: result.restoration_calls,
     evaluations: result.evals,
@@ -194,6 +211,12 @@ async function runPounce(smokeCase, totalStart) {
       optimization: solveMilliseconds,
       solver_reported_optimization: result.wall_time_secs * 1000,
       total: performance.now() - totalStart,
+    },
+    options: {
+      print_level: 0,
+      tol: 1e-9,
+      max_iter: smokeCase.maxIterations,
+      presolve: false,
     },
   };
 }

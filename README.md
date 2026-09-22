@@ -29,6 +29,9 @@ correctness path to PGLib-OPF 118-, 300-, and 1,354-bus cases.
   `.nl` evaluator.
 - The dedicated worker path has been exercised in a real browser. Single-run
   smoke timings remain diagnostic and are not benchmark evidence.
+- A reproducible installed-browser harness now separates cold browser runs,
+  unmeasured warm-ups, and seeded fresh-worker repetitions while retaining
+  every failure in the denominator.
 
 Run the current proof with:
 
@@ -51,6 +54,13 @@ Run the equivalent 118-, 300-, and 1,354-bus correctness ladder with:
 
 ```sh
 ./scripts/run-representative-correctness.sh
+```
+
+Run the representative timing matrix in installed Chrome with:
+
+```sh
+./scripts/run-browser-benchmark.sh \
+  --output results/benchmarks/chrome-m4max-2026-09-22.json
 ```
 
 For the real-browser worker harness, start `pnpm serve` in `web/` and open
@@ -77,6 +87,8 @@ correctness result. The complete small-case result is in
 [`docs/small-case-correctness.md`](docs/small-case-correctness.md). The
 representative-scale result is in
 [`docs/representative-scale-correctness.md`](docs/representative-scale-correctness.md).
+The timing definitions and reproducibility controls are documented in
+[`docs/browser-benchmark-protocol.md`](docs/browser-benchmark-protocol.md).
 The non-MIT solver boundary is summarized in
 [`docs/solver-licenses.md`](docs/solver-licenses.md).
 

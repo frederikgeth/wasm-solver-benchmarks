@@ -97,6 +97,9 @@ export async function createPounceRunner(wasmBytes, onOutput = () => {}) {
   }
 
   return {
+    memoryBytes() {
+      return wasm.memory.buffer.byteLength;
+    },
     load(nl, col = "", row = "") {
       return invokeJson(wasm.acopf_pounce_load, [nl, col, row]);
     },

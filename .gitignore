@@ -1,4 +1,5 @@
 /.julia-depot/
+/.pnpm-store/
 /target/
 /web/node_modules/
 *.sol

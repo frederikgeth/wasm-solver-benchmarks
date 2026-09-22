@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AC OPF WASM browser benchmark</title>
+    <style>
+      :root { color-scheme: light dark; font-family: ui-monospace, SFMono-Regular, monospace; }
+      body { margin: 2rem auto; max-width: 72rem; padding: 0 1rem; }
+      pre { border: 1px solid #8886; border-radius: 0.4rem; min-height: 16rem; padding: 1rem; overflow: auto; }
+      [data-state="complete"] { color: #16803a; }
+      [data-state="failed"] { color: #b42318; }
+    </style>
+  </head>
+  <body>
+    <h1>AC OPF WASM browser benchmark</h1>
+    <p>Fresh workers run one at a time. The driver controls seeded ordering, repetitions, and browser lifecycle.</p>
+    <p id="status">Preparing…</p>
+    <pre id="output" aria-live="polite"></pre>
+    <script type="module" src="./benchmark.mjs"></script>
+  </body>
+</html>

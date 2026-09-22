@@ -11,12 +11,23 @@ importers:
       ipopt-wasm:
         specifier: 0.2.0
         version: 0.2.0
+    devDependencies:
+      playwright-core:
+        specifier: 1.62.1
+        version: 1.62.1
 
 packages:
 
   ipopt-wasm@0.2.0:
     resolution: {integrity: sha512-GvmC/wgpF3dud7pvpbB6h8z+cHB1Bd8LO7MzMEzwa5lQV+VtZKpIuAmnnBSWaC0KC3M5I9SgRTkhdr+WIRseZA==}
 
+  playwright-core@1.62.1:
+    resolution: {integrity: sha512-wPYSwEBJY9GHraISXqyqtx0na0LpO3XEX7jNDhntbex7tzUS7kLnZsOlFruFJB4Hi/rhDMjXGqHewDZ68nYZVw==}
+    engines: {node: '>=20'}
+    hasBin: true
+
 snapshots:
 
   ipopt-wasm@0.2.0: {}
+
+  playwright-core@1.62.1: {}

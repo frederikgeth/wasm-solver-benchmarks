@@ -141,9 +141,11 @@ export async function createNlEvaluator(wasmBytes, nlBytes) {
 
   return {
     problem,
+    memoryBytes() {
+      return api.memory.buffer.byteLength;
+    },
     dispose() {
       for (const [pointer, bytes] of allocations.splice(0)) api.acopf_free(pointer, bytes);
     },
   };
 }
-
