@@ -89,6 +89,8 @@ representative-scale result is in
 [`docs/representative-scale-correctness.md`](docs/representative-scale-correctness.md).
 The timing definitions and reproducibility controls are documented in
 [`docs/browser-benchmark-protocol.md`](docs/browser-benchmark-protocol.md).
+The first installed-Chrome result and recommendation are in
+[`docs/browser-benchmark-results.md`](docs/browser-benchmark-results.md).
 The non-MIT solver boundary is summarized in
 [`docs/solver-licenses.md`](docs/solver-licenses.md).
 

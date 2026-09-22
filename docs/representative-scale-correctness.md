@@ -51,9 +51,10 @@ dimensions before source-data validation.
 
 Both backends were exercised for all three cases in dedicated workers in the
 in-app Chromium browser. The one-off timings were used only to confirm the
-worker path and are not retained as performance evidence. A timed comparison
-still requires randomized repeated runs, host/browser metadata, timeouts, and
-failure-inclusive summaries.
+worker path and are not retained as performance evidence. The subsequent
+installed-Chrome comparison uses randomized repeated runs, host/browser
+metadata, timeouts, and failure-inclusive summaries; see
+[`browser-benchmark-results.md`](browser-benchmark-results.md).
 
 Rebuild both WASM paths, reproduce all six candidates, and run their independent
 checks with:
