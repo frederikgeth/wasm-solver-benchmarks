@@ -8,7 +8,8 @@ The first milestone proved that one AMPL `.nl` model exported by JuMP can be
 parsed by POUNCE's evaluator and used to supply the callback contract expected
 by `ipopt-wasm`. The second milestone carries the same path through frozen
 PowerModels 3-, 14-, and 30-bus AC OPFs and validates every solution
-independently from the shared evaluator.
+independently from the shared evaluator. The third milestone extends that
+correctness path to PGLib-OPF 118-, 300-, and 1,354-bus cases.
 
 ## Current status
 
@@ -18,10 +19,10 @@ independently from the shared evaluator.
 - The evaluator reports zero-based sparse indices, matching `ipopt-wasm`.
 - `ipopt-wasm` requires exactly those callbacks and a lower-triangular
   Hessian. It does not parse `.nl` itself.
-- JuMP-exported HS071 and PowerModels 3-, 14-, and 30-bus AC OPF fixtures,
-  mappings, and numerical interface tests are included.
+- JuMP-exported HS071, PowerModels small AC OPFs, and representative PGLib-OPF
+  fixtures through 1,354 buses are included with mappings and interface tests.
 - Native and browser POUNCE plus browser Ipopt/MUMPS solve the same frozen
-  models to the same local solutions across the small-case ladder.
+  models to the same local solutions across both correctness ladders.
 - Every browser-solver candidate passes explicit AC branch-flow, bus-balance,
   DC-loss, limit, bound, reference-angle, and objective checks reconstructed
   from the original MATPOWER case. This validator does not call the shared
@@ -46,6 +47,12 @@ validate them with:
 ./scripts/run-small-case-correctness.sh
 ```
 
+Run the equivalent 118-, 300-, and 1,354-bus correctness ladder with:
+
+```sh
+./scripts/run-representative-correctness.sh
+```
+
 For the real-browser worker harness, start `pnpm serve` in `web/` and open
 `http://127.0.0.1:4173/?autorun=1&case=case3&backend=ipopt-wasm` or replace
 the backend with `pounce-wasm`. Cancellation terminates the worker, which is
@@ -67,8 +74,10 @@ See [`docs/nl-evaluator-feasibility.md`](docs/nl-evaluator-feasibility.md) for
 the verified compatibility boundary and
 [`docs/case3-acopf.md`](docs/case3-acopf.md) for the first power-system
 correctness result. The complete small-case result is in
-[`docs/small-case-correctness.md`](docs/small-case-correctness.md). The non-MIT
-solver boundary is summarized in
+[`docs/small-case-correctness.md`](docs/small-case-correctness.md). The
+representative-scale result is in
+[`docs/representative-scale-correctness.md`](docs/representative-scale-correctness.md).
+The non-MIT solver boundary is summarized in
 [`docs/solver-licenses.md`](docs/solver-licenses.md).
 
 ## Intended layout
@@ -76,7 +85,7 @@ solver boundary is summarized in
 ```text
 julia/       pinned reference-model generation and validation
 crates/      shared evaluator and native/WASM adapters
-web/         minimal browser runner and workers (next milestone)
+web/         minimal browser runner and workers
 fixtures/    frozen models, mappings, and provenance
 scripts/     repeatable generation and benchmark commands
 results/     machine-readable benchmark records

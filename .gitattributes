@@ -1,2 +1,3 @@
 # Preserve upstream MATPOWER fixtures byte-for-byte, including source whitespace.
 fixtures/cases/*.m -whitespace
+fixtures/cases/LICENSE.PGLib-OPF -whitespace

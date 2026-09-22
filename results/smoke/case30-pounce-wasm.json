@@ -601,6 +601,8 @@
     0.10023485591902567
   ],
   "max_constraint_violation": 7.66053886991358e-15,
+  "raw_constraint_tolerance": 0.00001,
+  "solution_transport": "solve JSON",
   "iterations": 18,
   "restoration_calls": 0,
   "evaluations": {

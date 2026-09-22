@@ -74,6 +74,7 @@
   ],
   "max_constraint_violation": 9.99987681549186e-9,
   "max_bound_violation": 1.0998629340619459e-8,
+  "raw_constraint_tolerance": 0.00001,
   "dimensions": {
     "variables": 28,
     "constraints": 29,

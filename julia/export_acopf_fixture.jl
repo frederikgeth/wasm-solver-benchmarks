@@ -99,6 +99,8 @@ function export_acopf_fixture(
     output_directory::String,
     artifact_stem::String,
     case_label::String,
+    upstream_path::String,
+    upstream_revision::String,
 )
     mkpath(output_directory)
     data = PowerModels.parse_file(case_path)
@@ -122,8 +124,8 @@ function export_acopf_fixture(
         "source_case" => Dict(
             "path" => "fixtures/cases/$(basename(case_path))",
             "sha256" => bytes2hex(sha256(read(case_path))),
-            "upstream" => "PowerModels.jl/test/data/matpower/$(basename(case_path))",
-            "upstream_revision" => "f8ef54f762502cfae7760ea6314c4683b18b1ec5",
+            "upstream" => upstream_path,
+            "upstream_revision" => upstream_revision,
         ),
         "generator" => "julia/export_acopf_fixture.jl",
         "versions" => Dict(
@@ -173,7 +175,16 @@ if abspath(PROGRAM_FILE) == @__FILE__
     output_directory = length(ARGS) >= 2 ? abspath(ARGS[2]) : joinpath(root, "fixtures", "acopf", case_name)
     artifact_stem = length(ARGS) >= 3 ? ARGS[3] : "$case_name-acopf"
     case_label = length(ARGS) >= 4 ? ARGS[4] : "PowerModels $case_name"
-    reference = export_acopf_fixture(case_path, output_directory, artifact_stem, case_label)
+    upstream_path = length(ARGS) >= 5 ? ARGS[5] : "local fixture $(basename(case_path))"
+    upstream_revision = length(ARGS) >= 6 ? ARGS[6] : "unrecorded"
+    reference = export_acopf_fixture(
+        case_path,
+        output_directory,
+        artifact_stem,
+        case_label,
+        upstream_path,
+        upstream_revision,
+    )
     println(JSON.json(Dict(
         "output_directory" => output_directory,
         "termination_status" => reference["termination_status"],

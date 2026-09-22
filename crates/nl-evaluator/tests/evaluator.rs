@@ -1,6 +1,8 @@
 use acopf_nl_evaluator::{NlEvaluator, SparseStructure};
 use pounce_rs::prelude::{ApplicationReturnStatus, IpoptApplication, TNLP};
 use std::cell::RefCell;
+use std::fs;
+use std::path::Path;
 use std::rc::Rc;
 
 const HS071: &str = include_str!("../../../fixtures/tiny/hs071.nl");
@@ -278,14 +280,18 @@ fn assert_evaluates_and_solves_power_models_acopf(
     let target = Rc::clone(&tnlp) as Rc<RefCell<dyn TNLP>>;
     let mut application = IpoptApplication::new();
     application
-        .initialize_with_options_str("print_level 0\ntol 1e-9\nmax_iter 1000\n")
+        .initialize_with_options_str("print_level 0\ntol 1e-9\nmax_iter 1000\npresolve no\n")
         .unwrap();
     let status = application.optimize_tnlp(target);
 
     assert_eq!(status, ApplicationReturnStatus::SolveSucceeded);
     let evaluator = tnlp.borrow();
     assert!((evaluator.final_obj() - expected_objective).abs() <= 1.0e-3);
-    assert!(application.statistics().final_declared_constr_viol <= 1.0e-6);
+    let raw_constraint_violation = application.statistics().final_declared_constr_viol;
+    assert!(
+        raw_constraint_violation <= 1.0e-5,
+        "raw NL constraint violation {raw_constraint_violation}"
+    );
 }
 
 #[test]
@@ -313,4 +319,35 @@ fn evaluates_and_solves_power_models_case30_acopf() {
         (236, 348, 1_245, 418),
         204.968_350_791_294_82,
     );
+}
+
+#[test]
+fn evaluates_and_solves_representative_pglib_acopf_cases() {
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let cases = [
+        (
+            "case118",
+            (1_088, 1_532, 5_689, 1_814),
+            97_213.606_923_401_79,
+        ),
+        (
+            "case300",
+            (2_382, 3_476, 12_496, 4_180),
+            565_219.971_834_125,
+        ),
+        (
+            "case1354",
+            (11_192, 16_365, 60_771, 18_866),
+            1_258_843.984_980_309_6,
+        ),
+    ];
+
+    for (case_name, dimensions, expected_objective) in cases {
+        let nl_path = root
+            .join("fixtures/acopf")
+            .join(case_name)
+            .join(format!("{case_name}-acopf.nl"));
+        let nl = fs::read_to_string(nl_path).unwrap();
+        assert_evaluates_and_solves_power_models_acopf(&nl, dimensions, expected_objective);
+    }
 }

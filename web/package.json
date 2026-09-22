@@ -12,8 +12,15 @@
     "test:pounce:case3": "ACOPF_CASE=case3 node test/acopf-pounce-smoke.mjs",
     "test:pounce:case14": "ACOPF_CASE=case14 node test/acopf-pounce-smoke.mjs",
     "test:pounce:case30": "ACOPF_CASE=case30 node test/acopf-pounce-smoke.mjs",
+    "test:case118": "ACOPF_CASE=case118 node test/acopf-ipopt-smoke.mjs",
+    "test:pounce:case118": "ACOPF_CASE=case118 node test/acopf-pounce-smoke.mjs",
+    "test:case300": "ACOPF_CASE=case300 node test/acopf-ipopt-smoke.mjs",
+    "test:pounce:case300": "ACOPF_CASE=case300 node test/acopf-pounce-smoke.mjs",
+    "test:case1354": "ACOPF_CASE=case1354 node test/acopf-ipopt-smoke.mjs",
+    "test:pounce:case1354": "ACOPF_CASE=case1354 node test/acopf-pounce-smoke.mjs",
     "test:solver-smoke": "pnpm run test:ipopt-smoke && pnpm run test:pounce:case3",
-    "test:small-cases": "pnpm run test:case3 && pnpm run test:pounce:case3 && pnpm run test:case14 && pnpm run test:pounce:case14 && pnpm run test:case30 && pnpm run test:pounce:case30"
+    "test:small-cases": "pnpm run test:case3 && pnpm run test:pounce:case3 && pnpm run test:case14 && pnpm run test:pounce:case14 && pnpm run test:case30 && pnpm run test:pounce:case30",
+    "test:representative-cases": "pnpm run test:case118 && pnpm run test:pounce:case118 && pnpm run test:case300 && pnpm run test:pounce:case300 && pnpm run test:case1354 && pnpm run test:pounce:case1354"
   },
   "dependencies": {
     "ipopt-wasm": "0.2.0"

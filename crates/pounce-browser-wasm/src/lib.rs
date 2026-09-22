@@ -42,3 +42,9 @@ pub unsafe extern "C" fn acopf_pounce_load(
 pub unsafe extern "C" fn acopf_pounce_solve(options_ptr: *const u8, options_len: usize) -> *mut u8 {
     unsafe { pounce_wasm::pounce_solve(options_ptr, options_len) }
 }
+
+/// Return every primal and constraint value from the last solve as CSV.
+#[unsafe(no_mangle)]
+pub extern "C" fn acopf_pounce_solution_csv() -> *mut u8 {
+    pounce_wasm::pounce_solution_csv()
+}

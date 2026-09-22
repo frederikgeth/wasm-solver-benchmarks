@@ -7,41 +7,38 @@ const smokeCases = {
     nl: "/fixtures/tiny/hs071.nl",
     objective: 17.014017145179,
     objectiveTolerance: 1e-6,
+    rawConstraintTolerance: 1e-6,
     maxIterations: 100,
-  },
-  case3: {
-    label: "PowerModels case3 AC OPF",
-    nl: "/fixtures/acopf/case3/case3-acopf.nl",
-    col: "/fixtures/acopf/case3/case3-acopf.col",
-    row: "/fixtures/acopf/case3/case3-acopf.row",
-    objective: 5906.879416645711,
-    objectiveTolerance: 1e-3,
-    maxIterations: 1000,
-  },
-  case14: {
-    label: "PowerModels case14",
-    nl: "/fixtures/acopf/case14/case14-acopf.nl",
-    col: "/fixtures/acopf/case14/case14-acopf.col",
-    row: "/fixtures/acopf/case14/case14-acopf.row",
-    objective: 8081.52473483399,
-    objectiveTolerance: 0.1,
-    maxIterations: 1000,
-  },
-  case30: {
-    label: "PowerModels case30",
-    nl: "/fixtures/acopf/case30/case30-acopf.nl",
-    col: "/fixtures/acopf/case30/case30-acopf.col",
-    row: "/fixtures/acopf/case30/case30-acopf.row",
-    objective: 204.96835079129482,
-    objectiveTolerance: 1e-3,
-    maxIterations: 1000,
   },
 };
 
 async function fetchAsset(url, format = "bytes") {
   const response = await fetch(url);
   if (!response.ok) throw new Error(`asset load failed: ${url} (${response.status})`);
-  return format === "text" ? response.text() : response.arrayBuffer();
+  if (format === "text") return response.text();
+  if (format === "json") return response.json();
+  return response.arrayBuffer();
+}
+
+async function resolveSmokeCase(caseName) {
+  if (smokeCases[caseName]) return smokeCases[caseName];
+  if (!/^case[0-9]+$/.test(caseName)) throw new Error(`unknown smoke case ${caseName}`);
+
+  const base = `/fixtures/acopf/${caseName}/${caseName}-acopf`;
+  const [mapping, reference] = await Promise.all([
+    fetchAsset(`${base}.mapping.json`, "json"),
+    fetchAsset(`${base}.reference.json`, "json"),
+  ]);
+  return {
+    label: mapping.case,
+    nl: `${base}.nl`,
+    col: `${base}.col`,
+    row: `${base}.row`,
+    objective: reference.objective,
+    objectiveTolerance: Math.max(1e-3, Math.abs(reference.objective) * 1e-5),
+    rawConstraintTolerance: 1e-5,
+    maxIterations: 1000,
+  };
 }
 
 async function runIpopt(smokeCase, totalStart) {
@@ -72,22 +69,26 @@ async function runIpopt(smokeCase, totalStart) {
     });
     const solveMilliseconds = performance.now() - solveStart;
 
-    const maxConstraintViolation = Math.max(...result.constraints.map((value, row) => {
-      return Math.max(
+    let maxConstraintViolation = 0;
+    for (let row = 0; row < result.constraints.length; row += 1) {
+      const value = result.constraints[row];
+      maxConstraintViolation = Math.max(maxConstraintViolation,
         evaluator.problem.gl[row] - value,
         value - evaluator.problem.gu[row],
         0,
       );
-    }), 0);
-    const maxBoundViolation = Math.max(...result.x.map((value, column) => {
-      return Math.max(
+    }
+    let maxBoundViolation = 0;
+    for (let column = 0; column < result.x.length; column += 1) {
+      const value = result.x[column];
+      maxBoundViolation = Math.max(maxBoundViolation,
         evaluator.problem.xl[column] - value,
         value - evaluator.problem.xu[column],
         0,
       );
-    }), 0);
+    }
     const passed = result.status === 0
-      && maxConstraintViolation <= 1e-6
+      && maxConstraintViolation <= smokeCase.rawConstraintTolerance
       && maxBoundViolation <= 1e-6
       && Math.abs(result.objective - smokeCase.objective) <= smokeCase.objectiveTolerance;
 
@@ -103,6 +104,7 @@ async function runIpopt(smokeCase, totalStart) {
       constraints: Array.from(result.constraints),
       max_constraint_violation: maxConstraintViolation,
       max_bound_violation: maxBoundViolation,
+      raw_constraint_tolerance: smokeCase.rawConstraintTolerance,
       dimensions: {
         variables: evaluator.problem.n,
         constraints: evaluator.problem.m,
@@ -154,7 +156,9 @@ async function runPounce(smokeCase, totalStart) {
   const solveMilliseconds = performance.now() - solveStart;
   const passed = result.success
     && result.status_code === 0
-    && result.constraint_violation <= 1e-6
+    && result.x.length === summary.n_vars
+    && result.g.length === summary.n_cons
+    && result.constraint_violation <= smokeCase.rawConstraintTolerance
     && Math.abs(result.objective - smokeCase.objective) <= smokeCase.objectiveTolerance;
 
   return {
@@ -169,6 +173,8 @@ async function runPounce(smokeCase, totalStart) {
     x: result.x,
     constraints: result.g,
     max_constraint_violation: result.constraint_violation,
+    raw_constraint_tolerance: smokeCase.rawConstraintTolerance,
+    solution_transport: result.preview_truncated ? "full CSV export" : "solve JSON",
     iterations: result.iterations,
     restoration_calls: result.restoration_calls,
     evaluations: result.evals,
@@ -197,8 +203,7 @@ self.onmessage = async ({ data }) => {
 
   const totalStart = performance.now();
   try {
-    const smokeCase = smokeCases[data.case ?? "hs071"];
-    if (!smokeCase) throw new Error(`unknown smoke case ${data.case}`);
+    const smokeCase = await resolveSmokeCase(data.case ?? "hs071");
     const backend = data.backend ?? "ipopt-wasm";
     let result;
     if (backend === "ipopt-wasm") {

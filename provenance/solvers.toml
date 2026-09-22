@@ -25,3 +25,10 @@ name = "JuMP.jl"
 url = "https://github.com/jump-dev/JuMP.jl"
 revision = "3d5bd2f9f1f00e3ed0b219d68da10fc681d7399c"
 role = "model construction and AMPL NL export"
+
+[[source]]
+name = "PGLib-OPF"
+url = "https://github.com/power-grid-lib/pglib-opf"
+revision = "v23.07"
+artifact_tree = "0e8968a89b6ad43910a8eda4ec30656add35cf91"
+role = "representative-scale AC OPF source cases"

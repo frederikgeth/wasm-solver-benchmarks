@@ -18,6 +18,10 @@ const mapping = JSON.parse(await readFile(`${fixture}.mapping.json`, "utf8"));
 const reference = JSON.parse(await readFile(`${fixture}.reference.json`, "utf8"));
 const runner = await createPounceRunner(wasm);
 const summary = runner.load(nl, col, row);
+// NL rows include differently scaled quantities (for example squared MVA).
+// This is a gross callback regression guard; the source-data validator owns
+// the normalized 1e-6 p.u. feasibility gate.
+const rawConstraintTolerance = 1e-5;
 
 assert.equal(summary.n_vars, mapping.dimensions.variables);
 assert.equal(summary.n_cons, mapping.dimensions.constraints);
@@ -30,6 +34,8 @@ const result = runner.solve([
   "presolve no",
   "",
 ].join("\n"));
+assert.equal(result.x.length, summary.n_vars);
+assert.equal(result.g.length, summary.n_cons);
 const report = {
   schema: "acopf-wasm-bench.solver-result/v1",
   backend: "pounce-wasm",
@@ -47,6 +53,8 @@ const report = {
   x: result.x,
   constraints: result.g,
   max_constraint_violation: result.constraint_violation,
+  raw_constraint_tolerance: rawConstraintTolerance,
+  solution_transport: result.preview_truncated ? "full CSV export" : "solve JSON",
   iterations: result.iterations,
   restoration_calls: result.restoration_calls,
   evaluations: result.evals,
@@ -74,4 +82,4 @@ if (process.env.ACOPF_RESULT_PATH) {
 assert.equal(result.success, true, `POUNCE returned ${result.status}`);
 assert.equal(result.status_code, 0, `POUNCE returned ${result.status}`);
 assert.ok(Math.abs(result.objective - reference.objective) <= Math.max(1e-3, Math.abs(reference.objective) * 1e-5));
-assert.ok(result.constraint_violation <= 1e-6);
+assert.ok(result.constraint_violation <= rawConstraintTolerance);
