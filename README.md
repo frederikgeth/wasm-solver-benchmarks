@@ -37,6 +37,8 @@ memory boundary.
 - A reproducible installed-browser harness now separates cold browser runs,
   unmeasured warm-ups, and seeded fresh-worker repetitions while retaining
   every failure in the denominator.
+- A matching single-threaded native PowerModels/Ipopt-MUMPS harness records
+  seven-run solver, optimization-call, and fresh-model construction timings.
 - The installed package's default Ipopt entry point is wasm32. Its nominal
   address space is 4 GiB, but the generated Emscripten wrapper currently caps
   heap growth at 2 GiB. The package's Memory64 entry point is available as an
@@ -71,6 +73,16 @@ Run the representative timing matrix in installed Chrome with:
 ```sh
 ./scripts/run-browser-benchmark.sh \
   --output results/benchmarks/chrome-m4max-2026-09-22.json
+```
+
+Run the native PowerModels/Ipopt-MUMPS timing baseline, including the RTE
+case, with:
+
+```sh
+./scripts/run-native-benchmark.sh \
+  --output results/benchmarks/native-powermodels-m4max-2026-09-22.json \
+  --cases case118,case300,case1354,case6468 \
+  --runs 7 --warmups 1
 ```
 
 For the real-browser worker harness, start `pnpm serve` in `web/` and open

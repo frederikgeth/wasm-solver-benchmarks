@@ -73,3 +73,23 @@ in [`representative-scale-correctness.md`](representative-scale-correctness.md).
 The timing harness performs a lighter raw-model and objective guard on every
 run. It does not claim a cross-solver stationarity comparison because the two
 browser adapters do not yet expose a compatible complete multiplier vector.
+
+## Native PowerModels baseline
+
+Run the native comparison with:
+
+```sh
+./scripts/run-native-benchmark.sh \
+  --output results/benchmarks/native-powermodels-m4max-2026-09-22.json \
+  --cases case118,case300,case1354,case6468 \
+  --runs 7 --warmups 1
+```
+
+The wrapper fixes Julia and OpenBLAS to one thread. Every measured run builds
+a fresh `ACPPowerModel`; MATPOWER parsing occurs once per case before the
+measurements. The report separates PowerModels construction, the wall time
+around `PowerModels.optimize_model!`, and Ipopt's `SolveTimeSec`. The last is
+the closest scope to browser `optimization_ms`, but it is not an evaluator-
+isolated algorithm comparison: native uses JuMP/Julia evaluation while the
+browser uses the frozen NL model through the Rust/Wasm evaluator and
+JavaScript callback bridge.

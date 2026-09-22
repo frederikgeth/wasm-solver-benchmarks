@@ -1,0 +1,766 @@
+{
+  "created_at": "2026-09-22T10:52:21.268",
+  "host": {
+    "architecture": "aarch64",
+    "cpu_model": "Apple M4 Max",
+    "kernel": "Darwin",
+    "logical_processors": 12,
+    "total_memory_bytes": 51539607552
+  },
+  "inputs": [
+    {
+      "case": "case118",
+      "dimensions": {
+        "constraints": 1532,
+        "nonlinear_constraints": 1144,
+        "variables": 1088
+      },
+      "label": "PGLib-OPF v23.07 case118_ieee",
+      "mapping_path": "fixtures/acopf/case118/case118-acopf.mapping.json",
+      "model_sha256": "94facd47a1a328a3f946deb0e47e4ba72317681eae916069c17d90e1e8aa0dad",
+      "reference_objective": 97213.60692340179,
+      "source_case": {
+        "path": "fixtures/cases/case118.m",
+        "sha256": "b1af0833849040c04babc3700631cff0d9afa66b79c5d3e13ae79bdf516cec78",
+        "upstream": "pglib-opf-23.07/pglib_opf_case118_ieee.m",
+        "upstream_revision": "v23.07; artifact tree 0e8968a89b6ad43910a8eda4ec30656add35cf91"
+      }
+    },
+    {
+      "case": "case300",
+      "dimensions": {
+        "constraints": 3476,
+        "nonlinear_constraints": 2524,
+        "variables": 2382
+      },
+      "label": "PGLib-OPF v23.07 case300_ieee",
+      "mapping_path": "fixtures/acopf/case300/case300-acopf.mapping.json",
+      "model_sha256": "4a30d0e206379a12c0e0dc781599bef19a85e42c39470be70b36ade9fc677228",
+      "reference_objective": 565219.971834125,
+      "source_case": {
+        "path": "fixtures/cases/case300.m",
+        "sha256": "7ecf056d5942135765200ad7ae8791c28f0d35fb1dc888ba2c32dfc950f3c2f5",
+        "upstream": "pglib-opf-23.07/pglib_opf_case300_ieee.m",
+        "upstream_revision": "v23.07; artifact tree 0e8968a89b6ad43910a8eda4ec30656add35cf91"
+      }
+    },
+    {
+      "case": "case1354",
+      "dimensions": {
+        "constraints": 16365,
+        "nonlinear_constraints": 14110,
+        "variables": 11192
+      },
+      "label": "PGLib-OPF v23.07 case1354_pegase",
+      "mapping_path": "fixtures/acopf/case1354/case1354-acopf.mapping.json",
+      "model_sha256": "3371e7937d16fe10076a07bf5c436ea4f374f2fcb877b748ed34339b3f1ce4f7",
+      "reference_objective": 1.2588439849803096e6,
+      "source_case": {
+        "path": "fixtures/cases/case1354.m",
+        "sha256": "cd6d27dff4a56684f1e4f82cfa346b36d84c4e90733228aa88331cd550e17652",
+        "upstream": "pglib-opf-23.07/pglib_opf_case1354_pegase.m",
+        "upstream_revision": "v23.07; artifact tree 0e8968a89b6ad43910a8eda4ec30656add35cf91"
+      }
+    },
+    {
+      "case": "case6468",
+      "dimensions": {
+        "constraints": 75002,
+        "nonlinear_constraints": 54194,
+        "variables": 49734
+      },
+      "label": "PGLib-OPF v23.07 case6468_rte",
+      "mapping_path": "fixtures/acopf/case6468/case6468-acopf.mapping.json",
+      "model_sha256": "0a7dcd43b87ded30eb1d9231caaaeb26d139e0773488e340d8c06644ebdd1990",
+      "reference_objective": 2.0697301451210186e6,
+      "source_case": {
+        "path": "fixtures/cases/case6468.m",
+        "sha256": "b10fbfb66104bc8592e9546d4c7370497fe249406c8915fe53b3a01b1f2dc631",
+        "upstream": "pglib-opf-23.07/pglib_opf_case6468_rte.m",
+        "upstream_revision": "v23.07; artifact tree 0e8968a89b6ad43910a8eda4ec30656add35cf91"
+      }
+    }
+  ],
+  "observations": [
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case118",
+      "objective": 97213.60692340179,
+      "passed": true,
+      "run_index": 1,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 75.193167,
+        "model_construction": 13.189209,
+        "optimization_wall": 62.003958,
+        "solver_reported": 52.34789848327637
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case118",
+      "objective": 97213.60692340179,
+      "passed": true,
+      "run_index": 2,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 74.351084,
+        "model_construction": 12.773584,
+        "optimization_wall": 61.5775,
+        "solver_reported": 52.17409133911133
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case118",
+      "objective": 97213.60692340179,
+      "passed": true,
+      "run_index": 3,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 85.303292,
+        "model_construction": 13.090875,
+        "optimization_wall": 72.212417,
+        "solver_reported": 62.64305114746094
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case118",
+      "objective": 97213.60692340179,
+      "passed": true,
+      "run_index": 4,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 75.620417,
+        "model_construction": 12.87425,
+        "optimization_wall": 62.746167,
+        "solver_reported": 53.06506156921387
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case118",
+      "objective": 97213.60692340179,
+      "passed": true,
+      "run_index": 5,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 88.98425,
+        "model_construction": 15.917375,
+        "optimization_wall": 73.066875,
+        "solver_reported": 62.58511543273926
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case118",
+      "objective": 97213.60692340179,
+      "passed": true,
+      "run_index": 6,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 83.617,
+        "model_construction": 14.721125,
+        "optimization_wall": 68.895875,
+        "solver_reported": 58.8078498840332
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case118",
+      "objective": 97213.60692340179,
+      "passed": true,
+      "run_index": 7,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 90.57404199999999,
+        "model_construction": 30.082042,
+        "optimization_wall": 60.492,
+        "solver_reported": 51.133155822753906
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case300",
+      "objective": 565219.971834125,
+      "passed": true,
+      "run_index": 1,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 299.958708,
+        "model_construction": 122.252167,
+        "optimization_wall": 177.706541,
+        "solver_reported": 157.850980758667
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case300",
+      "objective": 565219.971834125,
+      "passed": true,
+      "run_index": 2,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 202.603209,
+        "model_construction": 28.014917,
+        "optimization_wall": 174.588292,
+        "solver_reported": 154.35409545898438
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case300",
+      "objective": 565219.971834125,
+      "passed": true,
+      "run_index": 3,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 222.355708,
+        "model_construction": 30.996333,
+        "optimization_wall": 191.359375,
+        "solver_reported": 170.24898529052734
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case300",
+      "objective": 565219.971834125,
+      "passed": true,
+      "run_index": 4,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 197.67587500000002,
+        "model_construction": 27.717417,
+        "optimization_wall": 169.958458,
+        "solver_reported": 150.01177787780762
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case300",
+      "objective": 565219.971834125,
+      "passed": true,
+      "run_index": 5,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 203.604083,
+        "model_construction": 28.108,
+        "optimization_wall": 175.496083,
+        "solver_reported": 155.073881149292
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case300",
+      "objective": 565219.971834125,
+      "passed": true,
+      "run_index": 6,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 222.800166,
+        "model_construction": 49.842041,
+        "optimization_wall": 172.958125,
+        "solver_reported": 152.98104286193848
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case300",
+      "objective": 565219.971834125,
+      "passed": true,
+      "run_index": 7,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 206.374417,
+        "model_construction": 27.841375,
+        "optimization_wall": 178.533042,
+        "solver_reported": 158.38003158569336
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case1354",
+      "objective": 1.2588439849803096e6,
+      "passed": true,
+      "run_index": 1,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 1748.1286249999998,
+        "model_construction": 141.600708,
+        "optimization_wall": 1606.527917,
+        "solver_reported": 1393.6419486999512
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case1354",
+      "objective": 1.2588439849803096e6,
+      "passed": true,
+      "run_index": 2,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 1708.642167,
+        "model_construction": 170.161084,
+        "optimization_wall": 1538.481083,
+        "solver_reported": 1443.8490867614746
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case1354",
+      "objective": 1.2588439849803096e6,
+      "passed": true,
+      "run_index": 3,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 1687.135916,
+        "model_construction": 139.957125,
+        "optimization_wall": 1547.178791,
+        "solver_reported": 1400.763988494873
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case1354",
+      "objective": 1.2588439849803096e6,
+      "passed": true,
+      "run_index": 4,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 1831.624876,
+        "model_construction": 183.313417,
+        "optimization_wall": 1648.311459,
+        "solver_reported": 1419.2829132080078
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case1354",
+      "objective": 1.2588439849803096e6,
+      "passed": true,
+      "run_index": 5,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 1703.461125,
+        "model_construction": 139.278667,
+        "optimization_wall": 1564.182458,
+        "solver_reported": 1471.5118408203125
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case1354",
+      "objective": 1.2588439849803096e6,
+      "passed": true,
+      "run_index": 6,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 1824.8470419999999,
+        "model_construction": 142.721875,
+        "optimization_wall": 1682.125167,
+        "solver_reported": 1585.5848789215088
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case1354",
+      "objective": 1.2588439849803096e6,
+      "passed": true,
+      "run_index": 7,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 1678.3792910000002,
+        "model_construction": 143.226041,
+        "optimization_wall": 1535.15325,
+        "solver_reported": 1438.2309913635254
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case6468",
+      "objective": 2.0697301451210186e6,
+      "passed": true,
+      "run_index": 1,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 22442.998583,
+        "model_construction": 767.968458,
+        "optimization_wall": 21675.030125,
+        "solver_reported": 21104.79784011841
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case6468",
+      "objective": 2.0697301451210186e6,
+      "passed": true,
+      "run_index": 2,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 22916.977625,
+        "model_construction": 1004.732666,
+        "optimization_wall": 21912.244959,
+        "solver_reported": 21474.0788936615
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case6468",
+      "objective": 2.0697301451210186e6,
+      "passed": true,
+      "run_index": 3,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 23478.331499,
+        "model_construction": 748.487208,
+        "optimization_wall": 22729.844291,
+        "solver_reported": 22162.487030029297
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case6468",
+      "objective": 2.0697301451210186e6,
+      "passed": true,
+      "run_index": 4,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 23190.506167,
+        "model_construction": 779.123625,
+        "optimization_wall": 22411.382542,
+        "solver_reported": 21713.370084762573
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case6468",
+      "objective": 2.0697301451210186e6,
+      "passed": true,
+      "run_index": 5,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 23451.776124,
+        "model_construction": 788.539083,
+        "optimization_wall": 22663.237041,
+        "solver_reported": 22223.663091659546
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case6468",
+      "objective": 2.0697301451210186e6,
+      "passed": true,
+      "run_index": 6,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 23334.69625,
+        "model_construction": 812.809833,
+        "optimization_wall": 22521.886417,
+        "solver_reported": 22076.821088790894
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case6468",
+      "objective": 2.0697301451210186e6,
+      "passed": true,
+      "run_index": 7,
+      "run_kind": "measured",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 22535.819208,
+        "model_construction": 857.987,
+        "optimization_wall": 21677.832208,
+        "solver_reported": 20950.886011123657
+      }
+    }
+  ],
+  "passed": true,
+  "protocol": {
+    "backend": "PowerModels.ACPPowerModel + native Ipopt/MUMPS",
+    "cases": [
+      "case118",
+      "case300",
+      "case1354",
+      "case6468"
+    ],
+    "concurrency": 1,
+    "julia_threads": 1,
+    "logging_during_timed_solve": false,
+    "measured_fresh_model_runs_per_case": 7,
+    "model_construction_definition": "wall time around PowerModels.instantiate_model with ACPPowerModel/build_opf; MATPOWER parsing is performed once per case outside measured runs",
+    "openblas_threads_environment": "1",
+    "optimization_wall_definition": "wall time around PowerModels.optimize_model!, including optimizer attachment, JuMP-to-Ipopt model transfer, native solve, and PowerModels result extraction",
+    "options": {
+      "exact_hessian": true,
+      "linear_solver": "mumps",
+      "max_iter": 1000,
+      "tol": 1.0e-9
+    },
+    "solver_reported_definition": "JuMP SolveTimeSec reported by native Ipopt; excludes PowerModels model construction and result extraction",
+    "warmups_per_case": 1
+  },
+  "repository": {
+    "commit": "bdf0d2bab53627d310b0f6e2df9cb56b0caa23e6",
+    "worktree_dirty": true
+  },
+  "runtime": {
+    "Ipopt.jl": "1.16.0",
+    "PowerModels": "0.21.6",
+    "julia": "1.12.6",
+    "native_binary_versions": "Pinned in julia/Manifest.toml (Ipopt_jll 300.1400.1902+0; MUMPS_seq_jll 500.900.100+0)"
+  },
+  "schema": "acopf-wasm-bench.native-powermodels-benchmark/v1",
+  "summaries": [
+    {
+      "attempts": 7,
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case118",
+      "construction_plus_optimization_ms": {
+        "count": 7,
+        "max": 90.57404199999999,
+        "median": 83.617,
+        "min": 74.351084,
+        "p25": 75.406792,
+        "p75": 87.143771
+      },
+      "failures": 0,
+      "model_construction_ms": {
+        "count": 7,
+        "max": 30.082042,
+        "median": 13.189209,
+        "min": 12.773584,
+        "p25": 12.9825625,
+        "p75": 15.31925
+      },
+      "objective": 97213.60692340179,
+      "optimization_wall_ms": {
+        "count": 7,
+        "max": 73.066875,
+        "median": 62.746167,
+        "min": 60.492,
+        "p25": 61.790729,
+        "p75": 70.554146
+      },
+      "solver_reported_ms": {
+        "count": 7,
+        "max": 62.64305114746094,
+        "median": 53.06506156921387,
+        "min": 51.133155822753906,
+        "p25": 52.26099491119385,
+        "p75": 60.69648265838623
+      },
+      "successes": 7
+    },
+    {
+      "attempts": 7,
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case300",
+      "construction_plus_optimization_ms": {
+        "count": 7,
+        "max": 299.958708,
+        "median": 206.374417,
+        "min": 197.67587500000002,
+        "p25": 203.103646,
+        "p75": 222.577937
+      },
+      "failures": 0,
+      "model_construction_ms": {
+        "count": 7,
+        "max": 122.252167,
+        "median": 28.108,
+        "min": 27.717417,
+        "p25": 27.928145999999998,
+        "p75": 40.419187
+      },
+      "objective": 565219.971834125,
+      "optimization_wall_ms": {
+        "count": 7,
+        "max": 191.359375,
+        "median": 175.496083,
+        "min": 169.958458,
+        "p25": 173.7732085,
+        "p75": 178.1197915
+      },
+      "solver_reported_ms": {
+        "count": 7,
+        "max": 170.24898529052734,
+        "median": 155.073881149292,
+        "min": 150.01177787780762,
+        "p25": 153.66756916046143,
+        "p75": 158.11550617218018
+      },
+      "successes": 7
+    },
+    {
+      "attempts": 7,
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case1354",
+      "construction_plus_optimization_ms": {
+        "count": 7,
+        "max": 1831.624876,
+        "median": 1708.642167,
+        "min": 1678.3792910000002,
+        "p25": 1695.2985205,
+        "p75": 1786.4878334999999
+      },
+      "failures": 0,
+      "model_construction_ms": {
+        "count": 7,
+        "max": 183.313417,
+        "median": 142.721875,
+        "min": 139.278667,
+        "p25": 140.77891649999998,
+        "p75": 156.69356249999998
+      },
+      "objective": 1.2588439849803096e6,
+      "optimization_wall_ms": {
+        "count": 7,
+        "max": 1682.125167,
+        "median": 1564.182458,
+        "min": 1535.15325,
+        "p25": 1542.829937,
+        "p75": 1627.419688
+      },
+      "solver_reported_ms": {
+        "count": 7,
+        "max": 1585.5848789215088,
+        "median": 1438.2309913635254,
+        "min": 1393.6419486999512,
+        "p25": 1410.0234508514404,
+        "p75": 1457.6804637908936
+      },
+      "successes": 7
+    },
+    {
+      "attempts": 7,
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case6468",
+      "construction_plus_optimization_ms": {
+        "count": 7,
+        "max": 23478.331499,
+        "median": 23190.506167,
+        "min": 22442.998583,
+        "p25": 22726.3984165,
+        "p75": 23393.236187000002
+      },
+      "failures": 0,
+      "model_construction_ms": {
+        "count": 7,
+        "max": 1004.732666,
+        "median": 788.539083,
+        "min": 748.487208,
+        "p25": 773.5460415,
+        "p75": 835.3984164999999
+      },
+      "objective": 2.0697301451210186e6,
+      "optimization_wall_ms": {
+        "count": 7,
+        "max": 22729.844291,
+        "median": 22411.382542,
+        "min": 21675.030125,
+        "p25": 21795.038583499998,
+        "p75": 22592.561729
+      },
+      "solver_reported_ms": {
+        "count": 7,
+        "max": 22223.663091659546,
+        "median": 21713.370084762573,
+        "min": 20950.886011123657,
+        "p25": 21289.438366889954,
+        "p75": 22119.654059410095
+      },
+      "successes": 7
+    }
+  ],
+  "warmups": [
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case118",
+      "objective": 97213.60692340179,
+      "passed": true,
+      "run_index": 1,
+      "run_kind": "warmup",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 2997.4790409999996,
+        "model_construction": 570.900625,
+        "optimization_wall": 2426.578416,
+        "solver_reported": 1624.5009899139404
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case300",
+      "objective": 565219.971834125,
+      "passed": true,
+      "run_index": 1,
+      "run_kind": "warmup",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 216.742208,
+        "model_construction": 39.282375,
+        "optimization_wall": 177.459833,
+        "solver_reported": 157.90200233459473
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case1354",
+      "objective": 1.2588439849803096e6,
+      "passed": true,
+      "run_index": 1,
+      "run_kind": "warmup",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 1663.841458,
+        "model_construction": 143.078958,
+        "optimization_wall": 1520.7625,
+        "solver_reported": 1404.742956161499
+      }
+    },
+    {
+      "backend": "PowerModels + native Ipopt/MUMPS",
+      "case": "case6468",
+      "objective": 2.0697301451210186e6,
+      "passed": true,
+      "run_index": 1,
+      "run_kind": "warmup",
+      "termination_status": "LOCALLY_SOLVED",
+      "timings_ms": {
+        "construction_plus_optimization": 22369.349208,
+        "model_construction": 984.998333,
+        "optimization_wall": 21384.350875,
+        "solver_reported": 20909.067153930664
+      }
+    }
+  ]
+}

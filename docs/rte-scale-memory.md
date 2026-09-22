@@ -30,6 +30,14 @@ Installed Chrome produced these single-run scale diagnostics:
 | Ipopt Memory64 | success, same objective | 19.45 s | 622.81 MiB | 193.88 MiB |
 | POUNCE wasm32 | `RestorationFailed`, 54 iterations | 10.66 s to failure | 337.19 MiB | included in solver module |
 
+For comparison, a separate single-threaded native PowerModels/Ipopt-MUMPS
+benchmark produced a 21.71 s median solver-reported time (21.29–22.12 s IQR)
+over seven measured fresh-model runs after one warm-up. The browser wasm32
+observation is 17.8% lower, but it has only one sample, so this is a scale
+diagnostic rather than evidence of a stable native/Wasm speed advantage. See
+[`browser-benchmark-results.md`](browser-benchmark-results.md) for the full
+cross-case comparison and timing-scope caveats.
+
 The exact clean-revision record is
 [`chrome-case6468-m4max-2026-09-22.json`](../results/benchmarks/chrome-case6468-m4max-2026-09-22.json).
 Its overall `passed` field is correctly false because POUNCE's failed attempt

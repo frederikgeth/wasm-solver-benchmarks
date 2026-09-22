@@ -7,11 +7,11 @@ using headless installed Chrome 153.0.8010.53 on an Apple M4 Max with 16
 logical processors and 48 GiB physical RAM. The exact machine-readable record
 is [`chrome-m4max-2026-09-22.json`](../results/benchmarks/chrome-m4max-2026-09-22.json).
 
-Each table entry is a median of seven seeded, randomized, serial runs after
-one unmeasured warm-up per case/backend pair. Every observation used a fresh
-worker and solver instance. The interquartile range is shown for the
-browser-visible total, which includes loading, preparation, optimization, and
-full solution transfer.
+Each representative-case table entry is a median of seven seeded, randomized,
+serial runs after one unmeasured warm-up per case/backend pair. Every
+observation used a fresh worker and solver instance. The interquartile range
+is shown for the browser-visible total, which includes loading, preparation,
+optimization, and full solution transfer.
 
 | Case | Backend | Successes | Optimization median | Browser-visible median (IQR) |
 | --- | --- | ---: | ---: | ---: |
@@ -21,6 +21,14 @@ full solution transfer.
 | case300 | POUNCE WASM | 7/7 | 268.7 ms | 336.2 ms (334.9–339.9) |
 | case1354 | ipopt-wasm | 7/7 | 1,339.3 ms | 1,503.2 ms (1,502.4–1,506.9) |
 | case1354 | POUNCE WASM | 7/7 | 1,752.4 ms | 1,932.0 ms (1,924.3–1,934.7) |
+| case6468 RTE† | ipopt-wasm | 1/1 | 17.84 s | 18.46 s |
+| case6468 RTE† | Ipopt Memory64 | 1/1 | 19.45 s | 20.04 s |
+| case6468 RTE† | POUNCE WASM | 0/1 | 10.66 s to failure | 11.32 s to failure |
+
+† The RTE rows are single-run scale diagnostics from
+[`chrome-case6468-m4max-2026-09-22.json`](../results/benchmarks/chrome-case6468-m4max-2026-09-22.json),
+not seven-run medians. The failed POUNCE time is retained but is not a
+successful-solve performance result.
 
 POUNCE's browser-visible median is 14.4% lower on case118. At case300 its
 optimization call is 1.8% lower but its end-to-end median is 2.5% higher. On
@@ -35,9 +43,47 @@ all six candidates at the `1e-6` p.u. gate. That independent evidence is in
 [`representative-scale-correctness.md`](representative-scale-correctness.md);
 the timing harness's raw-model checks also passed every attempt.
 
+## Native PowerModels/Ipopt-MUMPS comparison
+
+A separate native run now supplies the missing practical baseline. It uses
+PowerModels 0.21.6, Ipopt.jl 1.16.0, native Ipopt 3.14.19.2, and sequential
+MUMPS 5.9.1 with one Julia and one OpenBLAS thread. Each entry is the median
+of seven fresh PowerModels models after one warm-up; all 28 measured solves
+returned the recorded local reference objective. The exact record is
+[`native-powermodels-m4max-2026-09-22.json`](../results/benchmarks/native-powermodels-m4max-2026-09-22.json).
+
+The closest available calculation-time comparison is native Ipopt's
+`SolveTimeSec` against the browser wrapper's synchronous solver-call timer:
+
+| Case | Native PowerModels + Ipopt/MUMPS, solver median (IQR) | Browser Ipopt wasm32 | Browser/native |
+| --- | ---: | ---: | ---: |
+| case118 | 53.1 ms (52.3–60.7) | 155.8 ms (155.3–157.0) | 2.94× |
+| case300 | 155.1 ms (153.7–158.1) | 273.7 ms (272.8–274.3) | 1.77× |
+| case1354 | 1,438.2 ms (1,410.0–1,457.7) | 1,339.3 ms (1,339.2–1,344.0) | 0.93× |
+| case6468 RTE† | 21.71 s (21.29–22.12) | 17.84 s | 0.82× |
+
+Thus native is 2.94× and 1.77× as fast on cases 118 and 300. Browser wasm32
+is 6.9% faster on case1354 in the repeated comparison. Its 17.8% advantage on
+case6468 is only a one-browser-run observation and needs a repeated browser
+run before being treated as a stable crossover.
+
+This is a product-path comparison, not a pure native-versus-Wasm compilation
+ratio. Native PowerModels evaluates the JuMP nonlinear model through Julia,
+whereas the browser build uses the frozen NL model and the Rust/Wasm evaluator
+through JavaScript callbacks. The Ipopt/MUMPS binaries are also independently
+packaged builds. The mathematical model, start, exact-Hessian setting,
+`tol = 1e-9`, `max_iter = 1000`, and local objectives match, but these runtime
+and integration differences can explain the non-monotonic crossover.
+
+For wider timing scope, the native median around the complete
+`PowerModels.optimize_model!` call is 62.7, 175.5, 1,564.2, and 22,411.4 ms;
+fresh PowerModels construction raises construction-plus-optimization medians
+to 83.6, 206.4, 1,708.6, and 23,190.5 ms. MATPOWER parsing and Julia startup/JIT
+remain outside those measured medians.
+
 ## Larger-case robustness result
 
-The subsequent 6,468-bus `case6468_rte` probe changes the robustness picture.
+The 6,468-bus `case6468_rte` probe changes the robustness picture.
 Ipopt wasm32 and Ipopt Memory64 both return the native-reference local solution,
 and the wasm32 result passes the independent physical validator. POUNCE returns
 `RestorationFailed` after 54 iterations; its candidate has 19.36 p.u. active
