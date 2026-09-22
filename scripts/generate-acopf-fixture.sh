@@ -23,6 +23,11 @@ case "$case_name" in
     upstream_path="pglib-opf-23.07/pglib_opf_case118_ieee.m"
     upstream_revision="v23.07; artifact tree 0e8968a89b6ad43910a8eda4ec30656add35cf91"
     ;;
+  case118api)
+    case_label="PGLib-OPF v23.07 case118_ieee__api"
+    upstream_path="pglib-opf-23.07/api/pglib_opf_case118_ieee__api.m"
+    upstream_revision="v23.07; artifact tree 0e8968a89b6ad43910a8eda4ec30656add35cf91"
+    ;;
   case300)
     case_label="PGLib-OPF v23.07 case300_ieee"
     upstream_path="pglib-opf-23.07/pglib_opf_case300_ieee.m"
@@ -31,6 +36,11 @@ case "$case_name" in
   case1354)
     case_label="PGLib-OPF v23.07 case1354_pegase"
     upstream_path="pglib-opf-23.07/pglib_opf_case1354_pegase.m"
+    upstream_revision="v23.07; artifact tree 0e8968a89b6ad43910a8eda4ec30656add35cf91"
+    ;;
+  case1354sad)
+    case_label="PGLib-OPF v23.07 case1354_pegase__sad"
+    upstream_path="pglib-opf-23.07/sad/pglib_opf_case1354_pegase__sad.m"
     upstream_revision="v23.07; artifact tree 0e8968a89b6ad43910a8eda4ec30656add35cf91"
     ;;
   case6468)
