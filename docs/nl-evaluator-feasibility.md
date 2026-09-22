@@ -1,8 +1,9 @@
 # Shared `.nl` evaluator feasibility
 
 Status: native interface, POUNCE solve, WASM evaluator export, ipopt-wasm Node
-solve, and a dedicated real-browser worker are verified on the HS071 probe.
-The smoke timing is diagnostic only, not benchmark evidence.
+solve, and a dedicated real-browser worker are verified on both the HS071
+probe and a PowerModels 3-bus AC OPF. The smoke timing is diagnostic only, not
+benchmark evidence.
 
 ## Verified source boundary
 
@@ -56,7 +57,7 @@ not accidentally compare different row conventions.
 The expected numbers in the Rust test are derived directly from the written
 HS071 equations, so the test is not circular with POUNCE's evaluator.
 
-## Remaining risks before AC OPF
+## Remaining risks before benchmarking
 
 The current `wasm32-unknown-unknown` adapter keeps reusable numeric buffers in
 its own linear memory. The JavaScript bridge copies callback inputs and outputs
@@ -70,11 +71,12 @@ interface evidence, not a browser benchmark.
    the current single browser smoke timing must not be treated as a benchmark.
 2. Exercise POUNCE's browser build on the same fixture and record equivalent
    machine-readable termination and validation fields.
-3. Confirm JuMP/PowerModels `.nl` output uses only operations supported by
-   POUNCE on 3- and 14-bus AC OPF exports. Imported AMPL functions are not
-   available on WASM and must be rejected explicitly.
+3. Extend the confirmed JuMP/PowerModels operation coverage from the 3-bus
+   export to 14- and 30-bus AC OPF. Imported AMPL functions are not available
+   on WASM and must be rejected explicitly.
 4. Preserve `.col`/`.row` identities or an equivalent sidecar mapping; `.nl`
    text alone does not retain the names needed for benchmark diagnostics.
 
-The shared-evaluator route is feasible enough to continue. There is no
-evidence yet that the bounded standalone Rust AC OPF fallback is needed.
+The shared-evaluator route is feasible on the first AC OPF and is the selected
+path for the next case-ladder step. There is no evidence yet that the bounded
+standalone Rust AC OPF fallback is needed.

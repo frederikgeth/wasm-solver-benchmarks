@@ -4,7 +4,9 @@
   "type": "module",
   "scripts": {
     "serve": "node dev-server.mjs",
-    "test:ipopt-smoke": "node test/ipopt-smoke.mjs"
+    "test:hs071": "node test/ipopt-smoke.mjs",
+    "test:case3": "node test/case3-acopf-smoke.mjs",
+    "test:ipopt-smoke": "pnpm run test:hs071 && pnpm run test:case3"
   },
   "dependencies": {
     "ipopt-wasm": "0.2.0"

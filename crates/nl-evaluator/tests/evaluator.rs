@@ -4,6 +4,7 @@ use std::cell::RefCell;
 use std::rc::Rc;
 
 const HS071: &str = include_str!("../../../fixtures/tiny/hs071.nl");
+const CASE3_ACOPF: &str = include_str!("../../../fixtures/acopf/case3/case3-acopf.nl");
 
 fn assert_close(actual: &[f64], expected: &[f64], tolerance: f64) {
     assert_eq!(actual.len(), expected.len());
@@ -225,5 +226,58 @@ fn pounce_solves_the_same_evaluator() {
     let x = evaluator.final_x().unwrap();
     assert!((evaluator.final_obj() - 17.014_017_145_179).abs() <= 1.0e-6);
     assert!((x[0] - 1.0).abs() <= 1.0e-6);
+    assert!(application.statistics().final_declared_constr_viol <= 1.0e-6);
+}
+
+#[test]
+fn evaluates_and_solves_power_models_case3_acopf() {
+    let mut evaluator = NlEvaluator::from_nl_str(CASE3_ACOPF).unwrap();
+    assert_eq!(evaluator.problem().dimensions.variables, 28);
+    assert_eq!(evaluator.problem().dimensions.constraints, 29);
+    assert_eq!(evaluator.problem().dimensions.jacobian_nonzeros, 103);
+    assert_eq!(evaluator.problem().dimensions.hessian_nonzeros, 35);
+
+    let initial_point = evaluator.problem().initial_point.clone();
+    assert!(evaluator.objective(&initial_point).unwrap().is_finite());
+    assert!(
+        evaluator
+            .objective_gradient(&initial_point)
+            .unwrap()
+            .iter()
+            .all(|value| value.is_finite())
+    );
+    assert!(
+        evaluator
+            .constraints(&initial_point)
+            .unwrap()
+            .iter()
+            .all(|value| value.is_finite())
+    );
+    assert!(
+        evaluator
+            .jacobian_values(&initial_point)
+            .unwrap()
+            .iter()
+            .all(|value| value.is_finite())
+    );
+    assert!(
+        evaluator
+            .hessian_values(&initial_point, 1.0, &[0.0; 29])
+            .unwrap()
+            .iter()
+            .all(|value| value.is_finite())
+    );
+
+    let tnlp = Rc::new(RefCell::new(evaluator.into_tnlp()));
+    let target = Rc::clone(&tnlp) as Rc<RefCell<dyn TNLP>>;
+    let mut application = IpoptApplication::new();
+    application
+        .initialize_with_options_str("print_level 0\ntol 1e-9\nmax_iter 1000\n")
+        .unwrap();
+    let status = application.optimize_tnlp(target);
+
+    assert_eq!(status, ApplicationReturnStatus::SolveSucceeded);
+    let evaluator = tnlp.borrow();
+    assert!((evaluator.final_obj() - 5_906.879_416_645_711).abs() <= 1.0e-3);
     assert!(application.statistics().final_declared_constr_viol <= 1.0e-6);
 }

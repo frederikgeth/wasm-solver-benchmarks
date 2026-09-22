@@ -57,7 +57,8 @@
           }
         };
         worker.onerror = ({ message }) => finish("failed", `Worker error: ${message}`);
-        worker.postMessage({ type: "run" });
+        const smokeCase = new URL(location.href).searchParams.get("case") ?? "hs071";
+        worker.postMessage({ type: "run", case: smokeCase });
       }
 
       runButton.addEventListener("click", run);
@@ -69,4 +70,3 @@
     </script>
   </body>
 </html>
-
