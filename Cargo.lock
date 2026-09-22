@@ -19,6 +19,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "acopf-pounce-browser-wasm"
+version = "0.1.0"
+dependencies = [
+ "pounce-wasm",
+]
+
+[[package]]
 name = "aho-corasick"
 version = "1.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -863,6 +870,20 @@ dependencies = [
  "pounce-linsol",
  "pounce-nlp",
  "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "pounce-wasm"
+version = "0.12.0"
+source = "git+https://github.com/jkitchin/pounce.git?rev=5a141d4f08349be668802830c7b7820a680ea9d0#5a141d4f08349be668802830c7b7820a680ea9d0"
+dependencies = [
+ "pounce-algorithm",
+ "pounce-common",
+ "pounce-nl",
+ "pounce-nlp",
+ "pounce-presolve",
+ "pounce-solve-report",
  "serde_json",
 ]
 

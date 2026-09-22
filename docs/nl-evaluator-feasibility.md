@@ -69,13 +69,18 @@ interface evidence, not a browser benchmark.
 
 1. Measure callback copying separately and add repeated cold-solve protocol;
    the current single browser smoke timing must not be treated as a benchmark.
-2. Exercise POUNCE's browser build on the same fixture and record equivalent
-   machine-readable termination and validation fields.
-3. Extend the confirmed JuMP/PowerModels operation coverage from the 3-bus
+2. Extend the confirmed JuMP/PowerModels operation coverage from the 3-bus
    export to 14- and 30-bus AC OPF. Imported AMPL functions are not available
    on WASM and must be rejected explicitly.
-4. Preserve `.col`/`.row` identities or an equivalent sidecar mapping; `.nl`
+3. Preserve `.col`/`.row` identities or an equivalent sidecar mapping; `.nl`
    text alone does not retain the names needed for benchmark diagnostics.
+
+The browser POUNCE path uses upstream's `wasm32-wasip1` ABI and a small WASI
+host for clocks, randomness, and stdout. Its evaluator and solver share one
+WASM memory. The ipopt-wasm path uses a separate `wasm32-unknown-unknown`
+evaluator module and copies callback data across JavaScript into Ipopt's
+Emscripten memory. This is a relevant product-integration difference that the
+benchmark must measure and disclose, not an algorithm-only comparison.
 
 The shared-evaluator route is feasible on the first AC OPF and is the selected
 path for the next case-ladder step. There is no evidence yet that the bounded

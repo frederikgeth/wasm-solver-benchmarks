@@ -23,7 +23,8 @@ exact Hessians.
 | --- | --- | ---: | --- |
 | PowerModels + native Ipopt/MUMPS | `LOCALLY_SOLVED` | 5906.879416645711 | formulation reference |
 | Shared NL evaluator + native POUNCE | `SolveSucceeded` | 5906.879448872702 | native evaluator/solver check |
-| Shared NL evaluator + ipopt-wasm | status `0` | 5906.879416645711 | Node and real-browser worker smoke |
+| Shared NL evaluator + browser POUNCE | `SolveSucceeded` | 5906.879448872702 | Node and real-browser worker smoke |
+| Shared NL evaluator + browser ipopt-wasm | status `0` | 5906.879416645711 | Node and real-browser worker smoke |
 
 These are compatibility and correctness results, not timings. A one-off worker
 duration is affected by loading, compilation, and instrumentation and is not a
@@ -51,13 +52,18 @@ The candidate passes the frozen `1e-6` p.u. feasibility gate and the `1e-6`
 absolute objective-recomputation gate. PowerModels/Ipopt is still a local
 reference, not a certificate of global optimality.
 
+The recorded POUNCE WASM candidate independently passes the same gates. Its
+maximum active/reactive balance residual is `2.22e-16`/`5.55e-17` p.u., its
+maximum branch-equation residual is `3.89e-16` p.u., its maximum thermal-limit
+violation is `2.50e-9` p.u., and the independently recomputed objective is
+bit-identical to the reported value.
+
 Reproduce the recorded candidate and validation report with:
 
 ```sh
-./scripts/build-evaluator-wasm.sh
-./scripts/record-case3-ipopt-wasm.sh
+./scripts/run-case3-correctness.sh
 ```
 
 The machine-readable artifacts are
-`results/smoke/case3-ipopt-wasm.json` and
-`results/smoke/case3-ipopt-wasm.validation.json`.
+`results/smoke/case3-{ipopt,pounce}-wasm.json` and their corresponding
+`.validation.json` reports.

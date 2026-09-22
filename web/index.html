@@ -15,8 +15,8 @@
     </style>
   </head>
   <body>
-    <h1>Shared NL evaluator smoke test</h1>
-    <p>JuMP NL → POUNCE evaluator WASM → ipopt-wasm/MUMPS, inside one dedicated worker.</p>
+    <h1>AC OPF browser solver smoke test</h1>
+    <p>One JuMP NL model, solved by ipopt-wasm/MUMPS or POUNCE inside a dedicated worker.</p>
     <div class="actions">
       <button id="run" type="button">Run</button>
       <button id="cancel" type="button" disabled>Cancel</button>
@@ -57,8 +57,10 @@
           }
         };
         worker.onerror = ({ message }) => finish("failed", `Worker error: ${message}`);
-        const smokeCase = new URL(location.href).searchParams.get("case") ?? "hs071";
-        worker.postMessage({ type: "run", case: smokeCase });
+        const parameters = new URL(location.href).searchParams;
+        const smokeCase = parameters.get("case") ?? "hs071";
+        const backend = parameters.get("backend") ?? "ipopt-wasm";
+        worker.postMessage({ type: "run", case: smokeCase, backend });
       }
 
       runButton.addEventListener("click", run);

@@ -20,9 +20,9 @@ shared evaluator.
   Hessian. It does not parse `.nl` itself.
 - JuMP-exported HS071 and PowerModels 3-bus AC OPF fixtures, mappings, and
   numerical interface tests are included.
-- Native POUNCE and browser Ipopt/MUMPS both solve that evaluator to the same
-  local solution on both fixtures.
-- The 3-bus ipopt-wasm candidate passes explicit AC branch-flow, bus-balance,
+- Native and browser POUNCE plus browser Ipopt/MUMPS solve the same frozen
+  model to the same local solution on the 3-bus fixture.
+- Both 3-bus browser-solver candidates pass explicit AC branch-flow, bus-balance,
   DC-loss, limit, bound, reference-angle, and objective checks reconstructed
   from the original MATPOWER case. This validator does not call the shared
   `.nl` evaluator.
@@ -32,21 +32,24 @@ shared evaluator.
 Run the current proof with:
 
 ```sh
+rustup target add wasm32-unknown-unknown wasm32-wasip1
 cargo test --workspace
 ./scripts/build-evaluator-wasm.sh
-cd web && pnpm install --frozen-lockfile && pnpm test:ipopt-smoke
+./scripts/build-pounce-wasm.sh
+cd web && pnpm install --frozen-lockfile && pnpm test:solver-smoke
 ```
 
-Record and independently validate the 3-bus ipopt-wasm solution with:
+Build both browser paths, record both 3-bus solutions, and independently
+validate them with:
 
 ```sh
-./scripts/record-case3-ipopt-wasm.sh
+./scripts/run-case3-correctness.sh
 ```
 
 For the real-browser worker harness, start `pnpm serve` in `web/` and open
-`http://127.0.0.1:4173/?autorun=1&case=case3`. Cancellation terminates the
-worker, which is also the recovery boundary for callback exceptions or a
-stuck solve.
+`http://127.0.0.1:4173/?autorun=1&case=case3&backend=ipopt-wasm` or replace
+the backend with `pounce-wasm`. Cancellation terminates the worker, which is
+also the recovery boundary for callback exceptions or a stuck solve.
 
 Regenerate the tiny fixture with:
 
@@ -62,7 +65,8 @@ Regenerate the frozen AC OPF model, identity maps, and native reference with:
 
 See [`docs/nl-evaluator-feasibility.md`](docs/nl-evaluator-feasibility.md) for
 the verified compatibility boundary and [`docs/case3-acopf.md`](docs/case3-acopf.md)
-for the first power-system correctness result.
+for the first power-system correctness result. The non-MIT solver boundary is
+summarized in [`docs/solver-licenses.md`](docs/solver-licenses.md).
 
 ## Intended layout
 

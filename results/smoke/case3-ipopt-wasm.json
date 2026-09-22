@@ -1,7 +1,14 @@
 {
   "schema": "acopf-wasm-bench.solver-result/v1",
   "backend": "ipopt-wasm",
+  "environment": "node",
   "case": "PowerModels case3 AC OPF",
+  "model_sha256": "b84c2ec658f16859cb4edfd70700fce79260cddd93cb5216749b1bdca55cf99b",
+  "solver": {
+    "package_version": "0.2.0",
+    "upstream_revision": "6b5ee1bb23d3a77ed291193647e3fdbf262dfd08",
+    "linear_solver": "MUMPS"
+  },
   "status": 0,
   "objective": 5906.879416645711,
   "x": [
@@ -67,6 +74,12 @@
   ],
   "max_constraint_violation": 9.99987681549186e-9,
   "max_bound_violation": 1.0998629340619459e-8,
+  "dimensions": {
+    "variables": 28,
+    "constraints": 29,
+    "jacobian_nonzeros": 103,
+    "hessian_nonzeros": 35
+  },
   "options": {
     "print_level": 0,
     "tol": 1e-9,

@@ -1,5 +1,9 @@
 [workspace]
-members = ["crates/nl-evaluator", "crates/nl-evaluator-wasm"]
+members = [
+    "crates/nl-evaluator",
+    "crates/nl-evaluator-wasm",
+    "crates/pounce-browser-wasm",
+]
 resolver = "3"
 
 [workspace.package]

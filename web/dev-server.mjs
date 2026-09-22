@@ -8,7 +8,8 @@ const root = fileURLToPath(new URL("..", import.meta.url));
 const webRoot = resolve(root, "web");
 const routes = [
   ["/vendor/ipopt-wasm/", resolve(webRoot, "node_modules/ipopt-wasm")],
-  ["/artifacts/", resolve(root, "target/wasm32-unknown-unknown/release")],
+  ["/artifacts/evaluator/", resolve(root, "target/wasm32-unknown-unknown/release")],
+  ["/artifacts/pounce/", resolve(root, "target/wasm32-wasip1/release")],
   ["/fixtures/", resolve(root, "fixtures")],
   ["/", webRoot],
 ];

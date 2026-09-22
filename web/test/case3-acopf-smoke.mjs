@@ -12,6 +12,9 @@ const evaluatorWasm = await readFile(
   `${root}/target/wasm32-unknown-unknown/release/acopf_nl_evaluator_wasm.wasm`,
 );
 const nl = await readFile(`${root}/fixtures/acopf/case3/case3-acopf.nl`);
+const mapping = JSON.parse(
+  await readFile(`${root}/fixtures/acopf/case3/case3-acopf.mapping.json`, "utf8"),
+);
 const evaluator = await createNlEvaluator(evaluatorWasm, nl);
 
 try {
@@ -38,13 +41,26 @@ try {
   const report = {
     schema: "acopf-wasm-bench.solver-result/v1",
     backend: "ipopt-wasm",
+    environment: "node",
     case: "PowerModels case3 AC OPF",
+    model_sha256: mapping.artifacts.nl_sha256,
+    solver: {
+      package_version: "0.2.0",
+      upstream_revision: "6b5ee1bb23d3a77ed291193647e3fdbf262dfd08",
+      linear_solver: "MUMPS",
+    },
     status: result.status,
     objective: result.objective,
     x: Array.from(result.x),
     constraints: Array.from(result.constraints),
     max_constraint_violation: constraintViolation,
     max_bound_violation: boundViolation,
+    dimensions: {
+      variables: evaluator.problem.n,
+      constraints: evaluator.problem.m,
+      jacobian_nonzeros: evaluator.problem.nele_jac,
+      hessian_nonzeros: evaluator.problem.nele_hess,
+    },
     options: {
       print_level: 0,
       tol: 1e-9,

@@ -6,7 +6,9 @@
     "serve": "node dev-server.mjs",
     "test:hs071": "node test/ipopt-smoke.mjs",
     "test:case3": "node test/case3-acopf-smoke.mjs",
-    "test:ipopt-smoke": "pnpm run test:hs071 && pnpm run test:case3"
+    "test:ipopt-smoke": "pnpm run test:hs071 && pnpm run test:case3",
+    "test:pounce:case3": "node test/case3-pounce-smoke.mjs",
+    "test:solver-smoke": "pnpm run test:ipopt-smoke && pnpm run test:pounce:case3"
   },
   "dependencies": {
     "ipopt-wasm": "0.2.0"
