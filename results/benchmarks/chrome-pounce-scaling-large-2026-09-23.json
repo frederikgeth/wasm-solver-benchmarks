@@ -1,0 +1,1823 @@
+{
+  "schema": "acopf-wasm-bench.browser-benchmark/v1",
+  "created_at": "2026-09-23T06:01:53.276Z",
+  "passed": true,
+  "repository": {
+    "commit": "5408bc5ee2b5b4ef13492af2110aeef7e7c09322",
+    "worktree_dirty": true
+  },
+  "host": {
+    "platform": "darwin",
+    "release": "25.6.0",
+    "architecture": "arm64",
+    "cpu_model": "Apple M4 Max",
+    "logical_processors": 16,
+    "total_memory_bytes": 51539607552
+  },
+  "browser": {
+    "requested": "chrome",
+    "version": "153.0.8010.53",
+    "executable_path": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "headless": true,
+    "playwright_core_version": "1.62.1",
+    "page_environment": {
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+      "platform": "MacIntel",
+      "logical_processors": 16,
+      "device_memory_gib": 32,
+      "cross_origin_isolated": true
+    }
+  },
+  "runtime": {
+    "node": "v24.19.0",
+    "ipopt_wasm_package": "0.2.0"
+  },
+  "protocol": {
+    "cases": [
+      "case6468",
+      "case9241"
+    ],
+    "backends": [
+      "pounce-wasm",
+      "pounce-identity"
+    ],
+    "options": {
+      "tol": 1e-9,
+      "max_iter": 1000,
+      "exact_hessian": true,
+      "pounce_presolve": false,
+      "ipopt_linear_solver": "mumps",
+      "pounce_linear_solver": "FERAL",
+      "pounce_scaling_by_backend": {
+        "pounce-wasm": "default",
+        "pounce-identity": "identity"
+      }
+    },
+    "cold_runs_per_pair": 0,
+    "warmups_per_pair": 1,
+    "measured_fresh_worker_runs_per_pair": 3,
+    "order": "seeded randomized across case/backend pairs",
+    "seed": 20260923,
+    "concurrency": 1,
+    "timeout_ms": 300000,
+    "cold_start_definition": "new browser process, context, page, and worker; browser_process_launch_ms and page_driver_elapsed_ms record outer lifecycle costs, while observed_total_ms begins immediately before worker construction",
+    "repeated_run_definition": "reused browser process and page; new worker and solver instance",
+    "timing_clock": "browser performance.now() except outer cold-start lifecycle fields, which use Node performance.now()",
+    "observed_total_definition": "worker construction through receipt and compaction of the complete solution message, including asset fetch, instantiation, preparation, solve, and worker-to-page transfer",
+    "optimization_definition": "synchronous solver call only; excludes model loading, Wasm instantiation, and solution message transfer",
+    "memory_measurement": "post-solve WebAssembly.Memory buffer capacity, not process RSS or peak live allocation; the local server adds a read-only capacity export to the upstream ipopt-wasm JavaScript wrapper, and the separate evaluator memory is reported independently",
+    "solver_warm_start": false,
+    "logging_during_timed_solve": false
+  },
+  "inputs": [
+    {
+      "case": "case6468",
+      "label": "PGLib-OPF v23.07 case6468_rte",
+      "mapping_path": "fixtures/acopf/case6468/case6468-acopf.mapping.json",
+      "model_sha256": "0a7dcd43b87ded30eb1d9231caaaeb26d139e0773488e340d8c06644ebdd1990",
+      "initial_point_sha256": "8a3a715db91eb6c5a94015ad2b97639b16b9fde73a1305241a79d50b4332d3b5",
+      "initial_point_hash_encoding": "SHA-256 of UTF-8 JSON array in NL column order",
+      "source_case": {
+        "path": "fixtures/cases/case6468.m",
+        "sha256": "b10fbfb66104bc8592e9546d4c7370497fe249406c8915fe53b3a01b1f2dc631",
+        "upstream": "pglib-opf-23.07/pglib_opf_case6468_rte.m",
+        "upstream_revision": "v23.07; artifact tree 0e8968a89b6ad43910a8eda4ec30656add35cf91"
+      },
+      "dimensions": {
+        "constraints": 75002,
+        "nonlinear_constraints": 54194,
+        "variables": 49734
+      }
+    },
+    {
+      "case": "case9241",
+      "label": "PGLib-OPF v23.07 case9241_pegase",
+      "mapping_path": "fixtures/acopf/case9241/case9241-acopf.mapping.json",
+      "model_sha256": "8910fbd2e4ff3e95b5cfed54632f8b5439bcbf9615ba5800079fa1529b1d079d",
+      "initial_point_sha256": "06ed865da7e4b0ed72753e4a5f8995e7cdd5b8e776c28d9374908cd36fb3539d",
+      "initial_point_hash_encoding": "SHA-256 of UTF-8 JSON array in NL column order",
+      "source_case": {
+        "path": "fixtures/cases/case9241.m",
+        "sha256": "d55833986cc4e3e417cad93458f39810e1ed6a54aaa2a979200b0232f271474d",
+        "upstream": "pglib-opf-23.07/pglib_opf_case9241_pegase.m",
+        "upstream_revision": "v23.07; artifact tree 0e8968a89b6ad43910a8eda4ec30656add35cf91"
+      },
+      "dimensions": {
+        "constraints": 128984,
+        "nonlinear_constraints": 110948,
+        "variables": 85568
+      }
+    }
+  ],
+  "artifacts": {
+    "evaluator_wasm": {
+      "path": "target/wasm32-unknown-unknown/release/acopf_nl_evaluator_wasm.wasm",
+      "bytes": 626181,
+      "sha256": "096edab1b5d6d81e387a9eb75c0c6ea7e700ea46b7a05f470bf6ab1f58bad756"
+    },
+    "pounce_wasm": {
+      "path": "target/wasm32-wasip1/release/acopf_pounce_browser_wasm.wasm",
+      "bytes": 4035733,
+      "sha256": "339e1a0054c88be38195c55474d644c00946f9a5027b0ee016b8988b5e893b6c"
+    },
+    "ipopt_wasm": {
+      "path": "web/node_modules/ipopt-wasm/ipopt.wasm",
+      "bytes": 3919463,
+      "sha256": "ea68e12dbd90e204a04481c6931cbe222466b5f47ce99d2c8a317d96296eeec4"
+    },
+    "ipopt_wasm64": {
+      "path": "web/node_modules/ipopt-wasm/ipopt64.wasm",
+      "bytes": 5680714,
+      "sha256": "42d2b6cac63eb42b56ab5de0c217887fc0db32a18ad7d18b70793dc6b5dbefad"
+    }
+  },
+  "cold_starts": [],
+  "warmups": [
+    {
+      "run_kind": "warmup",
+      "schedule_index": 0,
+      "pair_run_index": 1,
+      "case": "case9241",
+      "backend": "pounce-wasm",
+      "passed": true,
+      "failure": null,
+      "observed_total_ms": 25081.42500001192,
+      "phases": [
+        {
+          "phase": "loading",
+          "observed_at_ms": 220.8100000023842
+        },
+        {
+          "phase": "preparing",
+          "observed_at_ms": 271.0900000035763
+        },
+        {
+          "phase": "solving",
+          "observed_at_ms": 1369.5049999952316
+        }
+      ],
+      "result": {
+        "schema": "acopf-wasm-bench.smoke-result/v1",
+        "backend": "pounce-wasm",
+        "environment": "browser-worker",
+        "case": "PGLib-OPF v23.07 case9241_pegase",
+        "model_sha256": "8910fbd2e4ff3e95b5cfed54632f8b5439bcbf9615ba5800079fa1529b1d079d",
+        "passed": true,
+        "status": 0,
+        "raw_status": "SolveSucceeded",
+        "base_status": "SolveSucceeded",
+        "second_opinion": null,
+        "objective": 6243091.942201016,
+        "max_constraint_violation": 2.0396074427767662e-10,
+        "raw_constraint_tolerance": 0.00001,
+        "solution_transport": "full CSV export",
+        "wasm_linear_memory_bytes": {
+          "pounce_wasm": 691535872
+        },
+        "iterations": 78,
+        "restoration_calls": 0,
+        "evaluations": {
+          "constraint_jac": 79,
+          "constraints": 81,
+          "hessian": 79,
+          "objective": 81,
+          "objective_grad": 1
+        },
+        "dimensions": {
+          "variables": 85568,
+          "constraints": 128984,
+          "jacobian_nonzeros": 488296,
+          "hessian_nonzeros": 148747
+        },
+        "artifact_bytes": {
+          "pounce_wasm": 4035733,
+          "nl": 24943485
+        },
+        "timings_ms": {
+          "asset_loading": 50.3299999833107,
+          "solver_and_model_preparation": 1098.3899999856949,
+          "optimization": 23692.989999979734,
+          "solver_reported_optimization": 23355.664999999997,
+          "total": 25067.25
+        },
+        "options": {
+          "print_level": 0,
+          "tol": 1e-9,
+          "max_iter": 1000,
+          "presolve": false,
+          "feral_scaling": "default"
+        },
+        "solution_value_counts": {
+          "variables": 85568,
+          "constraints": 128984
+        }
+      }
+    },
+    {
+      "run_kind": "warmup",
+      "schedule_index": 1,
+      "pair_run_index": 1,
+      "case": "case6468",
+      "backend": "pounce-wasm",
+      "passed": true,
+      "failure": null,
+      "observed_total_ms": 25688.590000003576,
+      "phases": [
+        {
+          "phase": "loading",
+          "observed_at_ms": 136.7000000178814
+        },
+        {
+          "phase": "preparing",
+          "observed_at_ms": 169.36000001430511
+        },
+        {
+          "phase": "solving",
+          "observed_at_ms": 644.9650000035763
+        }
+      ],
+      "result": {
+        "schema": "acopf-wasm-bench.smoke-result/v1",
+        "backend": "pounce-wasm",
+        "environment": "browser-worker",
+        "case": "PGLib-OPF v23.07 case6468_rte",
+        "model_sha256": "0a7dcd43b87ded30eb1d9231caaaeb26d139e0773488e340d8c06644ebdd1990",
+        "passed": true,
+        "status": 0,
+        "raw_status": "SolveSucceeded",
+        "base_status": "SolveSucceeded",
+        "second_opinion": null,
+        "objective": 2069730.1451210277,
+        "max_constraint_violation": 3.458922037680168e-11,
+        "raw_constraint_tolerance": 0.00001,
+        "solution_transport": "full CSV export",
+        "wasm_linear_memory_bytes": {
+          "pounce_wasm": 503513088
+        },
+        "iterations": 146,
+        "restoration_calls": 3,
+        "evaluations": {
+          "constraint_jac": 156,
+          "constraints": 304,
+          "hessian": 147,
+          "objective": 298,
+          "objective_grad": 1
+        },
+        "dimensions": {
+          "variables": 49734,
+          "constraints": 75002,
+          "jacobian_nonzeros": 269026,
+          "hessian_nonzeros": 87664
+        },
+        "artifact_bytes": {
+          "pounce_wasm": 4035733,
+          "nl": 13795188
+        },
+        "timings_ms": {
+          "asset_loading": 32.63499999046326,
+          "solver_and_model_preparation": 475.5900000035763,
+          "optimization": 25033.365000009537,
+          "solver_reported_optimization": 24834.06,
+          "total": 25680.70499998331
+        },
+        "options": {
+          "print_level": 0,
+          "tol": 1e-9,
+          "max_iter": 1000,
+          "presolve": false,
+          "feral_scaling": "default"
+        },
+        "solution_value_counts": {
+          "variables": 49734,
+          "constraints": 75002
+        }
+      }
+    },
+    {
+      "run_kind": "warmup",
+      "schedule_index": 2,
+      "pair_run_index": 1,
+      "case": "case6468",
+      "backend": "pounce-identity",
+      "passed": true,
+      "failure": null,
+      "observed_total_ms": 23696.835000008345,
+      "phases": [
+        {
+          "phase": "loading",
+          "observed_at_ms": 133.1400000154972
+        },
+        {
+          "phase": "preparing",
+          "observed_at_ms": 165.1850000023842
+        },
+        {
+          "phase": "solving",
+          "observed_at_ms": 637.3050000071526
+        }
+      ],
+      "result": {
+        "schema": "acopf-wasm-bench.smoke-result/v1",
+        "backend": "pounce-identity",
+        "environment": "browser-worker",
+        "case": "PGLib-OPF v23.07 case6468_rte",
+        "model_sha256": "0a7dcd43b87ded30eb1d9231caaaeb26d139e0773488e340d8c06644ebdd1990",
+        "passed": true,
+        "status": 0,
+        "raw_status": "SolveSucceeded",
+        "base_status": "SolveSucceeded",
+        "second_opinion": null,
+        "objective": 2069730.1451210056,
+        "max_constraint_violation": 3.4575009522086475e-11,
+        "raw_constraint_tolerance": 0.00001,
+        "solution_transport": "full CSV export",
+        "wasm_linear_memory_bytes": {
+          "pounce_wasm": 497614848
+        },
+        "iterations": 146,
+        "restoration_calls": 3,
+        "evaluations": {
+          "constraint_jac": 156,
+          "constraints": 304,
+          "hessian": 147,
+          "objective": 298,
+          "objective_grad": 1
+        },
+        "dimensions": {
+          "variables": 49734,
+          "constraints": 75002,
+          "jacobian_nonzeros": 269026,
+          "hessian_nonzeros": 87664
+        },
+        "artifact_bytes": {
+          "pounce_wasm": 4035733,
+          "nl": 13795188
+        },
+        "timings_ms": {
+          "asset_loading": 32.019999980926514,
+          "solver_and_model_preparation": 472.1149999797344,
+          "optimization": 23047.310000002384,
+          "solver_reported_optimization": 22846,
+          "total": 23687.689999997616
+        },
+        "options": {
+          "print_level": 0,
+          "tol": 1e-9,
+          "max_iter": 1000,
+          "presolve": false,
+          "feral_scaling": "identity"
+        },
+        "solution_value_counts": {
+          "variables": 49734,
+          "constraints": 75002
+        }
+      }
+    },
+    {
+      "run_kind": "warmup",
+      "schedule_index": 3,
+      "pair_run_index": 1,
+      "case": "case9241",
+      "backend": "pounce-identity",
+      "passed": true,
+      "failure": null,
+      "observed_total_ms": 21681.655000001192,
+      "phases": [
+        {
+          "phase": "loading",
+          "observed_at_ms": 207.32499998807907
+        },
+        {
+          "phase": "preparing",
+          "observed_at_ms": 254.80000001192093
+        },
+        {
+          "phase": "solving",
+          "observed_at_ms": 1364.294999986887
+        }
+      ],
+      "result": {
+        "schema": "acopf-wasm-bench.smoke-result/v1",
+        "backend": "pounce-identity",
+        "environment": "browser-worker",
+        "case": "PGLib-OPF v23.07 case9241_pegase",
+        "model_sha256": "8910fbd2e4ff3e95b5cfed54632f8b5439bcbf9615ba5800079fa1529b1d079d",
+        "passed": true,
+        "status": 0,
+        "raw_status": "SolveSucceeded",
+        "base_status": "SolveSucceeded",
+        "second_opinion": null,
+        "objective": 6243091.942201028,
+        "max_constraint_violation": 2.0396073799592809e-10,
+        "raw_constraint_tolerance": 0.00001,
+        "solution_transport": "full CSV export",
+        "wasm_linear_memory_bytes": {
+          "pounce_wasm": 693108736
+        },
+        "iterations": 78,
+        "restoration_calls": 0,
+        "evaluations": {
+          "constraint_jac": 79,
+          "constraints": 81,
+          "hessian": 79,
+          "objective": 81,
+          "objective_grad": 1
+        },
+        "dimensions": {
+          "variables": 85568,
+          "constraints": 128984,
+          "jacobian_nonzeros": 488296,
+          "hessian_nonzeros": 148747
+        },
+        "artifact_bytes": {
+          "pounce_wasm": 4035733,
+          "nl": 24943485
+        },
+        "timings_ms": {
+          "asset_loading": 47.474999994039536,
+          "solver_and_model_preparation": 1109.4800000190735,
+          "optimization": 20300.740000009537,
+          "solver_reported_optimization": 19951.855,
+          "total": 21671.764999985695
+        },
+        "options": {
+          "print_level": 0,
+          "tol": 1e-9,
+          "max_iter": 1000,
+          "presolve": false,
+          "feral_scaling": "identity"
+        },
+        "solution_value_counts": {
+          "variables": 85568,
+          "constraints": 128984
+        }
+      }
+    }
+  ],
+  "observations": [
+    {
+      "run_kind": "measured",
+      "schedule_index": 0,
+      "pair_run_index": 1,
+      "case": "case9241",
+      "backend": "pounce-wasm",
+      "passed": true,
+      "failure": null,
+      "observed_total_ms": 24539.264999985695,
+      "phases": [
+        {
+          "phase": "loading",
+          "observed_at_ms": 210.41499999165535
+        },
+        {
+          "phase": "preparing",
+          "observed_at_ms": 259.919999986887
+        },
+        {
+          "phase": "solving",
+          "observed_at_ms": 1357.3100000023842
+        }
+      ],
+      "result": {
+        "schema": "acopf-wasm-bench.smoke-result/v1",
+        "backend": "pounce-wasm",
+        "environment": "browser-worker",
+        "case": "PGLib-OPF v23.07 case9241_pegase",
+        "model_sha256": "8910fbd2e4ff3e95b5cfed54632f8b5439bcbf9615ba5800079fa1529b1d079d",
+        "passed": true,
+        "status": 0,
+        "raw_status": "SolveSucceeded",
+        "base_status": "SolveSucceeded",
+        "second_opinion": null,
+        "objective": 6243091.942201016,
+        "max_constraint_violation": 2.0396074427767662e-10,
+        "raw_constraint_tolerance": 0.00001,
+        "solution_transport": "full CSV export",
+        "wasm_linear_memory_bytes": {
+          "pounce_wasm": 691535872
+        },
+        "iterations": 78,
+        "restoration_calls": 0,
+        "evaluations": {
+          "constraint_jac": 79,
+          "constraints": 81,
+          "hessian": 79,
+          "objective": 81,
+          "objective_grad": 1
+        },
+        "dimensions": {
+          "variables": 85568,
+          "constraints": 128984,
+          "jacobian_nonzeros": 488296,
+          "hessian_nonzeros": 148747
+        },
+        "artifact_bytes": {
+          "pounce_wasm": 4035733,
+          "nl": 24943485
+        },
+        "timings_ms": {
+          "asset_loading": 49.50499999523163,
+          "solver_and_model_preparation": 1097.375,
+          "optimization": 23161.169999986887,
+          "solver_reported_optimization": 22818.145,
+          "total": 24528.340000003576
+        },
+        "options": {
+          "print_level": 0,
+          "tol": 1e-9,
+          "max_iter": 1000,
+          "presolve": false,
+          "feral_scaling": "default"
+        },
+        "solution_value_counts": {
+          "variables": 85568,
+          "constraints": 128984
+        }
+      }
+    },
+    {
+      "run_kind": "measured",
+      "schedule_index": 1,
+      "pair_run_index": 2,
+      "case": "case9241",
+      "backend": "pounce-wasm",
+      "passed": true,
+      "failure": null,
+      "observed_total_ms": 25010.784999996424,
+      "phases": [
+        {
+          "phase": "loading",
+          "observed_at_ms": 213.30000001192093
+        },
+        {
+          "phase": "preparing",
+          "observed_at_ms": 263.61500000953674
+        },
+        {
+          "phase": "solving",
+          "observed_at_ms": 1369.344999998808
+        }
+      ],
+      "result": {
+        "schema": "acopf-wasm-bench.smoke-result/v1",
+        "backend": "pounce-wasm",
+        "environment": "browser-worker",
+        "case": "PGLib-OPF v23.07 case9241_pegase",
+        "model_sha256": "8910fbd2e4ff3e95b5cfed54632f8b5439bcbf9615ba5800079fa1529b1d079d",
+        "passed": true,
+        "status": 0,
+        "raw_status": "SolveSucceeded",
+        "base_status": "SolveSucceeded",
+        "second_opinion": null,
+        "objective": 6243091.942201016,
+        "max_constraint_violation": 2.0396074427767662e-10,
+        "raw_constraint_tolerance": 0.00001,
+        "solution_transport": "full CSV export",
+        "wasm_linear_memory_bytes": {
+          "pounce_wasm": 691535872
+        },
+        "iterations": 78,
+        "restoration_calls": 0,
+        "evaluations": {
+          "constraint_jac": 79,
+          "constraints": 81,
+          "hessian": 79,
+          "objective": 81,
+          "objective_grad": 1
+        },
+        "dimensions": {
+          "variables": 85568,
+          "constraints": 128984,
+          "jacobian_nonzeros": 488296,
+          "hessian_nonzeros": 148747
+        },
+        "artifact_bytes": {
+          "pounce_wasm": 4035733,
+          "nl": 24943485
+        },
+        "timings_ms": {
+          "asset_loading": 50.310000002384186,
+          "solver_and_model_preparation": 1105.7100000083447,
+          "optimization": 23621.740000009537,
+          "solver_reported_optimization": 23278.795,
+          "total": 25000.57499998808
+        },
+        "options": {
+          "print_level": 0,
+          "tol": 1e-9,
+          "max_iter": 1000,
+          "presolve": false,
+          "feral_scaling": "default"
+        },
+        "solution_value_counts": {
+          "variables": 85568,
+          "constraints": 128984
+        }
+      }
+    },
+    {
+      "run_kind": "measured",
+      "schedule_index": 2,
+      "pair_run_index": 1,
+      "case": "case9241",
+      "backend": "pounce-identity",
+      "passed": true,
+      "failure": null,
+      "observed_total_ms": 21538.07999998331,
+      "phases": [
+        {
+          "phase": "loading",
+          "observed_at_ms": 213.85499998927116
+        },
+        {
+          "phase": "preparing",
+          "observed_at_ms": 263.3400000035763
+        },
+        {
+          "phase": "solving",
+          "observed_at_ms": 1353.9799999892712
+        }
+      ],
+      "result": {
+        "schema": "acopf-wasm-bench.smoke-result/v1",
+        "backend": "pounce-identity",
+        "environment": "browser-worker",
+        "case": "PGLib-OPF v23.07 case9241_pegase",
+        "model_sha256": "8910fbd2e4ff3e95b5cfed54632f8b5439bcbf9615ba5800079fa1529b1d079d",
+        "passed": true,
+        "status": 0,
+        "raw_status": "SolveSucceeded",
+        "base_status": "SolveSucceeded",
+        "second_opinion": null,
+        "objective": 6243091.942201028,
+        "max_constraint_violation": 2.0396073799592809e-10,
+        "raw_constraint_tolerance": 0.00001,
+        "solution_transport": "full CSV export",
+        "wasm_linear_memory_bytes": {
+          "pounce_wasm": 693108736
+        },
+        "iterations": 78,
+        "restoration_calls": 0,
+        "evaluations": {
+          "constraint_jac": 79,
+          "constraints": 81,
+          "hessian": 79,
+          "objective": 81,
+          "objective_grad": 1
+        },
+        "dimensions": {
+          "variables": 85568,
+          "constraints": 128984,
+          "jacobian_nonzeros": 488296,
+          "hessian_nonzeros": 148747
+        },
+        "artifact_bytes": {
+          "pounce_wasm": 4035733,
+          "nl": 24943485
+        },
+        "timings_ms": {
+          "asset_loading": 49.474999994039536,
+          "solver_and_model_preparation": 1090.625,
+          "optimization": 20166.22999998927,
+          "solver_reported_optimization": 19826.309999999998,
+          "total": 21528.384999990463
+        },
+        "options": {
+          "print_level": 0,
+          "tol": 1e-9,
+          "max_iter": 1000,
+          "presolve": false,
+          "feral_scaling": "identity"
+        },
+        "solution_value_counts": {
+          "variables": 85568,
+          "constraints": 128984
+        }
+      }
+    },
+    {
+      "run_kind": "measured",
+      "schedule_index": 3,
+      "pair_run_index": 1,
+      "case": "case6468",
+      "backend": "pounce-wasm",
+      "passed": true,
+      "failure": null,
+      "observed_total_ms": 25951.30000001192,
+      "phases": [
+        {
+          "phase": "loading",
+          "observed_at_ms": 133.09000000357628
+        },
+        {
+          "phase": "preparing",
+          "observed_at_ms": 165.3550000190735
+        },
+        {
+          "phase": "solving",
+          "observed_at_ms": 645.880000025034
+        }
+      ],
+      "result": {
+        "schema": "acopf-wasm-bench.smoke-result/v1",
+        "backend": "pounce-wasm",
+        "environment": "browser-worker",
+        "case": "PGLib-OPF v23.07 case6468_rte",
+        "model_sha256": "0a7dcd43b87ded30eb1d9231caaaeb26d139e0773488e340d8c06644ebdd1990",
+        "passed": true,
+        "status": 0,
+        "raw_status": "SolveSucceeded",
+        "base_status": "SolveSucceeded",
+        "second_opinion": null,
+        "objective": 2069730.1451210277,
+        "max_constraint_violation": 3.458922037680168e-11,
+        "raw_constraint_tolerance": 0.00001,
+        "solution_transport": "full CSV export",
+        "wasm_linear_memory_bytes": {
+          "pounce_wasm": 503513088
+        },
+        "iterations": 146,
+        "restoration_calls": 3,
+        "evaluations": {
+          "constraint_jac": 156,
+          "constraints": 304,
+          "hessian": 147,
+          "objective": 298,
+          "objective_grad": 1
+        },
+        "dimensions": {
+          "variables": 49734,
+          "constraints": 75002,
+          "jacobian_nonzeros": 269026,
+          "hessian_nonzeros": 87664
+        },
+        "artifact_bytes": {
+          "pounce_wasm": 4035733,
+          "nl": 13795188
+        },
+        "timings_ms": {
+          "asset_loading": 32.25500002503395,
+          "solver_and_model_preparation": 480.5149999856949,
+          "optimization": 25292.87000000477,
+          "solver_reported_optimization": 25085.615,
+          "total": 25941.844999998808
+        },
+        "options": {
+          "print_level": 0,
+          "tol": 1e-9,
+          "max_iter": 1000,
+          "presolve": false,
+          "feral_scaling": "default"
+        },
+        "solution_value_counts": {
+          "variables": 49734,
+          "constraints": 75002
+        }
+      }
+    },
+    {
+      "run_kind": "measured",
+      "schedule_index": 4,
+      "pair_run_index": 1,
+      "case": "case6468",
+      "backend": "pounce-identity",
+      "passed": true,
+      "failure": null,
+      "observed_total_ms": 23904.439999997616,
+      "phases": [
+        {
+          "phase": "loading",
+          "observed_at_ms": 140.47499999403954
+        },
+        {
+          "phase": "preparing",
+          "observed_at_ms": 172.5649999976158
+        },
+        {
+          "phase": "solving",
+          "observed_at_ms": 661.5049999952316
+        }
+      ],
+      "result": {
+        "schema": "acopf-wasm-bench.smoke-result/v1",
+        "backend": "pounce-identity",
+        "environment": "browser-worker",
+        "case": "PGLib-OPF v23.07 case6468_rte",
+        "model_sha256": "0a7dcd43b87ded30eb1d9231caaaeb26d139e0773488e340d8c06644ebdd1990",
+        "passed": true,
+        "status": 0,
+        "raw_status": "SolveSucceeded",
+        "base_status": "SolveSucceeded",
+        "second_opinion": null,
+        "objective": 2069730.1451210056,
+        "max_constraint_violation": 3.4575009522086475e-11,
+        "raw_constraint_tolerance": 0.00001,
+        "solution_transport": "full CSV export",
+        "wasm_linear_memory_bytes": {
+          "pounce_wasm": 497614848
+        },
+        "iterations": 146,
+        "restoration_calls": 3,
+        "evaluations": {
+          "constraint_jac": 156,
+          "constraints": 304,
+          "hessian": 147,
+          "objective": 298,
+          "objective_grad": 1
+        },
+        "dimensions": {
+          "variables": 49734,
+          "constraints": 75002,
+          "jacobian_nonzeros": 269026,
+          "hessian_nonzeros": 87664
+        },
+        "artifact_bytes": {
+          "pounce_wasm": 4035733,
+          "nl": 13795188
+        },
+        "timings_ms": {
+          "asset_loading": 32.06999999284744,
+          "solver_and_model_preparation": 488.9249999821186,
+          "optimization": 23231.294999986887,
+          "solver_reported_optimization": 23024.809999999998,
+          "total": 23895.125
+        },
+        "options": {
+          "print_level": 0,
+          "tol": 1e-9,
+          "max_iter": 1000,
+          "presolve": false,
+          "feral_scaling": "identity"
+        },
+        "solution_value_counts": {
+          "variables": 49734,
+          "constraints": 75002
+        }
+      }
+    },
+    {
+      "run_kind": "measured",
+      "schedule_index": 5,
+      "pair_run_index": 2,
+      "case": "case6468",
+      "backend": "pounce-identity",
+      "passed": true,
+      "failure": null,
+      "observed_total_ms": 23419.55000001192,
+      "phases": [
+        {
+          "phase": "loading",
+          "observed_at_ms": 139.2000000178814
+        },
+        {
+          "phase": "preparing",
+          "observed_at_ms": 174.71500000357628
+        },
+        {
+          "phase": "solving",
+          "observed_at_ms": 659.1100000143051
+        }
+      ],
+      "result": {
+        "schema": "acopf-wasm-bench.smoke-result/v1",
+        "backend": "pounce-identity",
+        "environment": "browser-worker",
+        "case": "PGLib-OPF v23.07 case6468_rte",
+        "model_sha256": "0a7dcd43b87ded30eb1d9231caaaeb26d139e0773488e340d8c06644ebdd1990",
+        "passed": true,
+        "status": 0,
+        "raw_status": "SolveSucceeded",
+        "base_status": "SolveSucceeded",
+        "second_opinion": null,
+        "objective": 2069730.1451210056,
+        "max_constraint_violation": 3.4575009522086475e-11,
+        "raw_constraint_tolerance": 0.00001,
+        "solution_transport": "full CSV export",
+        "wasm_linear_memory_bytes": {
+          "pounce_wasm": 497614848
+        },
+        "iterations": 146,
+        "restoration_calls": 3,
+        "evaluations": {
+          "constraint_jac": 156,
+          "constraints": 304,
+          "hessian": 147,
+          "objective": 298,
+          "objective_grad": 1
+        },
+        "dimensions": {
+          "variables": 49734,
+          "constraints": 75002,
+          "jacobian_nonzeros": 269026,
+          "hessian_nonzeros": 87664
+        },
+        "artifact_bytes": {
+          "pounce_wasm": 4035733,
+          "nl": 13795188
+        },
+        "timings_ms": {
+          "asset_loading": 35.48499998450279,
+          "solver_and_model_preparation": 484.3799999952316,
+          "optimization": 22749.899999976158,
+          "solver_reported_optimization": 22547.730000000003,
+          "total": 23411.57999998331
+        },
+        "options": {
+          "print_level": 0,
+          "tol": 1e-9,
+          "max_iter": 1000,
+          "presolve": false,
+          "feral_scaling": "identity"
+        },
+        "solution_value_counts": {
+          "variables": 49734,
+          "constraints": 75002
+        }
+      }
+    },
+    {
+      "run_kind": "measured",
+      "schedule_index": 6,
+      "pair_run_index": 3,
+      "case": "case9241",
+      "backend": "pounce-wasm",
+      "passed": true,
+      "failure": null,
+      "observed_total_ms": 24869.444999992847,
+      "phases": [
+        {
+          "phase": "loading",
+          "observed_at_ms": 210.0499999821186
+        },
+        {
+          "phase": "preparing",
+          "observed_at_ms": 258.5799999833107
+        },
+        {
+          "phase": "solving",
+          "observed_at_ms": 1376.4950000047684
+        }
+      ],
+      "result": {
+        "schema": "acopf-wasm-bench.smoke-result/v1",
+        "backend": "pounce-wasm",
+        "environment": "browser-worker",
+        "case": "PGLib-OPF v23.07 case9241_pegase",
+        "model_sha256": "8910fbd2e4ff3e95b5cfed54632f8b5439bcbf9615ba5800079fa1529b1d079d",
+        "passed": true,
+        "status": 0,
+        "raw_status": "SolveSucceeded",
+        "base_status": "SolveSucceeded",
+        "second_opinion": null,
+        "objective": 6243091.942201016,
+        "max_constraint_violation": 2.0396074427767662e-10,
+        "raw_constraint_tolerance": 0.00001,
+        "solution_transport": "full CSV export",
+        "wasm_linear_memory_bytes": {
+          "pounce_wasm": 691535872
+        },
+        "iterations": 78,
+        "restoration_calls": 0,
+        "evaluations": {
+          "constraint_jac": 79,
+          "constraints": 81,
+          "hessian": 79,
+          "objective": 81,
+          "objective_grad": 1
+        },
+        "dimensions": {
+          "variables": 85568,
+          "constraints": 128984,
+          "jacobian_nonzeros": 488296,
+          "hessian_nonzeros": 148747
+        },
+        "artifact_bytes": {
+          "pounce_wasm": 4035733,
+          "nl": 24943485
+        },
+        "timings_ms": {
+          "asset_loading": 48.520000010728836,
+          "solver_and_model_preparation": 1117.9000000059605,
+          "optimization": 23472.644999980927,
+          "solver_reported_optimization": 23132.915,
+          "total": 24857.955000013113
+        },
+        "options": {
+          "print_level": 0,
+          "tol": 1e-9,
+          "max_iter": 1000,
+          "presolve": false,
+          "feral_scaling": "default"
+        },
+        "solution_value_counts": {
+          "variables": 85568,
+          "constraints": 128984
+        }
+      }
+    },
+    {
+      "run_kind": "measured",
+      "schedule_index": 7,
+      "pair_run_index": 2,
+      "case": "case6468",
+      "backend": "pounce-wasm",
+      "passed": true,
+      "failure": null,
+      "observed_total_ms": 25755.239999979734,
+      "phases": [
+        {
+          "phase": "loading",
+          "observed_at_ms": 133.0799999833107
+        },
+        {
+          "phase": "preparing",
+          "observed_at_ms": 165.61499997973442
+        },
+        {
+          "phase": "solving",
+          "observed_at_ms": 642.3100000023842
+        }
+      ],
+      "result": {
+        "schema": "acopf-wasm-bench.smoke-result/v1",
+        "backend": "pounce-wasm",
+        "environment": "browser-worker",
+        "case": "PGLib-OPF v23.07 case6468_rte",
+        "model_sha256": "0a7dcd43b87ded30eb1d9231caaaeb26d139e0773488e340d8c06644ebdd1990",
+        "passed": true,
+        "status": 0,
+        "raw_status": "SolveSucceeded",
+        "base_status": "SolveSucceeded",
+        "second_opinion": null,
+        "objective": 2069730.1451210277,
+        "max_constraint_violation": 3.458922037680168e-11,
+        "raw_constraint_tolerance": 0.00001,
+        "solution_transport": "full CSV export",
+        "wasm_linear_memory_bytes": {
+          "pounce_wasm": 503513088
+        },
+        "iterations": 146,
+        "restoration_calls": 3,
+        "evaluations": {
+          "constraint_jac": 156,
+          "constraints": 304,
+          "hessian": 147,
+          "objective": 298,
+          "objective_grad": 1
+        },
+        "dimensions": {
+          "variables": 49734,
+          "constraints": 75002,
+          "jacobian_nonzeros": 269026,
+          "hessian_nonzeros": 87664
+        },
+        "artifact_bytes": {
+          "pounce_wasm": 4035733,
+          "nl": 13795188
+        },
+        "timings_ms": {
+          "asset_loading": 32.53000000119209,
+          "solver_and_model_preparation": 476.68000000715256,
+          "optimization": 25103.07999998331,
+          "solver_reported_optimization": 24900.835,
+          "total": 25745.625
+        },
+        "options": {
+          "print_level": 0,
+          "tol": 1e-9,
+          "max_iter": 1000,
+          "presolve": false,
+          "feral_scaling": "default"
+        },
+        "solution_value_counts": {
+          "variables": 49734,
+          "constraints": 75002
+        }
+      }
+    },
+    {
+      "run_kind": "measured",
+      "schedule_index": 8,
+      "pair_run_index": 3,
+      "case": "case6468",
+      "backend": "pounce-identity",
+      "passed": true,
+      "failure": null,
+      "observed_total_ms": 23385.055000007153,
+      "phases": [
+        {
+          "phase": "loading",
+          "observed_at_ms": 136.56999999284744
+        },
+        {
+          "phase": "preparing",
+          "observed_at_ms": 168.75999999046326
+        },
+        {
+          "phase": "solving",
+          "observed_at_ms": 645.3449999988079
+        }
+      ],
+      "result": {
+        "schema": "acopf-wasm-bench.smoke-result/v1",
+        "backend": "pounce-identity",
+        "environment": "browser-worker",
+        "case": "PGLib-OPF v23.07 case6468_rte",
+        "model_sha256": "0a7dcd43b87ded30eb1d9231caaaeb26d139e0773488e340d8c06644ebdd1990",
+        "passed": true,
+        "status": 0,
+        "raw_status": "SolveSucceeded",
+        "base_status": "SolveSucceeded",
+        "second_opinion": null,
+        "objective": 2069730.1451210056,
+        "max_constraint_violation": 3.4575009522086475e-11,
+        "raw_constraint_tolerance": 0.00001,
+        "solution_transport": "full CSV export",
+        "wasm_linear_memory_bytes": {
+          "pounce_wasm": 497614848
+        },
+        "iterations": 146,
+        "restoration_calls": 3,
+        "evaluations": {
+          "constraint_jac": 156,
+          "constraints": 304,
+          "hessian": 147,
+          "objective": 298,
+          "objective_grad": 1
+        },
+        "dimensions": {
+          "variables": 49734,
+          "constraints": 75002,
+          "jacobian_nonzeros": 269026,
+          "hessian_nonzeros": 87664
+        },
+        "artifact_bytes": {
+          "pounce_wasm": 4035733,
+          "nl": 13795188
+        },
+        "timings_ms": {
+          "asset_loading": 32.1700000166893,
+          "solver_and_model_preparation": 476.580000013113,
+          "optimization": 22729.365000009537,
+          "solver_reported_optimization": 22527.675,
+          "total": 23376.140000015497
+        },
+        "options": {
+          "print_level": 0,
+          "tol": 1e-9,
+          "max_iter": 1000,
+          "presolve": false,
+          "feral_scaling": "identity"
+        },
+        "solution_value_counts": {
+          "variables": 49734,
+          "constraints": 75002
+        }
+      }
+    },
+    {
+      "run_kind": "measured",
+      "schedule_index": 9,
+      "pair_run_index": 2,
+      "case": "case9241",
+      "backend": "pounce-identity",
+      "passed": true,
+      "failure": null,
+      "observed_total_ms": 21708.435000002384,
+      "phases": [
+        {
+          "phase": "loading",
+          "observed_at_ms": 208.72499999403954
+        },
+        {
+          "phase": "preparing",
+          "observed_at_ms": 257.50999999046326
+        },
+        {
+          "phase": "solving",
+          "observed_at_ms": 1367.9249999821186
+        }
+      ],
+      "result": {
+        "schema": "acopf-wasm-bench.smoke-result/v1",
+        "backend": "pounce-identity",
+        "environment": "browser-worker",
+        "case": "PGLib-OPF v23.07 case9241_pegase",
+        "model_sha256": "8910fbd2e4ff3e95b5cfed54632f8b5439bcbf9615ba5800079fa1529b1d079d",
+        "passed": true,
+        "status": 0,
+        "raw_status": "SolveSucceeded",
+        "base_status": "SolveSucceeded",
+        "second_opinion": null,
+        "objective": 6243091.942201028,
+        "max_constraint_violation": 2.0396073799592809e-10,
+        "raw_constraint_tolerance": 0.00001,
+        "solution_transport": "full CSV export",
+        "wasm_linear_memory_bytes": {
+          "pounce_wasm": 693108736
+        },
+        "iterations": 78,
+        "restoration_calls": 0,
+        "evaluations": {
+          "constraint_jac": 79,
+          "constraints": 81,
+          "hessian": 79,
+          "objective": 81,
+          "objective_grad": 1
+        },
+        "dimensions": {
+          "variables": 85568,
+          "constraints": 128984,
+          "jacobian_nonzeros": 488296,
+          "hessian_nonzeros": 148747
+        },
+        "artifact_bytes": {
+          "pounce_wasm": 4035733,
+          "nl": 24943485
+        },
+        "timings_ms": {
+          "asset_loading": 48.775000005960464,
+          "solver_and_model_preparation": 1110.4149999916553,
+          "optimization": 20323.39500001073,
+          "solver_reported_optimization": 19981.989999999998,
+          "total": 21697.664999991655
+        },
+        "options": {
+          "print_level": 0,
+          "tol": 1e-9,
+          "max_iter": 1000,
+          "presolve": false,
+          "feral_scaling": "identity"
+        },
+        "solution_value_counts": {
+          "variables": 85568,
+          "constraints": 128984
+        }
+      }
+    },
+    {
+      "run_kind": "measured",
+      "schedule_index": 10,
+      "pair_run_index": 3,
+      "case": "case6468",
+      "backend": "pounce-wasm",
+      "passed": true,
+      "failure": null,
+      "observed_total_ms": 25662.774999976158,
+      "phases": [
+        {
+          "phase": "loading",
+          "observed_at_ms": 132.19499999284744
+        },
+        {
+          "phase": "preparing",
+          "observed_at_ms": 163.7199999988079
+        },
+        {
+          "phase": "solving",
+          "observed_at_ms": 642.994999974966
+        }
+      ],
+      "result": {
+        "schema": "acopf-wasm-bench.smoke-result/v1",
+        "backend": "pounce-wasm",
+        "environment": "browser-worker",
+        "case": "PGLib-OPF v23.07 case6468_rte",
+        "model_sha256": "0a7dcd43b87ded30eb1d9231caaaeb26d139e0773488e340d8c06644ebdd1990",
+        "passed": true,
+        "status": 0,
+        "raw_status": "SolveSucceeded",
+        "base_status": "SolveSucceeded",
+        "second_opinion": null,
+        "objective": 2069730.1451210277,
+        "max_constraint_violation": 3.458922037680168e-11,
+        "raw_constraint_tolerance": 0.00001,
+        "solution_transport": "full CSV export",
+        "wasm_linear_memory_bytes": {
+          "pounce_wasm": 503513088
+        },
+        "iterations": 146,
+        "restoration_calls": 3,
+        "evaluations": {
+          "constraint_jac": 156,
+          "constraints": 304,
+          "hessian": 147,
+          "objective": 298,
+          "objective_grad": 1
+        },
+        "dimensions": {
+          "variables": 49734,
+          "constraints": 75002,
+          "jacobian_nonzeros": 269026,
+          "hessian_nonzeros": 87664
+        },
+        "artifact_bytes": {
+          "pounce_wasm": 4035733,
+          "nl": 13795188
+        },
+        "timings_ms": {
+          "asset_loading": 31.514999985694885,
+          "solver_and_model_preparation": 479.2649999856949,
+          "optimization": 25009.209999978542,
+          "solver_reported_optimization": 24807.445,
+          "total": 25654.365000009537
+        },
+        "options": {
+          "print_level": 0,
+          "tol": 1e-9,
+          "max_iter": 1000,
+          "presolve": false,
+          "feral_scaling": "default"
+        },
+        "solution_value_counts": {
+          "variables": 49734,
+          "constraints": 75002
+        }
+      }
+    },
+    {
+      "run_kind": "measured",
+      "schedule_index": 11,
+      "pair_run_index": 3,
+      "case": "case9241",
+      "backend": "pounce-identity",
+      "passed": true,
+      "failure": null,
+      "observed_total_ms": 21812.905000001192,
+      "phases": [
+        {
+          "phase": "loading",
+          "observed_at_ms": 208.59999999403954
+        },
+        {
+          "phase": "preparing",
+          "observed_at_ms": 258.02499997615814
+        },
+        {
+          "phase": "solving",
+          "observed_at_ms": 1371.1299999952316
+        }
+      ],
+      "result": {
+        "schema": "acopf-wasm-bench.smoke-result/v1",
+        "backend": "pounce-identity",
+        "environment": "browser-worker",
+        "case": "PGLib-OPF v23.07 case9241_pegase",
+        "model_sha256": "8910fbd2e4ff3e95b5cfed54632f8b5439bcbf9615ba5800079fa1529b1d079d",
+        "passed": true,
+        "status": 0,
+        "raw_status": "SolveSucceeded",
+        "base_status": "SolveSucceeded",
+        "second_opinion": null,
+        "objective": 6243091.942201028,
+        "max_constraint_violation": 2.0396073799592809e-10,
+        "raw_constraint_tolerance": 0.00001,
+        "solution_transport": "full CSV export",
+        "wasm_linear_memory_bytes": {
+          "pounce_wasm": 693108736
+        },
+        "iterations": 78,
+        "restoration_calls": 0,
+        "evaluations": {
+          "constraint_jac": 79,
+          "constraints": 81,
+          "hessian": 79,
+          "objective": 81,
+          "objective_grad": 1
+        },
+        "dimensions": {
+          "variables": 85568,
+          "constraints": 128984,
+          "jacobian_nonzeros": 488296,
+          "hessian_nonzeros": 148747
+        },
+        "artifact_bytes": {
+          "pounce_wasm": 4035733,
+          "nl": 24943485
+        },
+        "timings_ms": {
+          "asset_loading": 49.41499999165535,
+          "solver_and_model_preparation": 1113.0900000035763,
+          "optimization": 20422.05499997735,
+          "solver_reported_optimization": 20081.335,
+          "total": 21801.965000003576
+        },
+        "options": {
+          "print_level": 0,
+          "tol": 1e-9,
+          "max_iter": 1000,
+          "presolve": false,
+          "feral_scaling": "identity"
+        },
+        "solution_value_counts": {
+          "variables": 85568,
+          "constraints": 128984
+        }
+      }
+    }
+  ],
+  "summaries": [
+    {
+      "case": "case6468",
+      "backend": "pounce-wasm",
+      "attempts": 3,
+      "successes": 3,
+      "failures": 0,
+      "objective": 2069730.1451210277,
+      "optimization_ms": {
+        "count": 3,
+        "min": 25009.209999978542,
+        "p25": 25056.144999980927,
+        "median": 25103.07999998331,
+        "p75": 25197.97499999404,
+        "max": 25292.87000000477
+      },
+      "preparation_ms": {
+        "count": 3,
+        "min": 476.68000000715256,
+        "p25": 477.9724999964237,
+        "median": 479.2649999856949,
+        "p75": 479.8899999856949,
+        "max": 480.5149999856949
+      },
+      "asset_loading_ms": {
+        "count": 3,
+        "min": 31.514999985694885,
+        "p25": 31.885000005364418,
+        "median": 32.25500002503395,
+        "p75": 32.39250001311302,
+        "max": 32.53000000119209
+      },
+      "worker_internal_total_ms": {
+        "count": 3,
+        "min": 25654.365000009537,
+        "p25": 25699.99500000477,
+        "median": 25745.625,
+        "p75": 25843.734999999404,
+        "max": 25941.844999998808
+      },
+      "observed_total_ms": {
+        "count": 3,
+        "min": 25662.774999976158,
+        "p25": 25709.007499977946,
+        "median": 25755.239999979734,
+        "p75": 25853.269999995828,
+        "max": 25951.30000001192
+      },
+      "wasm_linear_memory_bytes": {
+        "pounce_wasm": 503513088
+      }
+    },
+    {
+      "case": "case6468",
+      "backend": "pounce-identity",
+      "attempts": 3,
+      "successes": 3,
+      "failures": 0,
+      "objective": 2069730.1451210056,
+      "optimization_ms": {
+        "count": 3,
+        "min": 22729.365000009537,
+        "p25": 22739.632499992847,
+        "median": 22749.899999976158,
+        "p75": 22990.597499981523,
+        "max": 23231.294999986887
+      },
+      "preparation_ms": {
+        "count": 3,
+        "min": 476.580000013113,
+        "p25": 480.4800000041723,
+        "median": 484.3799999952316,
+        "p75": 486.6524999886751,
+        "max": 488.9249999821186
+      },
+      "asset_loading_ms": {
+        "count": 3,
+        "min": 32.06999999284744,
+        "p25": 32.12000000476837,
+        "median": 32.1700000166893,
+        "p75": 33.82750000059605,
+        "max": 35.48499998450279
+      },
+      "worker_internal_total_ms": {
+        "count": 3,
+        "min": 23376.140000015497,
+        "p25": 23393.859999999404,
+        "median": 23411.57999998331,
+        "p75": 23653.352499991655,
+        "max": 23895.125
+      },
+      "observed_total_ms": {
+        "count": 3,
+        "min": 23385.055000007153,
+        "p25": 23402.302500009537,
+        "median": 23419.55000001192,
+        "p75": 23661.99500000477,
+        "max": 23904.439999997616
+      },
+      "wasm_linear_memory_bytes": {
+        "pounce_wasm": 497614848
+      }
+    },
+    {
+      "case": "case9241",
+      "backend": "pounce-wasm",
+      "attempts": 3,
+      "successes": 3,
+      "failures": 0,
+      "objective": 6243091.942201016,
+      "optimization_ms": {
+        "count": 3,
+        "min": 23161.169999986887,
+        "p25": 23316.907499983907,
+        "median": 23472.644999980927,
+        "p75": 23547.19249999523,
+        "max": 23621.740000009537
+      },
+      "preparation_ms": {
+        "count": 3,
+        "min": 1097.375,
+        "p25": 1101.5425000041723,
+        "median": 1105.7100000083447,
+        "p75": 1111.8050000071526,
+        "max": 1117.9000000059605
+      },
+      "asset_loading_ms": {
+        "count": 3,
+        "min": 48.520000010728836,
+        "p25": 49.01250000298023,
+        "median": 49.50499999523163,
+        "p75": 49.90749999880791,
+        "max": 50.310000002384186
+      },
+      "worker_internal_total_ms": {
+        "count": 3,
+        "min": 24528.340000003576,
+        "p25": 24693.147500008345,
+        "median": 24857.955000013113,
+        "p75": 24929.265000000596,
+        "max": 25000.57499998808
+      },
+      "observed_total_ms": {
+        "count": 3,
+        "min": 24539.264999985695,
+        "p25": 24704.35499998927,
+        "median": 24869.444999992847,
+        "p75": 24940.114999994636,
+        "max": 25010.784999996424
+      },
+      "wasm_linear_memory_bytes": {
+        "pounce_wasm": 691535872
+      }
+    },
+    {
+      "case": "case9241",
+      "backend": "pounce-identity",
+      "attempts": 3,
+      "successes": 3,
+      "failures": 0,
+      "objective": 6243091.942201028,
+      "optimization_ms": {
+        "count": 3,
+        "min": 20166.22999998927,
+        "p25": 20244.8125,
+        "median": 20323.39500001073,
+        "p75": 20372.72499999404,
+        "max": 20422.05499997735
+      },
+      "preparation_ms": {
+        "count": 3,
+        "min": 1090.625,
+        "p25": 1100.5199999958277,
+        "median": 1110.4149999916553,
+        "p75": 1111.7524999976158,
+        "max": 1113.0900000035763
+      },
+      "asset_loading_ms": {
+        "count": 3,
+        "min": 48.775000005960464,
+        "p25": 49.09499999880791,
+        "median": 49.41499999165535,
+        "p75": 49.44499999284744,
+        "max": 49.474999994039536
+      },
+      "worker_internal_total_ms": {
+        "count": 3,
+        "min": 21528.384999990463,
+        "p25": 21613.02499999106,
+        "median": 21697.664999991655,
+        "p75": 21749.814999997616,
+        "max": 21801.965000003576
+      },
+      "observed_total_ms": {
+        "count": 3,
+        "min": 21538.07999998331,
+        "p25": 21623.257499992847,
+        "median": 21708.435000002384,
+        "p75": 21760.670000001788,
+        "max": 21812.905000001192
+      },
+      "wasm_linear_memory_bytes": {
+        "pounce_wasm": 693108736
+      }
+    }
+  ],
+  "cold_start_summaries": [
+    {
+      "case": "case6468",
+      "backend": "pounce-wasm",
+      "attempts": 0,
+      "successes": 0,
+      "failures": 0,
+      "objective": null,
+      "optimization_ms": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "preparation_ms": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "asset_loading_ms": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "worker_internal_total_ms": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "observed_total_ms": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "wasm_linear_memory_bytes": null
+    },
+    {
+      "case": "case6468",
+      "backend": "pounce-identity",
+      "attempts": 0,
+      "successes": 0,
+      "failures": 0,
+      "objective": null,
+      "optimization_ms": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "preparation_ms": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "asset_loading_ms": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "worker_internal_total_ms": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "observed_total_ms": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "wasm_linear_memory_bytes": null
+    },
+    {
+      "case": "case9241",
+      "backend": "pounce-wasm",
+      "attempts": 0,
+      "successes": 0,
+      "failures": 0,
+      "objective": null,
+      "optimization_ms": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "preparation_ms": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "asset_loading_ms": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "worker_internal_total_ms": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "observed_total_ms": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "wasm_linear_memory_bytes": null
+    },
+    {
+      "case": "case9241",
+      "backend": "pounce-identity",
+      "attempts": 0,
+      "successes": 0,
+      "failures": 0,
+      "objective": null,
+      "optimization_ms": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "preparation_ms": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "asset_loading_ms": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "worker_internal_total_ms": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "observed_total_ms": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "wasm_linear_memory_bytes": null
+    }
+  ]
+}
