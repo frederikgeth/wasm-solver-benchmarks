@@ -1,0 +1,310 @@
+{
+  "schema": "acopf-wasm-bench.start-sweep/v1",
+  "created_at": "2026-09-23T07:38:49.365Z",
+  "repository": {
+    "commit": "a68febc71b011c8bf3fc65a50a14581346ad3445",
+    "worktree_dirty": true
+  },
+  "protocol": {
+    "cases": [
+      "case118api",
+      "case1354sad",
+      "case6468"
+    ],
+    "backends": [
+      "pounce-identity"
+    ],
+    "start_seeds": [
+      101,
+      202,
+      303
+    ],
+    "start_perturbation": "deterministic bounded perturbations (angles ±0.03 rad, voltage ±0.02 p.u., other variables ±5% of max(1,abs(start)); clipped to bounds)",
+    "same_start_vector_per_case_seed_for_both_solvers": true,
+    "validation": "independent explicit AC equations from source MATPOWER case, tolerance 1e-6"
+  },
+  "inputs": [
+    {
+      "case": "case118api",
+      "start_seed": 101,
+      "initial_point_sha256": "33273908d332aab405b09a627fc471d7664ab1ee40cad75b143b4b29f20ba777"
+    },
+    {
+      "case": "case118api",
+      "start_seed": 202,
+      "initial_point_sha256": "a8ef7800f8be0181d82a7303d1a95cfb21aef4e04806bd7715e5e6b19e1483ca"
+    },
+    {
+      "case": "case118api",
+      "start_seed": 303,
+      "initial_point_sha256": "a59bfcedc750f4c14d096d5fdb97c9e08b0775c133c877fc9a825e4fb40a8d5b"
+    },
+    {
+      "case": "case1354sad",
+      "start_seed": 101,
+      "initial_point_sha256": "d17f80a762b4032d3da6967547a5601477288be7b1f71c24dd0975006a667726"
+    },
+    {
+      "case": "case1354sad",
+      "start_seed": 202,
+      "initial_point_sha256": "83cce3d9032eee93bb700917080d8d65f3b53e515737de34384698171d1915d8"
+    },
+    {
+      "case": "case1354sad",
+      "start_seed": 303,
+      "initial_point_sha256": "2826c1fc626ceedb24e6dd3dd57540fc9a9210b66b733785dfaf4a236f8f4fb7"
+    },
+    {
+      "case": "case6468",
+      "start_seed": 101,
+      "initial_point_sha256": "f07adb6f0c6b977967cc66031bfba357080cfa85446c4e6c6d6bb86a4198acb4"
+    },
+    {
+      "case": "case6468",
+      "start_seed": 202,
+      "initial_point_sha256": "9da191decdc157fcd4d397bba642995f07f31faa86f36b251f8b37afea89d5f8"
+    },
+    {
+      "case": "case6468",
+      "start_seed": 303,
+      "initial_point_sha256": "db7536760603dfd91df5f5c2c0c4ce8190bda117617a86452444394fefcbffc5"
+    }
+  ],
+  "observations": [
+    {
+      "case": "case118api",
+      "backend": "pounce-identity",
+      "start_seed": 101,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case118api-pounce-identity-start101.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case118api-pounce-identity-start101.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 216.9135,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 2888.975542,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": "SolveSucceeded",
+      "base_status": "SolveSucceeded",
+      "second_opinion": null,
+      "objective": 249614.51891387353,
+      "max_constraint_violation": 1.4666845515876048e-10,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 2.9103830456733704e-11,
+      "passed": true
+    },
+    {
+      "case": "case118api",
+      "backend": "pounce-identity",
+      "start_seed": 202,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case118api-pounce-identity-start202.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case118api-pounce-identity-start202.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 207.9010000000003,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 2845.917958,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": "SolveSucceeded",
+      "base_status": "SolveSucceeded",
+      "second_opinion": null,
+      "objective": 249614.51891387306,
+      "max_constraint_violation": 1.4666801106955063e-10,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 2.9103830456733704e-11,
+      "passed": true
+    },
+    {
+      "case": "case118api",
+      "backend": "pounce-identity",
+      "start_seed": 303,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case118api-pounce-identity-start303.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case118api-pounce-identity-start303.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 212.30466700000034,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 2862.461625000001,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": "SolveSucceeded",
+      "base_status": "SolveSucceeded",
+      "second_opinion": null,
+      "objective": 249614.51891387338,
+      "max_constraint_violation": 1.4666801106955063e-10,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 0,
+      "passed": true
+    },
+    {
+      "case": "case1354sad",
+      "backend": "pounce-identity",
+      "start_seed": 101,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case1354sad-pounce-identity-start101.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case1354sad-pounce-identity-start101.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 2879.8842910000003,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 3089.5440420000014,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": "SolveSucceeded",
+      "base_status": "SolveSucceeded",
+      "second_opinion": null,
+      "objective": 1258848.0390752715,
+      "max_constraint_violation": 2.8211717521682387e-10,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 6.984919309616089e-10,
+      "passed": true
+    },
+    {
+      "case": "case1354sad",
+      "backend": "pounce-identity",
+      "start_seed": 202,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case1354sad-pounce-identity-start202.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case1354sad-pounce-identity-start202.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 2541.6469590000015,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 3137.9774999999972,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": "SolveSucceeded",
+      "base_status": "SolveSucceeded",
+      "second_opinion": null,
+      "objective": 1258848.039075282,
+      "max_constraint_violation": 2.821171751986073e-10,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 2.3283064365386963e-10,
+      "passed": true
+    },
+    {
+      "case": "case1354sad",
+      "backend": "pounce-identity",
+      "start_seed": 303,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case1354sad-pounce-identity-start303.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case1354sad-pounce-identity-start303.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 12106.971791999997,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 3223.621500000001,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": "SolveSucceeded",
+      "base_status": "SolveSucceeded",
+      "second_opinion": null,
+      "objective": 1258848.03907528,
+      "max_constraint_violation": 2.821171810203392e-10,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 4.656612873077393e-10,
+      "passed": true
+    },
+    {
+      "case": "case6468",
+      "backend": "pounce-identity",
+      "start_seed": 101,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case6468-pounce-identity-start101.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case6468-pounce-identity-start101.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 1010632.9974169999,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 7332.10929199995,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": "SolveSucceeded",
+      "base_status": "SolveSucceeded",
+      "second_opinion": null,
+      "objective": 2069730.145121004,
+      "max_constraint_violation": 3.456079866737127e-11,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 1.1641532182693481e-9,
+      "passed": true
+    },
+    {
+      "case": "case6468",
+      "backend": "pounce-identity",
+      "start_seed": 202,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case6468-pounce-identity-start202.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case6468-pounce-identity-start202.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 1642697.147708,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 3952.477166000288,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": "SolveSucceeded",
+      "base_status": "SolveSucceeded",
+      "second_opinion": null,
+      "objective": 2069730.1451210305,
+      "max_constraint_violation": 3.458922037680168e-11,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 6.984919309616089e-10,
+      "passed": true
+    },
+    {
+      "case": "case6468",
+      "backend": "pounce-identity",
+      "start_seed": 303,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case6468-pounce-identity-start303.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case6468-pounce-identity-start303.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 54470.96429100027,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 4141.566000000108,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": "SolveSucceeded",
+      "base_status": "SolveSucceeded",
+      "second_opinion": null,
+      "objective": 2069730.1451210524,
+      "max_constraint_violation": 3.4575009522086475e-11,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 6.984919309616089e-10,
+      "passed": true
+    }
+  ],
+  "passed": true
+}
