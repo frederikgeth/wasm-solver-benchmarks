@@ -1,0 +1,545 @@
+{
+  "schema": "acopf-wasm-bench.start-sweep/v1",
+  "created_at": "2026-09-23T06:46:44.972Z",
+  "repository": {
+    "commit": "e763d68e6e9a1a0e9e93f8f733cb4e6f4001d4fd",
+    "worktree_dirty": true
+  },
+  "protocol": {
+    "cases": [
+      "case118api",
+      "case1354sad",
+      "case6468"
+    ],
+    "backends": [
+      "ipopt-wasm",
+      "pounce-wasm"
+    ],
+    "start_seeds": [
+      101,
+      202,
+      303
+    ],
+    "start_perturbation": "deterministic bounded perturbations (angles ±0.03 rad, voltage ±0.02 p.u., other variables ±5% of max(1,abs(start)); clipped to bounds)",
+    "same_start_vector_per_case_seed_for_both_solvers": true,
+    "validation": "independent explicit AC equations from source MATPOWER case, tolerance 1e-6"
+  },
+  "inputs": [
+    {
+      "case": "case118api",
+      "start_seed": 101,
+      "initial_point_sha256": "33273908d332aab405b09a627fc471d7664ab1ee40cad75b143b4b29f20ba777"
+    },
+    {
+      "case": "case118api",
+      "start_seed": 202,
+      "initial_point_sha256": "a8ef7800f8be0181d82a7303d1a95cfb21aef4e04806bd7715e5e6b19e1483ca"
+    },
+    {
+      "case": "case118api",
+      "start_seed": 303,
+      "initial_point_sha256": "a59bfcedc750f4c14d096d5fdb97c9e08b0775c133c877fc9a825e4fb40a8d5b"
+    },
+    {
+      "case": "case1354sad",
+      "start_seed": 101,
+      "initial_point_sha256": "d17f80a762b4032d3da6967547a5601477288be7b1f71c24dd0975006a667726"
+    },
+    {
+      "case": "case1354sad",
+      "start_seed": 202,
+      "initial_point_sha256": "83cce3d9032eee93bb700917080d8d65f3b53e515737de34384698171d1915d8"
+    },
+    {
+      "case": "case1354sad",
+      "start_seed": 303,
+      "initial_point_sha256": "2826c1fc626ceedb24e6dd3dd57540fc9a9210b66b733785dfaf4a236f8f4fb7"
+    },
+    {
+      "case": "case6468",
+      "start_seed": 101,
+      "initial_point_sha256": "f07adb6f0c6b977967cc66031bfba357080cfa85446c4e6c6d6bb86a4198acb4"
+    },
+    {
+      "case": "case6468",
+      "start_seed": 202,
+      "initial_point_sha256": "9da191decdc157fcd4d397bba642995f07f31faa86f36b251f8b37afea89d5f8"
+    },
+    {
+      "case": "case6468",
+      "start_seed": 303,
+      "initial_point_sha256": "db7536760603dfd91df5f5c2c0c4ce8190bda117617a86452444394fefcbffc5"
+    }
+  ],
+  "observations": [
+    {
+      "case": "case118api",
+      "backend": "ipopt-wasm",
+      "start_seed": 101,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case118api-ipopt-wasm-start101.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case118api-ipopt-wasm-start101.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 540.038459,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 3230.087666,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": null,
+      "base_status": null,
+      "second_opinion": null,
+      "objective": 249614.5188676843,
+      "max_constraint_violation": 5.040693622504477e-7,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 5.820766091346741e-11,
+      "passed": true
+    },
+    {
+      "case": "case118api",
+      "backend": "pounce-wasm",
+      "start_seed": 101,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case118api-pounce-wasm-start101.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case118api-pounce-wasm-start101.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 246.72633399999995,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 3289.32975,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": "SolveSucceeded",
+      "base_status": "SolveSucceeded",
+      "second_opinion": null,
+      "objective": 249614.51891387327,
+      "max_constraint_violation": 1.4666801106955063e-10,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 0,
+      "passed": true
+    },
+    {
+      "case": "case118api",
+      "backend": "ipopt-wasm",
+      "start_seed": 202,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case118api-ipopt-wasm-start202.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case118api-ipopt-wasm-start202.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 550.7137920000005,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 3241.235208,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": null,
+      "base_status": null,
+      "second_opinion": null,
+      "objective": 249614.51886768427,
+      "max_constraint_violation": 5.040693622504477e-7,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 0,
+      "passed": true
+    },
+    {
+      "case": "case118api",
+      "backend": "pounce-wasm",
+      "start_seed": 202,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case118api-pounce-wasm-start202.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case118api-pounce-wasm-start202.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 238.83241599999928,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 3160.4727079999993,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": "SolveSucceeded",
+      "base_status": "SolveSucceeded",
+      "second_opinion": null,
+      "objective": 249614.51891387344,
+      "max_constraint_violation": 1.4666845515876048e-10,
+      "independent_validation_passed": true,
+      "independent_objective_difference": -2.9103830456733704e-11,
+      "passed": true
+    },
+    {
+      "case": "case118api",
+      "backend": "ipopt-wasm",
+      "start_seed": 303,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case118api-ipopt-wasm-start303.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case118api-ipopt-wasm-start303.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 536.8225000000002,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 3207.837207999999,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": null,
+      "base_status": null,
+      "second_opinion": null,
+      "objective": 249614.51886768447,
+      "max_constraint_violation": 5.040693764613025e-7,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 0,
+      "passed": true
+    },
+    {
+      "case": "case118api",
+      "backend": "pounce-wasm",
+      "start_seed": 303,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case118api-pounce-wasm-start303.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case118api-pounce-wasm-start303.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 241.4461250000022,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 3316.806124999999,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": "SolveSucceeded",
+      "base_status": "SolveSucceeded",
+      "second_opinion": null,
+      "objective": 249614.5189138734,
+      "max_constraint_violation": 1.4666845515876048e-10,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 5.820766091346741e-11,
+      "passed": true
+    },
+    {
+      "case": "case1354sad",
+      "backend": "ipopt-wasm",
+      "start_seed": 101,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case1354sad-ipopt-wasm-start101.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case1354sad-ipopt-wasm-start101.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 2588.5105409999996,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 3357.207042000002,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": null,
+      "base_status": null,
+      "second_opinion": null,
+      "objective": 1258848.0389971395,
+      "max_constraint_violation": 0.000002922800376836676,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 6.984919309616089e-10,
+      "passed": true
+    },
+    {
+      "case": "case1354sad",
+      "backend": "pounce-wasm",
+      "start_seed": 101,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case1354sad-pounce-wasm-start101.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case1354sad-pounce-wasm-start101.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 3402.8751249999987,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 3380.8125000000036,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": "SolveSucceeded",
+      "base_status": "SolveSucceeded",
+      "second_opinion": null,
+      "objective": 1258848.0390752612,
+      "max_constraint_violation": 2.8211717504005393e-10,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 2.3283064365386963e-10,
+      "passed": true
+    },
+    {
+      "case": "case1354sad",
+      "backend": "ipopt-wasm",
+      "start_seed": 202,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case1354sad-ipopt-wasm-start202.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case1354sad-ipopt-wasm-start202.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 2297.8612499999945,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 3375.5335829999967,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": null,
+      "base_status": null,
+      "second_opinion": null,
+      "objective": 1258848.0389971444,
+      "max_constraint_violation": 0.000002922800376836676,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 0,
+      "passed": true
+    },
+    {
+      "case": "case1354sad",
+      "backend": "pounce-wasm",
+      "start_seed": 202,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case1354sad-pounce-wasm-start202.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case1354sad-pounce-wasm-start202.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 2978.140707999999,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 3402.045791999997,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": "SolveSucceeded",
+      "base_status": "SolveSucceeded",
+      "second_opinion": null,
+      "objective": 1258848.0390752777,
+      "max_constraint_violation": 2.821171754652589e-10,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 4.656612873077393e-10,
+      "passed": true
+    },
+    {
+      "case": "case1354sad",
+      "backend": "ipopt-wasm",
+      "start_seed": 303,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case1354sad-ipopt-wasm-start303.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case1354sad-ipopt-wasm-start303.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 9699.844124999996,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 3469.0945839999986,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": null,
+      "base_status": null,
+      "second_opinion": null,
+      "objective": 1258848.0389971375,
+      "max_constraint_violation": 0.000002922800376836676,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 2.3283064365386963e-10,
+      "passed": true
+    },
+    {
+      "case": "case1354sad",
+      "backend": "pounce-wasm",
+      "start_seed": 303,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case1354sad-pounce-wasm-start303.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case1354sad-pounce-wasm-start303.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 14081.183000000005,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 3410.8055409999943,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": "SolveSucceeded",
+      "base_status": "SolveSucceeded",
+      "second_opinion": null,
+      "objective": 1258848.039075291,
+      "max_constraint_violation": 2.821171814930675e-10,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 6.984919309616089e-10,
+      "passed": true
+    },
+    {
+      "case": "case6468",
+      "backend": "ipopt-wasm",
+      "start_seed": 101,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case6468-ipopt-wasm-start101.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case6468-ipopt-wasm-start101.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 39795.58045800001,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 4439.928792000006,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": null,
+      "base_status": null,
+      "second_opinion": null,
+      "objective": 2069730.1451210221,
+      "max_constraint_violation": 3.2146228079454886e-7,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 6.984919309616089e-10,
+      "passed": true
+    },
+    {
+      "case": "case6468",
+      "backend": "pounce-wasm",
+      "start_seed": 101,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case6468-pounce-wasm-start101.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case6468-pounce-wasm-start101.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 57522.97858299999,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 4335.5043339999975,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": "SolveSucceeded",
+      "base_status": "SolveSucceeded",
+      "second_opinion": null,
+      "objective": 2069730.145120988,
+      "max_constraint_violation": 3.4575009522086475e-11,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 9.313225746154785e-10,
+      "passed": true
+    },
+    {
+      "case": "case6468",
+      "backend": "ipopt-wasm",
+      "start_seed": 202,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case6468-ipopt-wasm-start202.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case6468-ipopt-wasm-start202.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 53455.492749999976,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 4233.899458,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": null,
+      "base_status": null,
+      "second_opinion": null,
+      "objective": 2069730.1451210112,
+      "max_constraint_violation": 3.2146228079454886e-7,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 4.656612873077393e-10,
+      "passed": true
+    },
+    {
+      "case": "case6468",
+      "backend": "pounce-wasm",
+      "start_seed": 202,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case6468-pounce-wasm-start202.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case6468-pounce-wasm-start202.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 46257.37645900002,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 4331.518500000006,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": "SolveSucceeded",
+      "base_status": "SolveSucceeded",
+      "second_opinion": null,
+      "objective": 2069730.1451209995,
+      "max_constraint_violation": 3.4575009522086475e-11,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 9.313225746154785e-10,
+      "passed": true
+    },
+    {
+      "case": "case6468",
+      "backend": "ipopt-wasm",
+      "start_seed": 303,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case6468-ipopt-wasm-start303.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case6468-ipopt-wasm-start303.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 42144.624625,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 4215.504416999989,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": null,
+      "base_status": null,
+      "second_opinion": null,
+      "objective": 2069730.145121034,
+      "max_constraint_violation": 3.214622736891215e-7,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 9.313225746154785e-10,
+      "passed": true
+    },
+    {
+      "case": "case6468",
+      "backend": "pounce-wasm",
+      "start_seed": 303,
+      "candidate_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case6468-pounce-wasm-start303.json",
+      "validation_path": "/Users/uqfgeth/Documents/GitHub/wasm-solver-benchmarks/results/starts/case6468-pounce-wasm-start303.validation.json",
+      "smoke": {
+        "exit_code": 0,
+        "elapsed_ms": 72721.95854100003,
+        "stderr_tail": ""
+      },
+      "validator": {
+        "exit_code": 0,
+        "elapsed_ms": 4193.526666999969,
+        "stderr_tail": ""
+      },
+      "solver_status": 0,
+      "raw_status": "SolveSucceeded",
+      "base_status": "SolveSucceeded",
+      "second_opinion": null,
+      "objective": 2069730.1451210259,
+      "max_constraint_violation": 3.4575009522086475e-11,
+      "independent_validation_passed": true,
+      "independent_objective_difference": 1.1641532182693481e-9,
+      "passed": true
+    }
+  ],
+  "passed": true
+}
