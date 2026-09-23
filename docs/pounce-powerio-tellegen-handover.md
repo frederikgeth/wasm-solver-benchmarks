@@ -71,10 +71,13 @@ Important distinctions:
    `wasm32-unknown-unknown` / `wasm-bindgen` package, including its JS worker.
    The benchmark's working `pounce-wasm` artifact is **`wasm32-wasip1` plus a
    WASI shim**; it does not establish that POUNCE links directly into the
-   existing Tellegen WASM crate. Measure emitted asset size and test worker
-   termination. If direct compilation fails, retain the proven separate WASI
-   worker-module approach as the fallback, with a small typed message boundary
-   and a single POUNCE memory, rather than making the UI invoke native code.
+   existing Tellegen WASM crate. A preliminary
+   [`wasm-bindgen` probe](pounce-wasm-bindgen-probe.md) now confirms it
+   compiles and loads but traps on POUNCE's first `std::time::Instant::now()`
+   during solve. Retain the proven separate WASI worker-module approach as
+   the near-term path, with a small typed message boundary and one POUNCE
+   memory. Revisit a single-module build if upstream supplies a portable
+   clock; then measure asset size and test worker termination in-browser.
 3. Build 3-, 14-, and 300-bus PowerIO-prepared prototypes in memory. Compare
    objective, constraint residuals, sparse Jacobian, and Lagrangian Hessian at
    the same points against the frozen benchmark NL model and finite differences.

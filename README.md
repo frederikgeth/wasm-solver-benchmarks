@@ -6,6 +6,9 @@ not integrate with Tellegen or PowerIO.
 
 The 23 September product decision and proposed PowerIO/Tellegen implementation
 stack are recorded in the [POUNCE handover](docs/pounce-powerio-tellegen-handover.md).
+The [direct `wasm-bindgen` probe](docs/pounce-wasm-bindgen-probe.md) compiles
+and loads but confirms POUNCE's current `wasm32-unknown-unknown` clock trap
+when solving; the working browser solver path remains WASI-based.
 
 The first milestone proved that one AMPL `.nl` model exported by JuMP can be
 parsed by POUNCE's evaluator and used to supply the callback contract expected

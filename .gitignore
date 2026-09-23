@@ -2,4 +2,5 @@
 /.pnpm-store/
 /target/
 /web/node_modules/
+/web/generated/
 *.sol

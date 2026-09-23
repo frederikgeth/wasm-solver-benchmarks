@@ -3,6 +3,7 @@ members = [
     "crates/nl-evaluator",
     "crates/nl-evaluator-wasm",
     "crates/pounce-browser-wasm",
+    "crates/pounce-bindgen-probe",
 ]
 resolver = "3"
 
