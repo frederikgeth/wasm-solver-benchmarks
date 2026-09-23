@@ -1,0 +1,5000 @@
+{
+  "schema": "acopf-wasm-bench.native-same-nl-profile/v1",
+  "created_at": "2026-09-23T06:37:50.908Z",
+  "repository": {
+    "commit": "beb27128bbde829a7e543e30d855ac3a118939ca",
+    "worktree_dirty": true
+  },
+  "host": {
+    "platform": "darwin",
+    "architecture": "arm64",
+    "cpu_model": "Apple M4 Max"
+  },
+  "binaries": {
+    "pounce": {
+      "path": "/private/tmp/opf-pounce-native-target/release/pounce",
+      "sha256": "b5fc8509d5f1d4db1c275e981d4e1e9be2688feead593d610d61c92c3514e45a"
+    },
+    "ipopt": {
+      "path": "/opt/homebrew/bin/ipopt",
+      "sha256": "1d3690452b3ea2da2648aaf7dc0a95aafcb9387481f23e2121b8de7799eeaa08"
+    }
+  },
+  "protocol": {
+    "cases": [
+      "case300",
+      "case1354",
+      "case6468"
+    ],
+    "pounce_rayon_threads": [
+      1,
+      14
+    ],
+    "ipopt_threads": 1,
+    "runs_per_pair": 3,
+    "warmups_per_pair": 1,
+    "order": "round-robin rotation of backend order within each case",
+    "same_frozen_nl_bytes": true,
+    "exact_hessian": true,
+    "tol": 1e-9,
+    "max_iter": 1000,
+    "pounce_presolve": false,
+    "ipopt_linear_solver": "mumps",
+    "timing_statistics_enabled": true,
+    "phase_timers_are_solver_reported": true,
+    "timing_note": "Ipopt with MUMPS reports LinearSystemFactorization as zero; this is not an observed zero factorization cost"
+  },
+  "inputs": [
+    {
+      "case": "case300",
+      "nl_sha256": "4a30d0e206379a12c0e0dc781599bef19a85e42c39470be70b36ade9fc677228",
+      "reference_objective": 565219.971834125
+    },
+    {
+      "case": "case1354",
+      "nl_sha256": "3371e7937d16fe10076a07bf5c436ea4f374f2fcb877b748ed34339b3f1ce4f7",
+      "reference_objective": 1258843.9849803096
+    },
+    {
+      "case": "case6468",
+      "nl_sha256": "0a7dcd43b87ded30eb1d9231caaaeb26d139e0773488e340d8c06644ebdd1990",
+      "reference_objective": 2069730.1451210186
+    }
+  ],
+  "warmups": [
+    {
+      "case": "case300",
+      "backend": "pounce-native-t1",
+      "run_kind": "warmup",
+      "run_index": 1,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 35,
+      "objective": 565219.9718341271,
+      "objective_difference": 2.0954757928848267e-9,
+      "process_elapsed_ms": 221.704458,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 0.197,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.014,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.037,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.001,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.102,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.019,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.001,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.008,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.009,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0.101,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.012,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 0.053,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.008,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.008,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 0.038,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "3cea5b4fffe6910e41a5c4c3e4e0c9b6df42648457e2c776b55238ff3c28a30d",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case300-pounce-native-t1-warmup-1.json",
+      "restoration_calls": 0
+    },
+    {
+      "case": "case300",
+      "backend": "pounce-native-t14",
+      "run_kind": "warmup",
+      "run_index": 1,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 35,
+      "objective": 565219.9718341271,
+      "objective_difference": 2.0954757928848267e-9,
+      "process_elapsed_ms": 194.52679200000003,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 0.172,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.014,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.012,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.002,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.103,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.019,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.001,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.008,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.008,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0.102,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.012,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 0.027,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.009,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.007,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 0.012,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "c87e430cdd8464b5cd354d8afe4d0e0167e07d827ba3854b582e0280770deb36",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case300-pounce-native-t14-warmup-1.json",
+      "restoration_calls": 0
+    },
+    {
+      "case": "case300",
+      "backend": "ipopt-native-asl-t1",
+      "run_kind": "warmup",
+      "run_index": 1,
+      "passed": true,
+      "exit_code": 0,
+      "status": "Optimal Solution Found.",
+      "iterations": 35,
+      "objective": 565219.9718341146,
+      "objective_difference": -1.0360963642597198e-8,
+      "process_elapsed_ms": 137.810583,
+      "timing_statistics_seconds": {
+        "Number of nonzeros in equality constraint Jacobian": {
+          "reported_seconds": 10022,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in inequality constraint Jacobian": {
+          "reported_seconds": 2462,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in Lagrangian Hessian": {
+          "reported_seconds": 4180,
+          "wall_seconds": null
+        },
+        "Total number of variables": {
+          "reported_seconds": 2370,
+          "wall_seconds": null
+        },
+        "Total number of equality constraints": {
+          "reported_seconds": 2245,
+          "wall_seconds": null
+        },
+        "Total number of inequality constraints": {
+          "reported_seconds": 1231,
+          "wall_seconds": null
+        },
+        "Number of Iterations": {
+          "reported_seconds": 35,
+          "wall_seconds": null
+        },
+        "Objective": {
+          "reported_seconds": 4.833443034025549,
+          "wall_seconds": null
+        },
+        "Dual infeasibility": {
+          "reported_seconds": 6.753097021990768,
+          "wall_seconds": null
+        },
+        "Constraint violation": {
+          "reported_seconds": 6.446204681154199,
+          "wall_seconds": null
+        },
+        "Complementarity": {
+          "reported_seconds": 9.094743471144358,
+          "wall_seconds": null
+        },
+        "Overall NLP error": {
+          "reported_seconds": 9.094743471144358,
+          "wall_seconds": null
+        },
+        "OverallAlgorithm": {
+          "reported_seconds": 0.115,
+          "wall_seconds": 0.117
+        },
+        "PrintProblemStatistics": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.007,
+          "wall_seconds": 0.007
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.015,
+          "wall_seconds": 0.015
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.078,
+          "wall_seconds": 0.079
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.009,
+          "wall_seconds": 0.009
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.006,
+          "wall_seconds": 0.006
+        },
+        "PDSystemSolverTotal": {
+          "reported_seconds": 0.079,
+          "wall_seconds": 0.079
+        },
+        "PDSystemSolverSolveOnce": {
+          "reported_seconds": 0.075,
+          "wall_seconds": 0.075
+        },
+        "ComputeResiduals": {
+          "reported_seconds": 0.004,
+          "wall_seconds": 0.004
+        },
+        "StdAugSystemSolverMultiSolve": {
+          "reported_seconds": 0.079,
+          "wall_seconds": 0.08
+        },
+        "LinearSystemScaling": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0.004,
+          "wall_seconds": 0.004
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.024,
+          "wall_seconds": 0.024
+        },
+        "LinearSystemStructureConverter": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "TryCorrector": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task1": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task2": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task3": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task4": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task5": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task6": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Function Evaluations": {
+          "reported_seconds": 0.023,
+          "wall_seconds": 0.023
+        },
+        "Objective function": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Objective function gradient": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Equality constraints": {
+          "reported_seconds": 0.004,
+          "wall_seconds": 0.004
+        },
+        "Inequality constraints": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Equality constraint Jacobian": {
+          "reported_seconds": 0.004,
+          "wall_seconds": 0.004
+        },
+        "Inequality constraint Jacobian": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Lagrangian Hessian": {
+          "reported_seconds": 0.015,
+          "wall_seconds": 0.015
+        }
+      },
+      "stdout_sha256": "7526a7bb0b4ade94142710378001e068fd8c9343c245b17777e2815b048381c0",
+      "stderr_tail": ""
+    },
+    {
+      "case": "case1354",
+      "backend": "pounce-native-t1",
+      "run_kind": "warmup",
+      "run_index": 1,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 53,
+      "objective": 1258843.9849803008,
+      "objective_difference": -8.847564458847046e-9,
+      "process_elapsed_ms": 1521.9900000000002,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 1.432,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.064,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.298,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.007,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.707,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.216,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.009,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.041,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.059,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0.699,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.129,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 0.41,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0.001,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.054,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.053,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 0.303,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "945d0b6a3d5df9fe99d7ade5e6a74f964f7d103e79fc1eedbe5b07a664949fe5",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case1354-pounce-native-t1-warmup-1.json",
+      "restoration_calls": 0
+    },
+    {
+      "case": "case1354",
+      "backend": "pounce-native-t14",
+      "run_kind": "warmup",
+      "run_index": 1,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 53,
+      "objective": 1258843.9849803008,
+      "objective_difference": -8.847564458847046e-9,
+      "process_elapsed_ms": 1201.2950830000004,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 1.111,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.063,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.059,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.008,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.658,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.217,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.01,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.043,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.031,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0.644,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.137,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 0.128,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0.001,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.046,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.023,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 0.06,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "24e8a0d62d2e2f40f1ae9d2642f3e54703fd7443e3699d016ed98d10131f568e",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case1354-pounce-native-t14-warmup-1.json",
+      "restoration_calls": 0
+    },
+    {
+      "case": "case1354",
+      "backend": "ipopt-native-asl-t1",
+      "run_kind": "warmup",
+      "run_index": 1,
+      "passed": true,
+      "exit_code": 0,
+      "status": "Optimal Solution Found.",
+      "iterations": 52,
+      "objective": 1258843.984980303,
+      "objective_difference": -6.51925802230835e-9,
+      "process_elapsed_ms": 1012.8324160000002,
+      "timing_statistics_seconds": {
+        "Number of nonzeros in equality constraint Jacobian": {
+          "reported_seconds": 49387,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in inequality constraint Jacobian": {
+          "reported_seconds": 11384,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in Lagrangian Hessian": {
+          "reported_seconds": 18866,
+          "wall_seconds": null
+        },
+        "Total number of variables": {
+          "reported_seconds": 11192,
+          "wall_seconds": null
+        },
+        "Total number of equality constraints": {
+          "reported_seconds": 10673,
+          "wall_seconds": null
+        },
+        "Total number of inequality constraints": {
+          "reported_seconds": 5692,
+          "wall_seconds": null
+        },
+        "Number of Iterations": {
+          "reported_seconds": 52,
+          "wall_seconds": null
+        },
+        "Objective": {
+          "reported_seconds": 1.0036029786006466,
+          "wall_seconds": null
+        },
+        "Dual infeasibility": {
+          "reported_seconds": 4.0596544976308016,
+          "wall_seconds": null
+        },
+        "Constraint violation": {
+          "reported_seconds": 1.6745291575072114,
+          "wall_seconds": null
+        },
+        "Complementarity": {
+          "reported_seconds": 2.348677729701352,
+          "wall_seconds": null
+        },
+        "Overall NLP error": {
+          "reported_seconds": 2.348677729701352,
+          "wall_seconds": null
+        },
+        "OverallAlgorithm": {
+          "reported_seconds": 0.928,
+          "wall_seconds": 0.947
+        },
+        "PrintProblemStatistics": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.034,
+          "wall_seconds": 0.036
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.198,
+          "wall_seconds": 0.2
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": 0.001
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.002,
+          "wall_seconds": 0.002
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.547,
+          "wall_seconds": 0.559
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.101,
+          "wall_seconds": 0.103
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.002,
+          "wall_seconds": 0.002
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.044,
+          "wall_seconds": 0.044
+        },
+        "PDSystemSolverTotal": {
+          "reported_seconds": 0.569,
+          "wall_seconds": 0.581
+        },
+        "PDSystemSolverSolveOnce": {
+          "reported_seconds": 0.538,
+          "wall_seconds": 0.549
+        },
+        "ComputeResiduals": {
+          "reported_seconds": 0.028,
+          "wall_seconds": 0.029
+        },
+        "StdAugSystemSolverMultiSolve": {
+          "reported_seconds": 0.561,
+          "wall_seconds": 0.573
+        },
+        "LinearSystemScaling": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0.02,
+          "wall_seconds": 0.021
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.188,
+          "wall_seconds": 0.191
+        },
+        "LinearSystemStructureConverter": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "TryCorrector": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task1": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task2": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task3": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task4": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task5": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task6": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Function Evaluations": {
+          "reported_seconds": 0.286,
+          "wall_seconds": 0.29
+        },
+        "Objective function": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Objective function gradient": {
+          "reported_seconds": 0.003,
+          "wall_seconds": 0.003
+        },
+        "Equality constraints": {
+          "reported_seconds": 0.054,
+          "wall_seconds": 0.055
+        },
+        "Inequality constraints": {
+          "reported_seconds": 0.001,
+          "wall_seconds": 0.001
+        },
+        "Equality constraint Jacobian": {
+          "reported_seconds": 0.03,
+          "wall_seconds": 0.03
+        },
+        "Inequality constraint Jacobian": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Lagrangian Hessian": {
+          "reported_seconds": 0.198,
+          "wall_seconds": 0.2
+        }
+      },
+      "stdout_sha256": "f9c97e4aeefadd92de709379a1b147887e43f7aac57dc3b3a8114e91a5ff089f",
+      "stderr_tail": ""
+    },
+    {
+      "case": "case6468",
+      "backend": "pounce-native-t1",
+      "run_kind": "warmup",
+      "run_index": 1,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 146,
+      "objective": 2069730.1451210266,
+      "objective_difference": 7.916241884231567e-9,
+      "process_elapsed_ms": 23196.814249999996,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 22.805,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.326,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 3.769,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.067,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 9.954,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 7.234,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.096,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.45,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.716,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0.002,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 9.217,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 3.913,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 5.574,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0.009,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.838,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.731,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 3.999,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "e8e521a37637d7d3ad6e928804e87aa14e78029b3375a736b2cf44683e8e4e0b",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case6468-pounce-native-t1-warmup-1.json",
+      "restoration_calls": 3
+    },
+    {
+      "case": "case6468",
+      "backend": "pounce-native-t14",
+      "run_kind": "warmup",
+      "run_index": 1,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 146,
+      "objective": 2069730.1451210266,
+      "objective_difference": 7.916241884231567e-9,
+      "process_elapsed_ms": 19941.595333999998,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 19.542,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.339,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.506,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.067,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 9.82,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 7.863,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.093,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.456,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.23,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0.002,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 8.97,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 5.386,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 1.04,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0.01,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.332,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.167,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 0.537,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "f748fc35d34c0ae85bfa1914d3dcb1c82826c31159f20adda11b9c97d630b29d",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case6468-pounce-native-t14-warmup-1.json",
+      "restoration_calls": 3
+    },
+    {
+      "case": "case6468",
+      "backend": "ipopt-native-asl-t1",
+      "run_kind": "warmup",
+      "run_index": 1,
+      "passed": true,
+      "exit_code": 0,
+      "status": "Optimal Solution Found.",
+      "iterations": 146,
+      "objective": 2069730.1451209702,
+      "objective_difference": -4.842877388000488e-8,
+      "process_elapsed_ms": 14406.735332999997,
+      "timing_statistics_seconds": {
+        "Number of nonzeros in equality constraint Jacobian": {
+          "reported_seconds": 216840,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in inequality constraint Jacobian": {
+          "reported_seconds": 52130,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in Lagrangian Hessian": {
+          "reported_seconds": 87664,
+          "wall_seconds": null
+        },
+        "Total number of variables": {
+          "reported_seconds": 49678,
+          "wall_seconds": null
+        },
+        "Total number of equality constraints": {
+          "reported_seconds": 48937,
+          "wall_seconds": null
+        },
+        "Total number of inequality constraints": {
+          "reported_seconds": 26065,
+          "wall_seconds": null
+        },
+        "Number of Iterations": {
+          "reported_seconds": 146,
+          "wall_seconds": null
+        },
+        "Objective": {
+          "reported_seconds": 1.4993743172626874,
+          "wall_seconds": null
+        },
+        "Dual infeasibility": {
+          "reported_seconds": 2.0204081908340847,
+          "wall_seconds": null
+        },
+        "Constraint violation": {
+          "reported_seconds": 1.6761314558522145,
+          "wall_seconds": null
+        },
+        "Complementarity": {
+          "reported_seconds": 9.388450864629037,
+          "wall_seconds": null
+        },
+        "Overall NLP error": {
+          "reported_seconds": 2.0204081908340847,
+          "wall_seconds": null
+        },
+        "OverallAlgorithm": {
+          "reported_seconds": 13.856,
+          "wall_seconds": 14.125
+        },
+        "PrintProblemStatistics": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.206,
+          "wall_seconds": 0.215
+        },
+        "UpdateHessian": {
+          "reported_seconds": 3.489,
+          "wall_seconds": 3.556
+        },
+        "OutputIteration": {
+          "reported_seconds": 0.001,
+          "wall_seconds": 0.002
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.012,
+          "wall_seconds": 0.012
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 7.095,
+          "wall_seconds": 7.227
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 2.461,
+          "wall_seconds": 2.508
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.018,
+          "wall_seconds": 0.018
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.574,
+          "wall_seconds": 0.586
+        },
+        "PDSystemSolverTotal": {
+          "reported_seconds": 7.439,
+          "wall_seconds": 7.577
+        },
+        "PDSystemSolverSolveOnce": {
+          "reported_seconds": 7.064,
+          "wall_seconds": 7.194
+        },
+        "ComputeResiduals": {
+          "reported_seconds": 0.342,
+          "wall_seconds": 0.349
+        },
+        "StdAugSystemSolverMultiSolve": {
+          "reported_seconds": 7.618,
+          "wall_seconds": 7.762
+        },
+        "LinearSystemScaling": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0.125,
+          "wall_seconds": 0.13
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 2.57,
+          "wall_seconds": 2.615
+        },
+        "LinearSystemStructureConverter": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "TryCorrector": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task1": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task2": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task3": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task4": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task5": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task6": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Function Evaluations": {
+          "reported_seconds": 5.188,
+          "wall_seconds": 5.286
+        },
+        "Objective function": {
+          "reported_seconds": 0.004,
+          "wall_seconds": 0.004
+        },
+        "Objective function gradient": {
+          "reported_seconds": 0.104,
+          "wall_seconds": 0.107
+        },
+        "Equality constraints": {
+          "reported_seconds": 1.002,
+          "wall_seconds": 1.018
+        },
+        "Inequality constraints": {
+          "reported_seconds": 0.006,
+          "wall_seconds": 0.006
+        },
+        "Equality constraint Jacobian": {
+          "reported_seconds": 0.403,
+          "wall_seconds": 0.411
+        },
+        "Inequality constraint Jacobian": {
+          "reported_seconds": 0.003,
+          "wall_seconds": 0.003
+        },
+        "Lagrangian Hessian": {
+          "reported_seconds": 3.667,
+          "wall_seconds": 3.737
+        }
+      },
+      "stdout_sha256": "53010d82aeea4662b785add66a4939f9d7c3ec18059b1a36d7b140c0859c95de",
+      "stderr_tail": ""
+    }
+  ],
+  "observations": [
+    {
+      "case": "case300",
+      "backend": "pounce-native-t14",
+      "run_kind": "measured",
+      "run_index": 1,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 35,
+      "objective": 565219.9718341271,
+      "objective_difference": 2.0954757928848267e-9,
+      "process_elapsed_ms": 195.80387500000006,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 0.173,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.014,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.012,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.002,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.104,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.019,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.001,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.008,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.008,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0.102,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.012,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 0.027,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.009,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.007,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 0.012,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "2a27b93761f253bb40f6cc2579841ed7ec2ec6e9617389e54a6a553d2b5fb177",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case300-pounce-native-t14-measured-1.json",
+      "restoration_calls": 0
+    },
+    {
+      "case": "case300",
+      "backend": "ipopt-native-asl-t1",
+      "run_kind": "measured",
+      "run_index": 1,
+      "passed": true,
+      "exit_code": 0,
+      "status": "Optimal Solution Found.",
+      "iterations": 35,
+      "objective": 565219.9718341146,
+      "objective_difference": -1.0360963642597198e-8,
+      "process_elapsed_ms": 141.874416,
+      "timing_statistics_seconds": {
+        "Number of nonzeros in equality constraint Jacobian": {
+          "reported_seconds": 10022,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in inequality constraint Jacobian": {
+          "reported_seconds": 2462,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in Lagrangian Hessian": {
+          "reported_seconds": 4180,
+          "wall_seconds": null
+        },
+        "Total number of variables": {
+          "reported_seconds": 2370,
+          "wall_seconds": null
+        },
+        "Total number of equality constraints": {
+          "reported_seconds": 2245,
+          "wall_seconds": null
+        },
+        "Total number of inequality constraints": {
+          "reported_seconds": 1231,
+          "wall_seconds": null
+        },
+        "Number of Iterations": {
+          "reported_seconds": 35,
+          "wall_seconds": null
+        },
+        "Objective": {
+          "reported_seconds": 4.833443034025549,
+          "wall_seconds": null
+        },
+        "Dual infeasibility": {
+          "reported_seconds": 6.753097021990768,
+          "wall_seconds": null
+        },
+        "Constraint violation": {
+          "reported_seconds": 6.446204681154199,
+          "wall_seconds": null
+        },
+        "Complementarity": {
+          "reported_seconds": 9.094743471144358,
+          "wall_seconds": null
+        },
+        "Overall NLP error": {
+          "reported_seconds": 9.094743471144358,
+          "wall_seconds": null
+        },
+        "OverallAlgorithm": {
+          "reported_seconds": 0.117,
+          "wall_seconds": 0.12
+        },
+        "PrintProblemStatistics": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.007,
+          "wall_seconds": 0.007
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.016,
+          "wall_seconds": 0.016
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.079,
+          "wall_seconds": 0.08
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.009,
+          "wall_seconds": 0.01
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.006,
+          "wall_seconds": 0.006
+        },
+        "PDSystemSolverTotal": {
+          "reported_seconds": 0.08,
+          "wall_seconds": 0.081
+        },
+        "PDSystemSolverSolveOnce": {
+          "reported_seconds": 0.076,
+          "wall_seconds": 0.077
+        },
+        "ComputeResiduals": {
+          "reported_seconds": 0.004,
+          "wall_seconds": 0.004
+        },
+        "StdAugSystemSolverMultiSolve": {
+          "reported_seconds": 0.08,
+          "wall_seconds": 0.082
+        },
+        "LinearSystemScaling": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0.004,
+          "wall_seconds": 0.004
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.025,
+          "wall_seconds": 0.025
+        },
+        "LinearSystemStructureConverter": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "TryCorrector": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task1": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task2": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task3": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task4": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task5": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task6": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Function Evaluations": {
+          "reported_seconds": 0.024,
+          "wall_seconds": 0.025
+        },
+        "Objective function": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Objective function gradient": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Equality constraints": {
+          "reported_seconds": 0.005,
+          "wall_seconds": 0.005
+        },
+        "Inequality constraints": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Equality constraint Jacobian": {
+          "reported_seconds": 0.004,
+          "wall_seconds": 0.004
+        },
+        "Inequality constraint Jacobian": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Lagrangian Hessian": {
+          "reported_seconds": 0.015,
+          "wall_seconds": 0.016
+        }
+      },
+      "stdout_sha256": "7e33fa8d77ab818306d46d5525c313a43fa88aa79ac8b982bae24365e17e7463",
+      "stderr_tail": ""
+    },
+    {
+      "case": "case300",
+      "backend": "pounce-native-t1",
+      "run_kind": "measured",
+      "run_index": 1,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 35,
+      "objective": 565219.9718341271,
+      "objective_difference": 2.0954757928848267e-9,
+      "process_elapsed_ms": 219.02304099999992,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 0.197,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.013,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.036,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.001,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.103,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.019,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.001,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.008,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.009,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0.102,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.012,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 0.052,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.008,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.008,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 0.037,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "85c21805e50139c52f6f13ae41b0eb70b5cf2b99a58acd54cc4c0351b896482d",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case300-pounce-native-t1-measured-1.json",
+      "restoration_calls": 0
+    },
+    {
+      "case": "case300",
+      "backend": "ipopt-native-asl-t1",
+      "run_kind": "measured",
+      "run_index": 2,
+      "passed": true,
+      "exit_code": 0,
+      "status": "Optimal Solution Found.",
+      "iterations": 35,
+      "objective": 565219.9718341146,
+      "objective_difference": -1.0360963642597198e-8,
+      "process_elapsed_ms": 141.42091700000014,
+      "timing_statistics_seconds": {
+        "Number of nonzeros in equality constraint Jacobian": {
+          "reported_seconds": 10022,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in inequality constraint Jacobian": {
+          "reported_seconds": 2462,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in Lagrangian Hessian": {
+          "reported_seconds": 4180,
+          "wall_seconds": null
+        },
+        "Total number of variables": {
+          "reported_seconds": 2370,
+          "wall_seconds": null
+        },
+        "Total number of equality constraints": {
+          "reported_seconds": 2245,
+          "wall_seconds": null
+        },
+        "Total number of inequality constraints": {
+          "reported_seconds": 1231,
+          "wall_seconds": null
+        },
+        "Number of Iterations": {
+          "reported_seconds": 35,
+          "wall_seconds": null
+        },
+        "Objective": {
+          "reported_seconds": 4.833443034025549,
+          "wall_seconds": null
+        },
+        "Dual infeasibility": {
+          "reported_seconds": 6.753097021990768,
+          "wall_seconds": null
+        },
+        "Constraint violation": {
+          "reported_seconds": 6.446204681154199,
+          "wall_seconds": null
+        },
+        "Complementarity": {
+          "reported_seconds": 9.094743471144358,
+          "wall_seconds": null
+        },
+        "Overall NLP error": {
+          "reported_seconds": 9.094743471144358,
+          "wall_seconds": null
+        },
+        "OverallAlgorithm": {
+          "reported_seconds": 0.117,
+          "wall_seconds": 0.12
+        },
+        "PrintProblemStatistics": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.007,
+          "wall_seconds": 0.007
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.015,
+          "wall_seconds": 0.015
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.079,
+          "wall_seconds": 0.081
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.009,
+          "wall_seconds": 0.01
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.006,
+          "wall_seconds": 0.006
+        },
+        "PDSystemSolverTotal": {
+          "reported_seconds": 0.08,
+          "wall_seconds": 0.082
+        },
+        "PDSystemSolverSolveOnce": {
+          "reported_seconds": 0.076,
+          "wall_seconds": 0.077
+        },
+        "ComputeResiduals": {
+          "reported_seconds": 0.004,
+          "wall_seconds": 0.004
+        },
+        "StdAugSystemSolverMultiSolve": {
+          "reported_seconds": 0.08,
+          "wall_seconds": 0.082
+        },
+        "LinearSystemScaling": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0.004,
+          "wall_seconds": 0.004
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.025,
+          "wall_seconds": 0.025
+        },
+        "LinearSystemStructureConverter": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "TryCorrector": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task1": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task2": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task3": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task4": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task5": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task6": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Function Evaluations": {
+          "reported_seconds": 0.024,
+          "wall_seconds": 0.024
+        },
+        "Objective function": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Objective function gradient": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Equality constraints": {
+          "reported_seconds": 0.004,
+          "wall_seconds": 0.005
+        },
+        "Inequality constraints": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Equality constraint Jacobian": {
+          "reported_seconds": 0.004,
+          "wall_seconds": 0.004
+        },
+        "Inequality constraint Jacobian": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Lagrangian Hessian": {
+          "reported_seconds": 0.015,
+          "wall_seconds": 0.015
+        }
+      },
+      "stdout_sha256": "81748729b2611367f2913a6cbacd11111d36e2c56adfaa64fc656242c73cdc3a",
+      "stderr_tail": ""
+    },
+    {
+      "case": "case300",
+      "backend": "pounce-native-t1",
+      "run_kind": "measured",
+      "run_index": 2,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 35,
+      "objective": 565219.9718341271,
+      "objective_difference": 2.0954757928848267e-9,
+      "process_elapsed_ms": 215.684667,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 0.193,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.013,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.036,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.001,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.1,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.018,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.001,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.007,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.009,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0.1,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.012,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 0.052,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.008,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.008,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 0.037,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "53797779dd7822a717490ea326edc527371d9a900e596409b7a949e121ded9c6",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case300-pounce-native-t1-measured-2.json",
+      "restoration_calls": 0
+    },
+    {
+      "case": "case300",
+      "backend": "pounce-native-t14",
+      "run_kind": "measured",
+      "run_index": 2,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 35,
+      "objective": 565219.9718341271,
+      "objective_difference": 2.0954757928848267e-9,
+      "process_elapsed_ms": 194.3427079999999,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 0.172,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.013,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.013,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.002,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.103,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.018,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.001,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.009,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.008,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0.101,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.012,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 0.028,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.009,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.007,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 0.013,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "9b65bf26ae157c8796e55307ecb2841dde27b69304183f5a0f7efc1d60be6d87",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case300-pounce-native-t14-measured-2.json",
+      "restoration_calls": 0
+    },
+    {
+      "case": "case300",
+      "backend": "pounce-native-t1",
+      "run_kind": "measured",
+      "run_index": 3,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 35,
+      "objective": 565219.9718341271,
+      "objective_difference": 2.0954757928848267e-9,
+      "process_elapsed_ms": 215.71216700000014,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 0.193,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.013,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.036,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.002,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.1,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.019,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.001,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.007,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.009,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0.099,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.012,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 0.052,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.008,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.008,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 0.037,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "46ec9dadb8910f8963531cfc84ba70509c95f3f9754238b0e886df29e82bf81b",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case300-pounce-native-t1-measured-3.json",
+      "restoration_calls": 0
+    },
+    {
+      "case": "case300",
+      "backend": "pounce-native-t14",
+      "run_kind": "measured",
+      "run_index": 3,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 35,
+      "objective": 565219.9718341271,
+      "objective_difference": 2.0954757928848267e-9,
+      "process_elapsed_ms": 193.87266699999986,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 0.171,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.014,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.013,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.002,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.1,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.019,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.001,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.009,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.008,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0.099,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.012,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 0.028,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.009,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.007,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 0.013,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "a97af43d17fa80b7e0b8139fc01709351814b7d5063d146b4dea9fb3e6823633",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case300-pounce-native-t14-measured-3.json",
+      "restoration_calls": 0
+    },
+    {
+      "case": "case300",
+      "backend": "ipopt-native-asl-t1",
+      "run_kind": "measured",
+      "run_index": 3,
+      "passed": true,
+      "exit_code": 0,
+      "status": "Optimal Solution Found.",
+      "iterations": 35,
+      "objective": 565219.9718341146,
+      "objective_difference": -1.0360963642597198e-8,
+      "process_elapsed_ms": 133.6167089999999,
+      "timing_statistics_seconds": {
+        "Number of nonzeros in equality constraint Jacobian": {
+          "reported_seconds": 10022,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in inequality constraint Jacobian": {
+          "reported_seconds": 2462,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in Lagrangian Hessian": {
+          "reported_seconds": 4180,
+          "wall_seconds": null
+        },
+        "Total number of variables": {
+          "reported_seconds": 2370,
+          "wall_seconds": null
+        },
+        "Total number of equality constraints": {
+          "reported_seconds": 2245,
+          "wall_seconds": null
+        },
+        "Total number of inequality constraints": {
+          "reported_seconds": 1231,
+          "wall_seconds": null
+        },
+        "Number of Iterations": {
+          "reported_seconds": 35,
+          "wall_seconds": null
+        },
+        "Objective": {
+          "reported_seconds": 4.833443034025549,
+          "wall_seconds": null
+        },
+        "Dual infeasibility": {
+          "reported_seconds": 6.753097021990768,
+          "wall_seconds": null
+        },
+        "Constraint violation": {
+          "reported_seconds": 6.446204681154199,
+          "wall_seconds": null
+        },
+        "Complementarity": {
+          "reported_seconds": 9.094743471144358,
+          "wall_seconds": null
+        },
+        "Overall NLP error": {
+          "reported_seconds": 9.094743471144358,
+          "wall_seconds": null
+        },
+        "OverallAlgorithm": {
+          "reported_seconds": 0.109,
+          "wall_seconds": 0.114
+        },
+        "PrintProblemStatistics": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.006,
+          "wall_seconds": 0.007
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.014,
+          "wall_seconds": 0.014
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.074,
+          "wall_seconds": 0.076
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.009,
+          "wall_seconds": 0.009
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.006,
+          "wall_seconds": 0.006
+        },
+        "PDSystemSolverTotal": {
+          "reported_seconds": 0.075,
+          "wall_seconds": 0.077
+        },
+        "PDSystemSolverSolveOnce": {
+          "reported_seconds": 0.071,
+          "wall_seconds": 0.073
+        },
+        "ComputeResiduals": {
+          "reported_seconds": 0.003,
+          "wall_seconds": 0.004
+        },
+        "StdAugSystemSolverMultiSolve": {
+          "reported_seconds": 0.076,
+          "wall_seconds": 0.078
+        },
+        "LinearSystemScaling": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0.003,
+          "wall_seconds": 0.004
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.023,
+          "wall_seconds": 0.024
+        },
+        "LinearSystemStructureConverter": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "TryCorrector": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task1": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task2": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task3": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task4": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task5": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task6": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Function Evaluations": {
+          "reported_seconds": 0.022,
+          "wall_seconds": 0.022
+        },
+        "Objective function": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Objective function gradient": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Equality constraints": {
+          "reported_seconds": 0.004,
+          "wall_seconds": 0.004
+        },
+        "Inequality constraints": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Equality constraint Jacobian": {
+          "reported_seconds": 0.004,
+          "wall_seconds": 0.004
+        },
+        "Inequality constraint Jacobian": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Lagrangian Hessian": {
+          "reported_seconds": 0.014,
+          "wall_seconds": 0.014
+        }
+      },
+      "stdout_sha256": "c4d0f60fe261ecbf9e38b9f9f8a85595a007baa526df0ddae23ae4c797eed9ec",
+      "stderr_tail": ""
+    },
+    {
+      "case": "case1354",
+      "backend": "pounce-native-t14",
+      "run_kind": "measured",
+      "run_index": 1,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 53,
+      "objective": 1258843.9849803008,
+      "objective_difference": -8.847564458847046e-9,
+      "process_elapsed_ms": 1183.6115419999996,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 1.089,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.063,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.052,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.008,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.647,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.212,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.01,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.044,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.031,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0.635,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.135,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 0.119,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0.001,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.044,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.023,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 0.053,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "d31e04ba5207b460c668d07b130b4e3aeae81c5bd4ec60dd0763f5a12007178d",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case1354-pounce-native-t14-measured-1.json",
+      "restoration_calls": 0
+    },
+    {
+      "case": "case1354",
+      "backend": "ipopt-native-asl-t1",
+      "run_kind": "measured",
+      "run_index": 1,
+      "passed": true,
+      "exit_code": 0,
+      "status": "Optimal Solution Found.",
+      "iterations": 52,
+      "objective": 1258843.984980303,
+      "objective_difference": -6.51925802230835e-9,
+      "process_elapsed_ms": 1006.9721250000002,
+      "timing_statistics_seconds": {
+        "Number of nonzeros in equality constraint Jacobian": {
+          "reported_seconds": 49387,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in inequality constraint Jacobian": {
+          "reported_seconds": 11384,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in Lagrangian Hessian": {
+          "reported_seconds": 18866,
+          "wall_seconds": null
+        },
+        "Total number of variables": {
+          "reported_seconds": 11192,
+          "wall_seconds": null
+        },
+        "Total number of equality constraints": {
+          "reported_seconds": 10673,
+          "wall_seconds": null
+        },
+        "Total number of inequality constraints": {
+          "reported_seconds": 5692,
+          "wall_seconds": null
+        },
+        "Number of Iterations": {
+          "reported_seconds": 52,
+          "wall_seconds": null
+        },
+        "Objective": {
+          "reported_seconds": 1.0036029786006466,
+          "wall_seconds": null
+        },
+        "Dual infeasibility": {
+          "reported_seconds": 4.0596544976308016,
+          "wall_seconds": null
+        },
+        "Constraint violation": {
+          "reported_seconds": 1.6745291575072114,
+          "wall_seconds": null
+        },
+        "Complementarity": {
+          "reported_seconds": 2.348677729701352,
+          "wall_seconds": null
+        },
+        "Overall NLP error": {
+          "reported_seconds": 2.348677729701352,
+          "wall_seconds": null
+        },
+        "OverallAlgorithm": {
+          "reported_seconds": 0.918,
+          "wall_seconds": 0.942
+        },
+        "PrintProblemStatistics": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.035,
+          "wall_seconds": 0.037
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.207,
+          "wall_seconds": 0.211
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": 0.001
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.002,
+          "wall_seconds": 0.002
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.53,
+          "wall_seconds": 0.543
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.099,
+          "wall_seconds": 0.101
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.002,
+          "wall_seconds": 0.002
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.044,
+          "wall_seconds": 0.045
+        },
+        "PDSystemSolverTotal": {
+          "reported_seconds": 0.551,
+          "wall_seconds": 0.565
+        },
+        "PDSystemSolverSolveOnce": {
+          "reported_seconds": 0.521,
+          "wall_seconds": 0.534
+        },
+        "ComputeResiduals": {
+          "reported_seconds": 0.027,
+          "wall_seconds": 0.028
+        },
+        "StdAugSystemSolverMultiSolve": {
+          "reported_seconds": 0.545,
+          "wall_seconds": 0.559
+        },
+        "LinearSystemScaling": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0.021,
+          "wall_seconds": 0.022
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.18,
+          "wall_seconds": 0.184
+        },
+        "LinearSystemStructureConverter": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "TryCorrector": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task1": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task2": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task3": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task4": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task5": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task6": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Function Evaluations": {
+          "reported_seconds": 0.293,
+          "wall_seconds": 0.3
+        },
+        "Objective function": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Objective function gradient": {
+          "reported_seconds": 0.003,
+          "wall_seconds": 0.003
+        },
+        "Equality constraints": {
+          "reported_seconds": 0.053,
+          "wall_seconds": 0.054
+        },
+        "Inequality constraints": {
+          "reported_seconds": 0.001,
+          "wall_seconds": 0.001
+        },
+        "Equality constraint Jacobian": {
+          "reported_seconds": 0.03,
+          "wall_seconds": 0.03
+        },
+        "Inequality constraint Jacobian": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Lagrangian Hessian": {
+          "reported_seconds": 0.207,
+          "wall_seconds": 0.211
+        }
+      },
+      "stdout_sha256": "7f8ead97cd7cd4b3507a8b2fd79a746ae4bad3cb013210c1cd28f820d5b196d2",
+      "stderr_tail": ""
+    },
+    {
+      "case": "case1354",
+      "backend": "pounce-native-t1",
+      "run_kind": "measured",
+      "run_index": 1,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 53,
+      "objective": 1258843.9849803008,
+      "objective_difference": -8.847564458847046e-9,
+      "process_elapsed_ms": 1596.0920419999993,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 1.505,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.066,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.312,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.008,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.739,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.23,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.01,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.045,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.064,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0.727,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.135,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 0.436,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0.001,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.061,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.057,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 0.318,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "7506b6bd72c4849fd139b62ece120f2db3645a5ecfab7d98d9f9950e28fd81ba",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case1354-pounce-native-t1-measured-1.json",
+      "restoration_calls": 0
+    },
+    {
+      "case": "case1354",
+      "backend": "ipopt-native-asl-t1",
+      "run_kind": "measured",
+      "run_index": 2,
+      "passed": true,
+      "exit_code": 0,
+      "status": "Optimal Solution Found.",
+      "iterations": 52,
+      "objective": 1258843.984980303,
+      "objective_difference": -6.51925802230835e-9,
+      "process_elapsed_ms": 1028.042207999999,
+      "timing_statistics_seconds": {
+        "Number of nonzeros in equality constraint Jacobian": {
+          "reported_seconds": 49387,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in inequality constraint Jacobian": {
+          "reported_seconds": 11384,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in Lagrangian Hessian": {
+          "reported_seconds": 18866,
+          "wall_seconds": null
+        },
+        "Total number of variables": {
+          "reported_seconds": 11192,
+          "wall_seconds": null
+        },
+        "Total number of equality constraints": {
+          "reported_seconds": 10673,
+          "wall_seconds": null
+        },
+        "Total number of inequality constraints": {
+          "reported_seconds": 5692,
+          "wall_seconds": null
+        },
+        "Number of Iterations": {
+          "reported_seconds": 52,
+          "wall_seconds": null
+        },
+        "Objective": {
+          "reported_seconds": 1.0036029786006466,
+          "wall_seconds": null
+        },
+        "Dual infeasibility": {
+          "reported_seconds": 4.0596544976308016,
+          "wall_seconds": null
+        },
+        "Constraint violation": {
+          "reported_seconds": 1.6745291575072114,
+          "wall_seconds": null
+        },
+        "Complementarity": {
+          "reported_seconds": 2.348677729701352,
+          "wall_seconds": null
+        },
+        "Overall NLP error": {
+          "reported_seconds": 2.348677729701352,
+          "wall_seconds": null
+        },
+        "OverallAlgorithm": {
+          "reported_seconds": 0.946,
+          "wall_seconds": 0.962
+        },
+        "PrintProblemStatistics": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.036,
+          "wall_seconds": 0.038
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.206,
+          "wall_seconds": 0.208
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": 0.001
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.002,
+          "wall_seconds": 0.002
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.558,
+          "wall_seconds": 0.567
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.097,
+          "wall_seconds": 0.099
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.002,
+          "wall_seconds": 0.002
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.045,
+          "wall_seconds": 0.045
+        },
+        "PDSystemSolverTotal": {
+          "reported_seconds": 0.581,
+          "wall_seconds": 0.59
+        },
+        "PDSystemSolverSolveOnce": {
+          "reported_seconds": 0.55,
+          "wall_seconds": 0.558
+        },
+        "ComputeResiduals": {
+          "reported_seconds": 0.028,
+          "wall_seconds": 0.029
+        },
+        "StdAugSystemSolverMultiSolve": {
+          "reported_seconds": 0.574,
+          "wall_seconds": 0.583
+        },
+        "LinearSystemScaling": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0.021,
+          "wall_seconds": 0.022
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.191,
+          "wall_seconds": 0.194
+        },
+        "LinearSystemStructureConverter": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "TryCorrector": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task1": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task2": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task3": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task4": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task5": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task6": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Function Evaluations": {
+          "reported_seconds": 0.289,
+          "wall_seconds": 0.292
+        },
+        "Objective function": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Objective function gradient": {
+          "reported_seconds": 0.003,
+          "wall_seconds": 0.003
+        },
+        "Equality constraints": {
+          "reported_seconds": 0.049,
+          "wall_seconds": 0.05
+        },
+        "Inequality constraints": {
+          "reported_seconds": 0.001,
+          "wall_seconds": 0.001
+        },
+        "Equality constraint Jacobian": {
+          "reported_seconds": 0.03,
+          "wall_seconds": 0.03
+        },
+        "Inequality constraint Jacobian": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Lagrangian Hessian": {
+          "reported_seconds": 0.206,
+          "wall_seconds": 0.207
+        }
+      },
+      "stdout_sha256": "4fc835059c5501bc88fc3839bd786a0b1210e444d7ac92f55a8af083ee13d156",
+      "stderr_tail": ""
+    },
+    {
+      "case": "case1354",
+      "backend": "pounce-native-t1",
+      "run_kind": "measured",
+      "run_index": 2,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 53,
+      "objective": 1258843.9849803008,
+      "objective_difference": -8.847564458847046e-9,
+      "process_elapsed_ms": 1581.8997080000008,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 1.49,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.068,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.309,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.007,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.729,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.23,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.01,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.044,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.062,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0.723,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.135,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 0.429,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0.001,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.06,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.056,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 0.314,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "d539cfd6117b19fee9b06251223d0403432a058d59560e1ff118fbb5f72d3d25",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case1354-pounce-native-t1-measured-2.json",
+      "restoration_calls": 0
+    },
+    {
+      "case": "case1354",
+      "backend": "pounce-native-t14",
+      "run_kind": "measured",
+      "run_index": 2,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 53,
+      "objective": 1258843.9849803008,
+      "objective_difference": -8.847564458847046e-9,
+      "process_elapsed_ms": 1172.793667,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 1.083,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.062,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.046,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.007,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.643,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.216,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.01,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.043,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.032,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0.63,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.136,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 0.116,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0.001,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.045,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.024,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 0.047,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "b4d7f237084fd77272e6d22fd76d960ca01384f63b3547df6fe7a98f2ec36a77",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case1354-pounce-native-t14-measured-2.json",
+      "restoration_calls": 0
+    },
+    {
+      "case": "case1354",
+      "backend": "pounce-native-t1",
+      "run_kind": "measured",
+      "run_index": 3,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 53,
+      "objective": 1258843.9849803008,
+      "objective_difference": -8.847564458847046e-9,
+      "process_elapsed_ms": 1536.234875,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 1.446,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.064,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.294,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.007,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.718,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.221,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.009,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.042,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.062,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0.709,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.131,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 0.412,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0.001,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.057,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.055,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 0.3,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "812e057e8a87465d1b12310801b7ff98dbbfb3e3144a5f74cab66358c0fc0f1f",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case1354-pounce-native-t1-measured-3.json",
+      "restoration_calls": 0
+    },
+    {
+      "case": "case1354",
+      "backend": "pounce-native-t14",
+      "run_kind": "measured",
+      "run_index": 3,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 53,
+      "objective": 1258843.9849803008,
+      "objective_difference": -8.847564458847046e-9,
+      "process_elapsed_ms": 1179.593417,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 1.088,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.063,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.05,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.007,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.649,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.213,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.01,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.043,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.03,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0.637,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.135,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 0.116,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0.001,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.043,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.022,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 0.051,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "9ed4a53b48ec89c3cb2f8aeffdb4fb01a4dbb1585f31185b7ed1e294f0d4cc67",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case1354-pounce-native-t14-measured-3.json",
+      "restoration_calls": 0
+    },
+    {
+      "case": "case1354",
+      "backend": "ipopt-native-asl-t1",
+      "run_kind": "measured",
+      "run_index": 3,
+      "passed": true,
+      "exit_code": 0,
+      "status": "Optimal Solution Found.",
+      "iterations": 52,
+      "objective": 1258843.984980303,
+      "objective_difference": -6.51925802230835e-9,
+      "process_elapsed_ms": 1030.4147090000006,
+      "timing_statistics_seconds": {
+        "Number of nonzeros in equality constraint Jacobian": {
+          "reported_seconds": 49387,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in inequality constraint Jacobian": {
+          "reported_seconds": 11384,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in Lagrangian Hessian": {
+          "reported_seconds": 18866,
+          "wall_seconds": null
+        },
+        "Total number of variables": {
+          "reported_seconds": 11192,
+          "wall_seconds": null
+        },
+        "Total number of equality constraints": {
+          "reported_seconds": 10673,
+          "wall_seconds": null
+        },
+        "Total number of inequality constraints": {
+          "reported_seconds": 5692,
+          "wall_seconds": null
+        },
+        "Number of Iterations": {
+          "reported_seconds": 52,
+          "wall_seconds": null
+        },
+        "Objective": {
+          "reported_seconds": 1.0036029786006466,
+          "wall_seconds": null
+        },
+        "Dual infeasibility": {
+          "reported_seconds": 4.0596544976308016,
+          "wall_seconds": null
+        },
+        "Constraint violation": {
+          "reported_seconds": 1.6745291575072114,
+          "wall_seconds": null
+        },
+        "Complementarity": {
+          "reported_seconds": 2.348677729701352,
+          "wall_seconds": null
+        },
+        "Overall NLP error": {
+          "reported_seconds": 2.348677729701352,
+          "wall_seconds": null
+        },
+        "OverallAlgorithm": {
+          "reported_seconds": 0.948,
+          "wall_seconds": 0.966
+        },
+        "PrintProblemStatistics": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.037,
+          "wall_seconds": 0.039
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.214,
+          "wall_seconds": 0.217
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": 0.001
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.002,
+          "wall_seconds": 0.002
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 0.547,
+          "wall_seconds": 0.557
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 0.101,
+          "wall_seconds": 0.103
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.002,
+          "wall_seconds": 0.002
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.045,
+          "wall_seconds": 0.046
+        },
+        "PDSystemSolverTotal": {
+          "reported_seconds": 0.57,
+          "wall_seconds": 0.579
+        },
+        "PDSystemSolverSolveOnce": {
+          "reported_seconds": 0.539,
+          "wall_seconds": 0.548
+        },
+        "ComputeResiduals": {
+          "reported_seconds": 0.028,
+          "wall_seconds": 0.028
+        },
+        "StdAugSystemSolverMultiSolve": {
+          "reported_seconds": 0.563,
+          "wall_seconds": 0.574
+        },
+        "LinearSystemScaling": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0.022,
+          "wall_seconds": 0.022
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 0.186,
+          "wall_seconds": 0.19
+        },
+        "LinearSystemStructureConverter": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "TryCorrector": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task1": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task2": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task3": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task4": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task5": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task6": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Function Evaluations": {
+          "reported_seconds": 0.302,
+          "wall_seconds": 0.307
+        },
+        "Objective function": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Objective function gradient": {
+          "reported_seconds": 0.003,
+          "wall_seconds": 0.003
+        },
+        "Equality constraints": {
+          "reported_seconds": 0.054,
+          "wall_seconds": 0.055
+        },
+        "Inequality constraints": {
+          "reported_seconds": 0.001,
+          "wall_seconds": 0.001
+        },
+        "Equality constraint Jacobian": {
+          "reported_seconds": 0.031,
+          "wall_seconds": 0.031
+        },
+        "Inequality constraint Jacobian": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Lagrangian Hessian": {
+          "reported_seconds": 0.213,
+          "wall_seconds": 0.217
+        }
+      },
+      "stdout_sha256": "7739f0fd8affd9f14daa780573a37b1f1b62955ed853903e8b9095b64310e46e",
+      "stderr_tail": ""
+    },
+    {
+      "case": "case6468",
+      "backend": "pounce-native-t14",
+      "run_kind": "measured",
+      "run_index": 1,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 146,
+      "objective": 2069730.1451210266,
+      "objective_difference": 7.916241884231567e-9,
+      "process_elapsed_ms": 19990.290917000006,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 19.582,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.344,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.51,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.069,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 9.905,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 7.788,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.097,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.465,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.239,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0.002,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 9.045,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 5.3,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 1.051,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0.01,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.335,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.171,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 0.54,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "8e195e902f68970d60ea1ce0cd81f38002d2dabc51dda4f33c80ab6defd12e8d",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case6468-pounce-native-t14-measured-1.json",
+      "restoration_calls": 3
+    },
+    {
+      "case": "case6468",
+      "backend": "ipopt-native-asl-t1",
+      "run_kind": "measured",
+      "run_index": 1,
+      "passed": true,
+      "exit_code": 0,
+      "status": "Optimal Solution Found.",
+      "iterations": 146,
+      "objective": 2069730.1451209702,
+      "objective_difference": -4.842877388000488e-8,
+      "process_elapsed_ms": 14465.343957999998,
+      "timing_statistics_seconds": {
+        "Number of nonzeros in equality constraint Jacobian": {
+          "reported_seconds": 216840,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in inequality constraint Jacobian": {
+          "reported_seconds": 52130,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in Lagrangian Hessian": {
+          "reported_seconds": 87664,
+          "wall_seconds": null
+        },
+        "Total number of variables": {
+          "reported_seconds": 49678,
+          "wall_seconds": null
+        },
+        "Total number of equality constraints": {
+          "reported_seconds": 48937,
+          "wall_seconds": null
+        },
+        "Total number of inequality constraints": {
+          "reported_seconds": 26065,
+          "wall_seconds": null
+        },
+        "Number of Iterations": {
+          "reported_seconds": 146,
+          "wall_seconds": null
+        },
+        "Objective": {
+          "reported_seconds": 1.4993743172626874,
+          "wall_seconds": null
+        },
+        "Dual infeasibility": {
+          "reported_seconds": 2.0204081908340847,
+          "wall_seconds": null
+        },
+        "Constraint violation": {
+          "reported_seconds": 1.6761314558522145,
+          "wall_seconds": null
+        },
+        "Complementarity": {
+          "reported_seconds": 9.388450864629037,
+          "wall_seconds": null
+        },
+        "Overall NLP error": {
+          "reported_seconds": 2.0204081908340847,
+          "wall_seconds": null
+        },
+        "OverallAlgorithm": {
+          "reported_seconds": 13.876,
+          "wall_seconds": 14.181
+        },
+        "PrintProblemStatistics": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.205,
+          "wall_seconds": 0.216
+        },
+        "UpdateHessian": {
+          "reported_seconds": 3.497,
+          "wall_seconds": 3.571
+        },
+        "OutputIteration": {
+          "reported_seconds": 0.001,
+          "wall_seconds": 0.002
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.012,
+          "wall_seconds": 0.014
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 7.092,
+          "wall_seconds": 7.239
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 2.478,
+          "wall_seconds": 2.535
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.017,
+          "wall_seconds": 0.018
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.573,
+          "wall_seconds": 0.586
+        },
+        "PDSystemSolverTotal": {
+          "reported_seconds": 7.432,
+          "wall_seconds": 7.586
+        },
+        "PDSystemSolverSolveOnce": {
+          "reported_seconds": 7.056,
+          "wall_seconds": 7.203
+        },
+        "ComputeResiduals": {
+          "reported_seconds": 0.343,
+          "wall_seconds": 0.349
+        },
+        "StdAugSystemSolverMultiSolve": {
+          "reported_seconds": 7.62,
+          "wall_seconds": 7.784
+        },
+        "LinearSystemScaling": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0.125,
+          "wall_seconds": 0.13
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 2.569,
+          "wall_seconds": 2.623
+        },
+        "LinearSystemStructureConverter": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "TryCorrector": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task1": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task2": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task3": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task4": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task5": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task6": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Function Evaluations": {
+          "reported_seconds": 5.206,
+          "wall_seconds": 5.318
+        },
+        "Objective function": {
+          "reported_seconds": 0.004,
+          "wall_seconds": 0.004
+        },
+        "Objective function gradient": {
+          "reported_seconds": 0.103,
+          "wall_seconds": 0.105
+        },
+        "Equality constraints": {
+          "reported_seconds": 1.008,
+          "wall_seconds": 1.032
+        },
+        "Inequality constraints": {
+          "reported_seconds": 0.006,
+          "wall_seconds": 0.006
+        },
+        "Equality constraint Jacobian": {
+          "reported_seconds": 0.404,
+          "wall_seconds": 0.412
+        },
+        "Inequality constraint Jacobian": {
+          "reported_seconds": 0.003,
+          "wall_seconds": 0.003
+        },
+        "Lagrangian Hessian": {
+          "reported_seconds": 3.677,
+          "wall_seconds": 3.755
+        }
+      },
+      "stdout_sha256": "932345b5e7fa2919952639d5ff993211eea7bb53eea04fd2a3e648d319886330",
+      "stderr_tail": ""
+    },
+    {
+      "case": "case6468",
+      "backend": "pounce-native-t1",
+      "run_kind": "measured",
+      "run_index": 1,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 146,
+      "objective": 2069730.1451210266,
+      "objective_difference": 7.916241884231567e-9,
+      "process_elapsed_ms": 23748.144499999995,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 23.339,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.346,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 3.852,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.069,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 10.171,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 7.413,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.096,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.465,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.729,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0.002,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 9.431,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 4.025,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 5.692,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0.009,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.857,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.743,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 4.086,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "433bd8070fab11f7d91e3813646ff15bcc6c76fae6841a0f372f19819b856c59",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case6468-pounce-native-t1-measured-1.json",
+      "restoration_calls": 3
+    },
+    {
+      "case": "case6468",
+      "backend": "ipopt-native-asl-t1",
+      "run_kind": "measured",
+      "run_index": 2,
+      "passed": true,
+      "exit_code": 0,
+      "status": "Optimal Solution Found.",
+      "iterations": 146,
+      "objective": 2069730.1451209702,
+      "objective_difference": -4.842877388000488e-8,
+      "process_elapsed_ms": 14266.946208000008,
+      "timing_statistics_seconds": {
+        "Number of nonzeros in equality constraint Jacobian": {
+          "reported_seconds": 216840,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in inequality constraint Jacobian": {
+          "reported_seconds": 52130,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in Lagrangian Hessian": {
+          "reported_seconds": 87664,
+          "wall_seconds": null
+        },
+        "Total number of variables": {
+          "reported_seconds": 49678,
+          "wall_seconds": null
+        },
+        "Total number of equality constraints": {
+          "reported_seconds": 48937,
+          "wall_seconds": null
+        },
+        "Total number of inequality constraints": {
+          "reported_seconds": 26065,
+          "wall_seconds": null
+        },
+        "Number of Iterations": {
+          "reported_seconds": 146,
+          "wall_seconds": null
+        },
+        "Objective": {
+          "reported_seconds": 1.4993743172626874,
+          "wall_seconds": null
+        },
+        "Dual infeasibility": {
+          "reported_seconds": 2.0204081908340847,
+          "wall_seconds": null
+        },
+        "Constraint violation": {
+          "reported_seconds": 1.6761314558522145,
+          "wall_seconds": null
+        },
+        "Complementarity": {
+          "reported_seconds": 9.388450864629037,
+          "wall_seconds": null
+        },
+        "Overall NLP error": {
+          "reported_seconds": 2.0204081908340847,
+          "wall_seconds": null
+        },
+        "OverallAlgorithm": {
+          "reported_seconds": 13.696,
+          "wall_seconds": 13.989
+        },
+        "PrintProblemStatistics": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.206,
+          "wall_seconds": 0.215
+        },
+        "UpdateHessian": {
+          "reported_seconds": 3.443,
+          "wall_seconds": 3.513
+        },
+        "OutputIteration": {
+          "reported_seconds": 0.001,
+          "wall_seconds": 0.002
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.012,
+          "wall_seconds": 0.012
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 6.986,
+          "wall_seconds": 7.13
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 2.457,
+          "wall_seconds": 2.512
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.017,
+          "wall_seconds": 0.018
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.574,
+          "wall_seconds": 0.587
+        },
+        "PDSystemSolverTotal": {
+          "reported_seconds": 7.319,
+          "wall_seconds": 7.469
+        },
+        "PDSystemSolverSolveOnce": {
+          "reported_seconds": 6.944,
+          "wall_seconds": 7.087
+        },
+        "ComputeResiduals": {
+          "reported_seconds": 0.341,
+          "wall_seconds": 0.348
+        },
+        "StdAugSystemSolverMultiSolve": {
+          "reported_seconds": 7.498,
+          "wall_seconds": 7.656
+        },
+        "LinearSystemScaling": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0.124,
+          "wall_seconds": 0.128
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 2.531,
+          "wall_seconds": 2.583
+        },
+        "LinearSystemStructureConverter": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "TryCorrector": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task1": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task2": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task3": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task4": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task5": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task6": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Function Evaluations": {
+          "reported_seconds": 5.153,
+          "wall_seconds": 5.261
+        },
+        "Objective function": {
+          "reported_seconds": 0.004,
+          "wall_seconds": 0.005
+        },
+        "Objective function gradient": {
+          "reported_seconds": 0.106,
+          "wall_seconds": 0.108
+        },
+        "Equality constraints": {
+          "reported_seconds": 1.009,
+          "wall_seconds": 1.031
+        },
+        "Inequality constraints": {
+          "reported_seconds": 0.006,
+          "wall_seconds": 0.006
+        },
+        "Equality constraint Jacobian": {
+          "reported_seconds": 0.405,
+          "wall_seconds": 0.414
+        },
+        "Inequality constraint Jacobian": {
+          "reported_seconds": 0.003,
+          "wall_seconds": 0.003
+        },
+        "Lagrangian Hessian": {
+          "reported_seconds": 3.621,
+          "wall_seconds": 3.695
+        }
+      },
+      "stdout_sha256": "968d0b6b9d5fe394ff4b8ad060c1e7ceae2ebee32cd1fad7744c8a90fddb0617",
+      "stderr_tail": ""
+    },
+    {
+      "case": "case6468",
+      "backend": "pounce-native-t1",
+      "run_kind": "measured",
+      "run_index": 2,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 146,
+      "objective": 2069730.1451210266,
+      "objective_difference": 7.916241884231567e-9,
+      "process_elapsed_ms": 23804.020290999993,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 23.397,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.335,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 3.971,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.069,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 10.115,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 7.393,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.098,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.471,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.749,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0.002,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 9.371,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 3.888,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 5.951,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0.009,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.95,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.767,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 4.228,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "27e5ae4e92e9e485d6bfd03a1f3e0d8fb1dfba5c9fbfaffee5a76f13c12eef89",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case6468-pounce-native-t1-measured-2.json",
+      "restoration_calls": 3
+    },
+    {
+      "case": "case6468",
+      "backend": "pounce-native-t14",
+      "run_kind": "measured",
+      "run_index": 2,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 146,
+      "objective": 2069730.1451210266,
+      "objective_difference": 7.916241884231567e-9,
+      "process_elapsed_ms": 19946.471833999996,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 19.538,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.338,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.515,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.07,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 9.888,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 7.766,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.096,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.467,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.234,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0.002,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 9.034,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 5.279,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 1.06,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0.01,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.339,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.168,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 0.548,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "7777cdf13205cfce84147eef328f35fc5c0d86a8806fdd0a1db19637433da17a",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case6468-pounce-native-t14-measured-2.json",
+      "restoration_calls": 3
+    },
+    {
+      "case": "case6468",
+      "backend": "pounce-native-t1",
+      "run_kind": "measured",
+      "run_index": 3,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 146,
+      "objective": 2069730.1451210266,
+      "objective_difference": 7.916241884231567e-9,
+      "process_elapsed_ms": 23759.88491699999,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 23.353,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.336,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 3.855,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.07,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 10.175,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 7.417,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.098,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.472,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.731,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0.002,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 9.417,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 3.986,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 5.7,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0.009,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.862,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.744,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 4.089,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "11357a35d123fc5d9408e48a02ab51ab620f995921fbd6227394f2a59e1df02e",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case6468-pounce-native-t1-measured-3.json",
+      "restoration_calls": 3
+    },
+    {
+      "case": "case6468",
+      "backend": "pounce-native-t14",
+      "run_kind": "measured",
+      "run_index": 3,
+      "passed": true,
+      "exit_code": 0,
+      "status": "SolveSucceeded",
+      "iterations": 146,
+      "objective": 2069730.1451210266,
+      "objective_difference": 7.916241884231567e-9,
+      "process_elapsed_ms": 19779.220541999995,
+      "timing_statistics_seconds": {
+        "OverallAlgorithm": {
+          "reported_seconds": 19.371,
+          "wall_seconds": null
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.345,
+          "wall_seconds": null
+        },
+        "UpdateHessian": {
+          "reported_seconds": 0.502,
+          "wall_seconds": null
+        },
+        "OutputIteration": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.07,
+          "wall_seconds": null
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 9.8,
+          "wall_seconds": null
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 7.686,
+          "wall_seconds": null
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.097,
+          "wall_seconds": null
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.469,
+          "wall_seconds": null
+        },
+        "FireIntermediateCallback": {
+          "reported_seconds": 0.235,
+          "wall_seconds": null
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0.002,
+          "wall_seconds": null
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 8.913,
+          "wall_seconds": null
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 5.221,
+          "wall_seconds": null
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "TotalFunctionEvaluations": {
+          "reported_seconds": 1.045,
+          "wall_seconds": null
+        },
+        "ObjectiveFunctionEvaluations": {
+          "reported_seconds": 0.012,
+          "wall_seconds": null
+        },
+        "ObjectiveGradientEvaluations": {
+          "reported_seconds": 0,
+          "wall_seconds": null
+        },
+        "ConstraintEvaluations": {
+          "reported_seconds": 0.336,
+          "wall_seconds": null
+        },
+        "ConstraintJacobianEvaluations": {
+          "reported_seconds": 0.168,
+          "wall_seconds": null
+        },
+        "LagrangianHessianEvaluations": {
+          "reported_seconds": 0.535,
+          "wall_seconds": null
+        }
+      },
+      "stdout_sha256": "7262afc117de8acaf14edd505c71cc7fdd350368f2d9283cdd2a63c231d77a69",
+      "stderr_tail": "pounce: wrote /var/folders/9p/mwb5dzd90wx569k66lg4b8gn6tljcn/T/opf-native-profile-pWbvE2/case6468-pounce-native-t14-measured-3.json",
+      "restoration_calls": 3
+    },
+    {
+      "case": "case6468",
+      "backend": "ipopt-native-asl-t1",
+      "run_kind": "measured",
+      "run_index": 3,
+      "passed": true,
+      "exit_code": 0,
+      "status": "Optimal Solution Found.",
+      "iterations": 146,
+      "objective": 2069730.1451209702,
+      "objective_difference": -4.842877388000488e-8,
+      "process_elapsed_ms": 14932.842499999999,
+      "timing_statistics_seconds": {
+        "Number of nonzeros in equality constraint Jacobian": {
+          "reported_seconds": 216840,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in inequality constraint Jacobian": {
+          "reported_seconds": 52130,
+          "wall_seconds": null
+        },
+        "Number of nonzeros in Lagrangian Hessian": {
+          "reported_seconds": 87664,
+          "wall_seconds": null
+        },
+        "Total number of variables": {
+          "reported_seconds": 49678,
+          "wall_seconds": null
+        },
+        "Total number of equality constraints": {
+          "reported_seconds": 48937,
+          "wall_seconds": null
+        },
+        "Total number of inequality constraints": {
+          "reported_seconds": 26065,
+          "wall_seconds": null
+        },
+        "Number of Iterations": {
+          "reported_seconds": 146,
+          "wall_seconds": null
+        },
+        "Objective": {
+          "reported_seconds": 1.4993743172626874,
+          "wall_seconds": null
+        },
+        "Dual infeasibility": {
+          "reported_seconds": 2.0204081908340847,
+          "wall_seconds": null
+        },
+        "Constraint violation": {
+          "reported_seconds": 1.6761314558522145,
+          "wall_seconds": null
+        },
+        "Complementarity": {
+          "reported_seconds": 9.388450864629037,
+          "wall_seconds": null
+        },
+        "Overall NLP error": {
+          "reported_seconds": 2.0204081908340847,
+          "wall_seconds": null
+        },
+        "OverallAlgorithm": {
+          "reported_seconds": 14.488,
+          "wall_seconds": 14.643
+        },
+        "PrintProblemStatistics": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "InitializeIterates": {
+          "reported_seconds": 0.232,
+          "wall_seconds": 0.242
+        },
+        "UpdateHessian": {
+          "reported_seconds": 3.706,
+          "wall_seconds": 3.74
+        },
+        "OutputIteration": {
+          "reported_seconds": 0.001,
+          "wall_seconds": 0.003
+        },
+        "UpdateBarrierParameter": {
+          "reported_seconds": 0.013,
+          "wall_seconds": 0.013
+        },
+        "ComputeSearchDirection": {
+          "reported_seconds": 7.341,
+          "wall_seconds": 7.413
+        },
+        "ComputeAcceptableTrialPoint": {
+          "reported_seconds": 2.577,
+          "wall_seconds": 2.608
+        },
+        "AcceptTrialPoint": {
+          "reported_seconds": 0.018,
+          "wall_seconds": 0.018
+        },
+        "CheckConvergence": {
+          "reported_seconds": 0.599,
+          "wall_seconds": 0.607
+        },
+        "PDSystemSolverTotal": {
+          "reported_seconds": 7.69,
+          "wall_seconds": 7.765
+        },
+        "PDSystemSolverSolveOnce": {
+          "reported_seconds": 7.304,
+          "wall_seconds": 7.375
+        },
+        "ComputeResiduals": {
+          "reported_seconds": 0.352,
+          "wall_seconds": 0.356
+        },
+        "StdAugSystemSolverMultiSolve": {
+          "reported_seconds": 7.902,
+          "wall_seconds": 7.984
+        },
+        "LinearSystemScaling": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemSymbolicFactorization": {
+          "reported_seconds": 0.139,
+          "wall_seconds": 0.143
+        },
+        "LinearSystemFactorization": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "LinearSystemBackSolve": {
+          "reported_seconds": 2.642,
+          "wall_seconds": 2.669
+        },
+        "LinearSystemStructureConverter": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "QualityFunctionSearch": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "TryCorrector": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task1": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task2": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task3": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task4": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task5": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Task6": {
+          "reported_seconds": 0,
+          "wall_seconds": 0
+        },
+        "Function Evaluations": {
+          "reported_seconds": 5.495,
+          "wall_seconds": 5.548
+        },
+        "Objective function": {
+          "reported_seconds": 0.005,
+          "wall_seconds": 0.005
+        },
+        "Objective function gradient": {
+          "reported_seconds": 0.111,
+          "wall_seconds": 0.112
+        },
+        "Equality constraints": {
+          "reported_seconds": 1.049,
+          "wall_seconds": 1.06
+        },
+        "Inequality constraints": {
+          "reported_seconds": 0.006,
+          "wall_seconds": 0.006
+        },
+        "Equality constraint Jacobian": {
+          "reported_seconds": 0.422,
+          "wall_seconds": 0.427
+        },
+        "Inequality constraint Jacobian": {
+          "reported_seconds": 0.003,
+          "wall_seconds": 0.003
+        },
+        "Lagrangian Hessian": {
+          "reported_seconds": 3.9,
+          "wall_seconds": 3.935
+        }
+      },
+      "stdout_sha256": "07d37a7e9ef04bdbaf45ce14c5c339b77de8ac7f9497efda4d7843a57ed73d89",
+      "stderr_tail": ""
+    }
+  ],
+  "summaries": [
+    {
+      "case": "case300",
+      "backend": "pounce-native-t1",
+      "attempts": 3,
+      "successes": 3,
+      "overall_seconds_median": 0.193,
+      "factorization_seconds_median": 0.1,
+      "backsolve_seconds_median": 0.012,
+      "hessian_seconds_median": 0.037,
+      "jacobian_seconds_median": 0.008,
+      "function_evaluations_seconds_median": 0.052,
+      "intermediate_callback_seconds_median": 0.009
+    },
+    {
+      "case": "case300",
+      "backend": "pounce-native-t14",
+      "attempts": 3,
+      "successes": 3,
+      "overall_seconds_median": 0.172,
+      "factorization_seconds_median": 0.101,
+      "backsolve_seconds_median": 0.012,
+      "hessian_seconds_median": 0.013,
+      "jacobian_seconds_median": 0.007,
+      "function_evaluations_seconds_median": 0.028,
+      "intermediate_callback_seconds_median": 0.008
+    },
+    {
+      "case": "case300",
+      "backend": "ipopt-native-asl-t1",
+      "attempts": 3,
+      "successes": 3,
+      "overall_seconds_median": 0.12,
+      "factorization_seconds_median": 0,
+      "backsolve_seconds_median": 0.025,
+      "hessian_seconds_median": 0.015,
+      "jacobian_seconds_median": 0.004,
+      "function_evaluations_seconds_median": 0.024,
+      "intermediate_callback_seconds_median": null
+    },
+    {
+      "case": "case1354",
+      "backend": "pounce-native-t1",
+      "attempts": 3,
+      "successes": 3,
+      "overall_seconds_median": 1.49,
+      "factorization_seconds_median": 0.723,
+      "backsolve_seconds_median": 0.135,
+      "hessian_seconds_median": 0.314,
+      "jacobian_seconds_median": 0.056,
+      "function_evaluations_seconds_median": 0.429,
+      "intermediate_callback_seconds_median": 0.062
+    },
+    {
+      "case": "case1354",
+      "backend": "pounce-native-t14",
+      "attempts": 3,
+      "successes": 3,
+      "overall_seconds_median": 1.088,
+      "factorization_seconds_median": 0.635,
+      "backsolve_seconds_median": 0.135,
+      "hessian_seconds_median": 0.051,
+      "jacobian_seconds_median": 0.023,
+      "function_evaluations_seconds_median": 0.116,
+      "intermediate_callback_seconds_median": 0.031
+    },
+    {
+      "case": "case1354",
+      "backend": "ipopt-native-asl-t1",
+      "attempts": 3,
+      "successes": 3,
+      "overall_seconds_median": 0.962,
+      "factorization_seconds_median": 0,
+      "backsolve_seconds_median": 0.19,
+      "hessian_seconds_median": 0.211,
+      "jacobian_seconds_median": 0.03,
+      "function_evaluations_seconds_median": 0.3,
+      "intermediate_callback_seconds_median": null
+    },
+    {
+      "case": "case6468",
+      "backend": "pounce-native-t1",
+      "attempts": 3,
+      "successes": 3,
+      "overall_seconds_median": 23.353,
+      "factorization_seconds_median": 9.417,
+      "backsolve_seconds_median": 3.986,
+      "hessian_seconds_median": 4.089,
+      "jacobian_seconds_median": 0.744,
+      "function_evaluations_seconds_median": 5.7,
+      "intermediate_callback_seconds_median": 0.731
+    },
+    {
+      "case": "case6468",
+      "backend": "pounce-native-t14",
+      "attempts": 3,
+      "successes": 3,
+      "overall_seconds_median": 19.538,
+      "factorization_seconds_median": 9.034,
+      "backsolve_seconds_median": 5.279,
+      "hessian_seconds_median": 0.54,
+      "jacobian_seconds_median": 0.168,
+      "function_evaluations_seconds_median": 1.051,
+      "intermediate_callback_seconds_median": 0.235
+    },
+    {
+      "case": "case6468",
+      "backend": "ipopt-native-asl-t1",
+      "attempts": 3,
+      "successes": 3,
+      "overall_seconds_median": 14.181,
+      "factorization_seconds_median": 0,
+      "backsolve_seconds_median": 2.623,
+      "hessian_seconds_median": 3.755,
+      "jacobian_seconds_median": 0.414,
+      "function_evaluations_seconds_median": 5.318,
+      "intermediate_callback_seconds_median": null
+    }
+  ],
+  "passed": true
+}

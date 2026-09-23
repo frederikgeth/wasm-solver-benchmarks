@@ -7,6 +7,7 @@ import process from "node:process";
 import { fileURLToPath } from "node:url";
 
 import { chromium } from "playwright-core";
+import { perturbedStart } from "../start-perturbation.mjs";
 
 const webRoot = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
 const repositoryRoot = path.resolve(webRoot, "..");
@@ -23,6 +24,7 @@ function usage() {
     "  --warmups N               unmeasured warmups per pair (default: 1)",
     "  --cold-runs N             fresh-browser runs per pair (default: 1)",
     "  --seed N                  deterministic schedule seed (default: 20260922)",
+    "  --start-seeds LIST        deterministic alternative-start seeds (default: NL starts)",
     "  --timeout-ms N            timeout for each worker solve (default: 120000)",
     "  --headed                  show the automated browser",
   ].join("\n");
@@ -46,6 +48,7 @@ function parseArguments(argv) {
     warmups: 1,
     coldRuns: 1,
     seed: 20260922,
+    startSeeds: [null],
     timeoutMs: 120000,
     headed: false,
     output: null,
@@ -64,6 +67,7 @@ function parseArguments(argv) {
     else if (argument === "--warmups") options.warmups = parsePositiveInteger(next(), argument, true);
     else if (argument === "--cold-runs") options.coldRuns = parsePositiveInteger(next(), argument, true);
     else if (argument === "--seed") options.seed = parsePositiveInteger(next(), argument, true);
+    else if (argument === "--start-seeds") options.startSeeds = next().split(",").map((value) => parsePositiveInteger(value, argument, true));
     else if (argument === "--timeout-ms") options.timeoutMs = parsePositiveInteger(next(), argument);
     else if (argument === "--output") options.output = path.resolve(repositoryRoot, next());
     else if (argument === "--headed") options.headed = true;
@@ -83,6 +87,9 @@ function parseArguments(argv) {
   }
   if (!["chrome", "edge"].includes(options.browser)) {
     throw new Error("--browser must be chrome or edge");
+  }
+  if (!options.startSeeds.length || new Set(options.startSeeds).size !== options.startSeeds.length) {
+    throw new Error("--start-seeds must be a nonempty list without duplicates");
   }
   return options;
 }
@@ -134,9 +141,11 @@ async function runPage(browser, configuration) {
   url.searchParams.set("runs", String(configuration.runs));
   url.searchParams.set("warmups", String(configuration.warmups));
   url.searchParams.set("seed", String(configuration.seed));
+  if (configuration.startSeeds[0] !== null) url.searchParams.set("start_seeds", configuration.startSeeds.join(","));
   url.searchParams.set("timeout_ms", String(configuration.timeoutMs));
   const attempts = configuration.cases.length
     * configuration.backends.length
+    * configuration.startSeeds.length
     * (configuration.runs + configuration.warmups);
   const pageTimeout = Math.max(30000, attempts * configuration.timeoutMs + 30000);
   try {
@@ -171,14 +180,15 @@ function statistics(values) {
   };
 }
 
-function summarize(observations, cases, backends) {
-  return cases.flatMap((caseName) => backends.map((backend) => {
-    const group = observations.filter((item) => item.case === caseName && item.backend === backend);
+function summarize(observations, cases, backends, startSeeds) {
+  return cases.flatMap((caseName) => backends.flatMap((backend) => startSeeds.map((startSeed) => {
+    const group = observations.filter((item) => item.case === caseName && item.backend === backend && item.start_seed === startSeed);
     const successes = group.filter((item) => item.passed);
     const timing = (name) => statistics(successes.map((item) => item.result?.timings_ms?.[name]));
     return {
       case: caseName,
       backend,
+      start_seed: startSeed,
       attempts: group.length,
       successes: successes.length,
       failures: group.length - successes.length,
@@ -193,7 +203,7 @@ function summarize(observations, cases, backends) {
       observed_total_ms: statistics(successes.map((item) => item.observed_total_ms)),
       wasm_linear_memory_bytes: successes[0]?.result?.wasm_linear_memory_bytes ?? null,
     };
-  }));
+  })));
 }
 
 function sha256(bytes) {
@@ -206,18 +216,23 @@ async function artifactRecord(relativePath) {
   return { path: relativePath, bytes: bytes.byteLength, sha256: sha256(bytes) };
 }
 
-async function inputRecords(cases) {
+async function inputRecords(cases, startSeeds) {
   const records = [];
   for (const caseName of cases) {
     const relativePath = `fixtures/acopf/${caseName}/${caseName}-acopf.mapping.json`;
     const mapping = JSON.parse(await readFile(path.join(repositoryRoot, relativePath), "utf8"));
-    const starts = Buffer.from(JSON.stringify(mapping.variables.map((variable) => variable.start)));
+    const starts = startSeeds.map((startSeed) => ({
+      start_seed: startSeed,
+      initial_point_sha256: sha256(Buffer.from(JSON.stringify(startSeed === null
+        ? mapping.variables.map((variable) => variable.start)
+        : perturbedStart(mapping.variables, startSeed)))),
+    }));
     records.push({
       case: caseName,
       label: mapping.case,
       mapping_path: relativePath,
       model_sha256: mapping.artifacts.nl_sha256,
-      initial_point_sha256: sha256(starts),
+      initial_points: starts,
       initial_point_hash_encoding: "SHA-256 of UTF-8 JSON array in NL column order",
       source_case: mapping.source_case,
       dimensions: mapping.dimensions,
@@ -239,30 +254,33 @@ async function main() {
     let browserVersion = null;
     for (const caseName of options.cases) {
       for (const backend of options.backends) {
-        for (let run = 0; run < options.coldRuns; run += 1) {
-          const launchStart = performance.now();
-          const browser = await chromium.launch({ executablePath, headless: !options.headed });
-          const browserLaunchMilliseconds = performance.now() - launchStart;
-          try {
-            browserVersion ??= browser.version();
-            const pageDriverStart = performance.now();
-            const pageReport = await runPage(browser, {
-              cases: [caseName],
-              backends: [backend],
-              runs: 1,
-              warmups: 0,
-              seed: options.seed + run,
-              timeoutMs: options.timeoutMs,
-            });
-            coldStarts.push({
-              ...pageReport.observations[0],
-              run_kind: "fresh-browser-process",
-              cold_run_index: run + 1,
-              browser_process_launch_ms: browserLaunchMilliseconds,
-              page_driver_elapsed_ms: performance.now() - pageDriverStart,
-            });
-          } finally {
-            await browser.close();
+        for (const startSeed of options.startSeeds) {
+          for (let run = 0; run < options.coldRuns; run += 1) {
+            const launchStart = performance.now();
+            const browser = await chromium.launch({ executablePath, headless: !options.headed });
+            const browserLaunchMilliseconds = performance.now() - launchStart;
+            try {
+              browserVersion ??= browser.version();
+              const pageDriverStart = performance.now();
+              const pageReport = await runPage(browser, {
+                cases: [caseName],
+                backends: [backend],
+                runs: 1,
+                warmups: 0,
+                seed: options.seed + run,
+                startSeeds: [startSeed],
+                timeoutMs: options.timeoutMs,
+              });
+              coldStarts.push({
+                ...pageReport.observations[0],
+                run_kind: "fresh-browser-process",
+                cold_run_index: run + 1,
+                browser_process_launch_ms: browserLaunchMilliseconds,
+                page_driver_elapsed_ms: performance.now() - pageDriverStart,
+              });
+            } finally {
+              await browser.close();
+            }
           }
         }
       }
@@ -278,6 +296,7 @@ async function main() {
         runs: options.runs,
         warmups: options.warmups,
         seed: options.seed,
+        startSeeds: options.startSeeds,
         timeoutMs: options.timeoutMs,
       });
     } finally {
@@ -332,6 +351,7 @@ async function main() {
       protocol: {
         cases: options.cases,
         backends: options.backends,
+        start_seeds: options.startSeeds,
         options: {
           tol: 1e-9,
           max_iter: 1000,
@@ -347,8 +367,9 @@ async function main() {
         cold_runs_per_pair: options.coldRuns,
         warmups_per_pair: options.warmups,
         measured_fresh_worker_runs_per_pair: options.runs,
-        order: "seeded randomized across case/backend pairs",
+        order: "seeded randomized across case/backend/start-seed tuples",
         seed: options.seed,
+        start_perturbation: options.startSeeds[0] === null ? null : "deterministic bounded perturbations (angles ±0.03 rad, voltage ±0.02 p.u., other variables ±5% of max(1,abs(start)); clipped to bounds)",
         concurrency: 1,
         timeout_ms: options.timeoutMs,
         cold_start_definition: "new browser process, context, page, and worker; browser_process_launch_ms and page_driver_elapsed_ms record outer lifecycle costs, while observed_total_ms begins immediately before worker construction",
@@ -360,7 +381,7 @@ async function main() {
         solver_warm_start: false,
         logging_during_timed_solve: false,
       },
-      inputs: await inputRecords(options.cases),
+      inputs: await inputRecords(options.cases, options.startSeeds),
       artifacts: {
         evaluator_wasm: await artifactRecord(
           "target/wasm32-unknown-unknown/release/acopf_nl_evaluator_wasm.wasm",
@@ -378,11 +399,13 @@ async function main() {
         steadyReport.observations,
         options.cases,
         options.backends,
+        options.startSeeds,
       ),
       cold_start_summaries: summarize(
         coldStarts,
         options.cases,
         options.backends,
+        options.startSeeds,
       ),
     };
     await mkdir(path.dirname(options.output), { recursive: true });

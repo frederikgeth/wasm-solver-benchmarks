@@ -1,5 +1,6 @@
 import { createNlEvaluator } from "./nl-evaluator.mjs";
 import { createPounceRunner } from "./pounce-runner.mjs";
+import { nlWithStart, perturbedStart } from "./start-perturbation.mjs";
 
 const smokeCases = {
   hs071: {
@@ -40,10 +41,11 @@ async function resolveSmokeCase(caseName) {
     rawConstraintTolerance: 1e-5,
     modelSha256: mapping.artifacts.nl_sha256,
     maxIterations: 1000,
+    mapping,
   };
 }
 
-async function runIpopt(smokeCase, totalStart, addressModel = "wasm32") {
+async function runIpopt(smokeCase, totalStart, addressModel = "wasm32", startSeed = null) {
   self.postMessage({ type: "phase", phase: "loading" });
   const loadStart = performance.now();
   const [wasmBytes, nlBytes] = await Promise.all([
@@ -64,6 +66,7 @@ async function runIpopt(smokeCase, totalStart, addressModel = "wasm32") {
   const prepareMilliseconds = performance.now() - prepareStart;
 
   try {
+    if (startSeed !== null) evaluator.problem.x0 = Float64Array.from(perturbedStart(smokeCase.mapping.variables, startSeed));
     self.postMessage({ type: "phase", phase: "solving" });
     const solveStart = performance.now();
     const result = await ipoptModule.solve(evaluator.problem, {
@@ -95,13 +98,14 @@ async function runIpopt(smokeCase, totalStart, addressModel = "wasm32") {
     const passed = result.status === 0
       && maxConstraintViolation <= smokeCase.rawConstraintTolerance
       && maxBoundViolation <= 1e-6
-      && Math.abs(result.objective - smokeCase.objective) <= smokeCase.objectiveTolerance;
+      && (startSeed !== null || Math.abs(result.objective - smokeCase.objective) <= smokeCase.objectiveTolerance);
 
     return {
       schema: "acopf-wasm-bench.smoke-result/v1",
       backend: addressModel === "memory64" ? "ipopt-wasm64" : "ipopt-wasm",
       environment: "browser-worker",
       case: smokeCase.label,
+      start_seed: startSeed,
       model_sha256: smokeCase.modelSha256,
       passed,
       status: result.status,
@@ -144,7 +148,7 @@ async function runIpopt(smokeCase, totalStart, addressModel = "wasm32") {
   }
 }
 
-async function runPounce(smokeCase, totalStart, scaling = null) {
+async function runPounce(smokeCase, totalStart, scaling = null, startSeed = null) {
   self.postMessage({ type: "phase", phase: "loading" });
   const loadStart = performance.now();
   const [wasmBytes, nl, col, row] = await Promise.all([
@@ -158,7 +162,8 @@ async function runPounce(smokeCase, totalStart, scaling = null) {
   self.postMessage({ type: "phase", phase: "preparing" });
   const prepareStart = performance.now();
   const runner = await createPounceRunner(wasmBytes);
-  const summary = runner.load(nl, col, row);
+  const model = startSeed === null ? nl : nlWithStart(nl, perturbedStart(smokeCase.mapping.variables, startSeed));
+  const summary = runner.load(model, col, row);
   const prepareMilliseconds = performance.now() - prepareStart;
 
   self.postMessage({ type: "phase", phase: "solving" });
@@ -177,13 +182,14 @@ async function runPounce(smokeCase, totalStart, scaling = null) {
     && result.x.length === summary.n_vars
     && result.g.length === summary.n_cons
     && result.constraint_violation <= smokeCase.rawConstraintTolerance
-    && Math.abs(result.objective - smokeCase.objective) <= smokeCase.objectiveTolerance;
+    && (startSeed !== null || Math.abs(result.objective - smokeCase.objective) <= smokeCase.objectiveTolerance);
 
   return {
     schema: "acopf-wasm-bench.smoke-result/v1",
     backend: scaling === "identity" ? "pounce-identity" : "pounce-wasm",
     environment: "browser-worker",
     case: smokeCase.label,
+    start_seed: startSeed,
     model_sha256: smokeCase.modelSha256,
     passed,
     status: result.status_code,
@@ -236,15 +242,19 @@ self.onmessage = async ({ data }) => {
   try {
     const smokeCase = await resolveSmokeCase(data.case ?? "hs071");
     const backend = data.backend ?? "ipopt-wasm";
+    const startSeed = data.start_seed ?? null;
+    if (startSeed !== null && (!smokeCase.mapping || !Number.isSafeInteger(startSeed) || startSeed < 0)) {
+      throw new Error(`invalid start seed ${startSeed} for ${smokeCase.label}`);
+    }
     let result;
     if (backend === "ipopt-wasm") {
-      result = await runIpopt(smokeCase, totalStart, "wasm32");
+      result = await runIpopt(smokeCase, totalStart, "wasm32", startSeed);
     } else if (backend === "ipopt-wasm64") {
-      result = await runIpopt(smokeCase, totalStart, "memory64");
+      result = await runIpopt(smokeCase, totalStart, "memory64", startSeed);
     } else if (backend === "pounce-wasm") {
-      result = await runPounce(smokeCase, totalStart);
+      result = await runPounce(smokeCase, totalStart, null, startSeed);
     } else if (backend === "pounce-identity") {
-      result = await runPounce(smokeCase, totalStart, "identity");
+      result = await runPounce(smokeCase, totalStart, "identity", startSeed);
     } else {
       throw new Error(`unknown backend ${backend}`);
     }

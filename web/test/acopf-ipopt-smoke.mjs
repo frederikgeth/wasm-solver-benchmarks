@@ -6,9 +6,12 @@ import { fileURLToPath } from "node:url";
 import { solve } from "ipopt-wasm";
 
 import { createNlEvaluator } from "../nl-evaluator.mjs";
+import { perturbedStart } from "../start-perturbation.mjs";
 
 const root = fileURLToPath(new URL("../..", import.meta.url));
 const caseName = process.env.ACOPF_CASE ?? "case3";
+const startSeed = process.env.ACOPF_START_SEED === undefined ? null : Number(process.env.ACOPF_START_SEED);
+assert.ok(startSeed === null || (Number.isSafeInteger(startSeed) && startSeed >= 0));
 const fixture = `${root}/fixtures/acopf/${caseName}/${caseName}-acopf`;
 const evaluatorWasm = await readFile(
   `${root}/target/wasm32-unknown-unknown/release/acopf_nl_evaluator_wasm.wasm`,
@@ -17,6 +20,7 @@ const nl = await readFile(`${fixture}.nl`);
 const mapping = JSON.parse(await readFile(`${fixture}.mapping.json`, "utf8"));
 const reference = JSON.parse(await readFile(`${fixture}.reference.json`, "utf8"));
 const evaluator = await createNlEvaluator(evaluatorWasm, nl);
+if (startSeed !== null) evaluator.problem.x0 = Float64Array.from(perturbedStart(mapping.variables, startSeed));
 // NL rows include differently scaled quantities (for example squared MVA).
 // This is a gross callback regression guard; the source-data validator owns
 // the normalized 1e-6 p.u. feasibility gate.
@@ -54,6 +58,7 @@ try {
     backend: "ipopt-wasm",
     environment: "node",
     case: mapping.case,
+    start_seed: startSeed,
     model_sha256: mapping.artifacts.nl_sha256,
     solver: {
       package_version: "0.2.0",
@@ -92,7 +97,7 @@ try {
   }
 
   assert.equal(result.status, 0, `Ipopt returned status ${result.status}`);
-  assert.ok(Math.abs(result.objective - reference.objective) <= Math.max(1e-3, Math.abs(reference.objective) * 1e-5));
+  if (startSeed === null) assert.ok(Math.abs(result.objective - reference.objective) <= Math.max(1e-3, Math.abs(reference.objective) * 1e-5));
   assert.ok(constraintViolation <= rawConstraintTolerance);
   assert.ok(boundViolation <= 1e-6);
 } finally {

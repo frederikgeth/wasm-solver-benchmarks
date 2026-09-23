@@ -4,11 +4,14 @@ import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { createPounceRunner } from "../pounce-runner.mjs";
+import { nlWithStart, perturbedStart } from "../start-perturbation.mjs";
 
 const root = fileURLToPath(new URL("../..", import.meta.url));
 const caseName = process.env.ACOPF_CASE ?? "case3";
 const scaling = process.env.ACOPF_POUNCE_SCALING ?? null;
+const startSeed = process.env.ACOPF_START_SEED === undefined ? null : Number(process.env.ACOPF_START_SEED);
 assert.ok(scaling === null || scaling === "identity", `unsupported POUNCE scaling ${scaling}`);
+assert.ok(startSeed === null || (Number.isSafeInteger(startSeed) && startSeed >= 0));
 const fixture = `${root}/fixtures/acopf/${caseName}/${caseName}-acopf`;
 const [wasm, nl, col, row] = await Promise.all([
   readFile(`${root}/target/wasm32-wasip1/release/acopf_pounce_browser_wasm.wasm`),
@@ -19,7 +22,7 @@ const [wasm, nl, col, row] = await Promise.all([
 const mapping = JSON.parse(await readFile(`${fixture}.mapping.json`, "utf8"));
 const reference = JSON.parse(await readFile(`${fixture}.reference.json`, "utf8"));
 const runner = await createPounceRunner(wasm);
-const summary = runner.load(nl, col, row);
+const summary = runner.load(startSeed === null ? nl : nlWithStart(nl, perturbedStart(mapping.variables, startSeed)), col, row);
 // NL rows include differently scaled quantities (for example squared MVA).
 // This is a gross callback regression guard; the source-data validator owns
 // the normalized 1e-6 p.u. feasibility gate.
@@ -44,6 +47,7 @@ const report = {
   backend: scaling === "identity" ? "pounce-identity" : "pounce-wasm",
   environment: "node-with-browser-wasi-shim",
   case: mapping.case,
+  start_seed: startSeed,
   model_sha256: mapping.artifacts.nl_sha256,
   solver: {
     version: "0.12.0",
@@ -87,5 +91,5 @@ if (process.env.ACOPF_RESULT_PATH) {
 
 assert.equal(result.success, true, `POUNCE returned ${result.status}`);
 assert.equal(result.status_code, 0, `POUNCE returned ${result.status}`);
-assert.ok(Math.abs(result.objective - reference.objective) <= Math.max(1e-3, Math.abs(reference.objective) * 1e-5));
+if (startSeed === null) assert.ok(Math.abs(result.objective - reference.objective) <= Math.max(1e-3, Math.abs(reference.objective) * 1e-5));
 assert.ok(result.constraint_violation <= rawConstraintTolerance);

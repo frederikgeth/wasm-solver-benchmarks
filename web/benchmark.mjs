@@ -46,7 +46,7 @@ function compactResult(result) {
   };
 }
 
-function runWorker(caseName, backend, timeoutMilliseconds) {
+function runWorker(caseName, backend, timeoutMilliseconds, startSeed = null) {
   return new Promise((resolve) => {
     const worker = new Worker("./worker.mjs", { type: "module" });
     const start = performance.now();
@@ -95,7 +95,7 @@ function runWorker(caseName, backend, timeoutMilliseconds) {
       observed_total_ms: performance.now() - start,
       phases,
     });
-    worker.postMessage({ type: "run", case: caseName, backend });
+    worker.postMessage({ type: "run", case: caseName, backend, start_seed: startSeed });
   });
 }
 
@@ -105,9 +105,19 @@ async function main() {
   const repetitions = integerParameter("runs", 7, 1);
   const warmups = integerParameter("warmups", 1);
   const seed = integerParameter("seed", 20260922);
+  const startSeeds = parameters.has("start_seeds")
+    ? listParameter("start_seeds", []).map((value) => {
+      if (!/^[0-9]+$/.test(value)) throw new Error(`invalid start seed ${value}`);
+      const seedValue = Number(value);
+      if (!Number.isSafeInteger(seedValue)) throw new Error(`invalid start seed ${value}`);
+      return seedValue;
+    })
+    : [null];
+  if (!startSeeds.length) throw new Error("start_seeds must not be empty");
   const timeoutMilliseconds = integerParameter("timeout_ms", 120000, 1);
   const random = seededRandom(seed);
-  const pairs = cases.flatMap((caseName) => backends.map((backend) => ({ caseName, backend })));
+  const pairs = cases.flatMap((caseName) => backends.flatMap((backend) =>
+    startSeeds.map((startSeed) => ({ caseName, backend, startSeed }))));
   const measuredSchedule = shuffled(
     Array.from({ length: repetitions }, () => pairs).flat(),
     random,
@@ -122,17 +132,18 @@ async function main() {
   const benchmarkStart = performance.now();
 
   async function execute(item, destination, runKind, scheduleIndex) {
-    const key = `${item.caseName}/${item.backend}`;
+    const key = `${item.caseName}/${item.backend}/${item.startSeed}`;
     const pairIndex = (pairCounts.get(key) ?? 0) + 1;
     pairCounts.set(key, pairIndex);
-    status.textContent = `${runKind} ${scheduleIndex + 1}: ${item.caseName} / ${item.backend}…`;
-    const observation = await runWorker(item.caseName, item.backend, timeoutMilliseconds);
+    status.textContent = `${runKind} ${scheduleIndex + 1}: ${item.caseName} / ${item.backend} / start ${item.startSeed ?? "baseline"}…`;
+    const observation = await runWorker(item.caseName, item.backend, timeoutMilliseconds, item.startSeed);
     destination.push({
       run_kind: runKind,
       schedule_index: scheduleIndex,
       pair_run_index: pairIndex,
       case: item.caseName,
       backend: item.backend,
+      start_seed: item.startSeed,
       ...observation,
     });
   }
@@ -153,6 +164,7 @@ async function main() {
       repetitions,
       warmups,
       seed,
+      start_seeds: startSeeds,
       timeout_ms: timeoutMilliseconds,
       worker_lifecycle: "new dedicated worker per observation",
       concurrency: 1,
