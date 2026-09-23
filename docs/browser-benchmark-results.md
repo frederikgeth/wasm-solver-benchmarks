@@ -1,5 +1,14 @@
 # Installed-Chrome benchmark result
 
+**23 September follow-up:** After the profiling discussion in POUNCE issue
+[#965](https://github.com/jkitchin/pounce/issues/965), we tested FERAL
+identity scaling, same-NL native threading/phase timings, and 27 seeded
+alternative starts. A randomized three-backend Chrome control now has
+repeated large-case timing for case6468 and case9241. See the
+[follow-up analysis](pounce-issue-965-follow-up.md) for the current
+interpretation. The sections below preserve the earlier PR #961 benchmark
+snapshot and should not be treated as the complete evidence set.
+
 The POUNCE restoration fix in
 [`jkitchin/pounce#961`](https://github.com/jkitchin/pounce/pull/961) changes the
 robustness conclusion from the first benchmark. At pinned revision
@@ -143,7 +152,7 @@ pinned prebuilt npm module plus a separate Rust evaluator and JavaScript
 callbacks. Both solvers are EPL-2.0; ipopt-wasm additionally bundles MUMPS and
 its CeCILL-C obligations. Distribution review remains mandatory.
 
-## Recommendation
+## Recommendation at the PR #961 snapshot
 
 PR #961 removes robustness-at-case6468 as a reason to prefer Ipopt. The two
 backends are now tied at 11/11 independently feasible AC fixtures, and POUNCE has

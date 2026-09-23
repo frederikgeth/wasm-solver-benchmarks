@@ -46,6 +46,12 @@ and a tight-angle 1,354-bus `sad` variant test two additional constraint regimes
   heap growth at 2 GiB. The package's Memory64 entry point is available as an
   explicit benchmark backend, although its shipped wrapper retains that same
   2 GiB growth cap.
+- A [follow-up to POUNCE issue #965](docs/pounce-issue-965-follow-up.md)
+  compares default and identity FERAL scaling, profiles native POUNCE
+  threading against native Ipopt on the same NL files, and checks three
+  deterministic alternative starts on three cases. All 27 start/backend
+  candidates pass the independent AC validator and Chrome worker check;
+  timing remains case- and start-dependent.
 
 Run the current proof with:
 

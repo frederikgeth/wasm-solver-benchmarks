@@ -1,5 +1,12 @@
 # Proposed issue title
 
+> Later experiment update (23 September 2026): the POUNCE issue
+> [#965](https://github.com/jkitchin/pounce/issues/965) follow-up tested
+> identity scaling, native threading, and deterministic alternative starts.
+> The tables below are the earlier PR #961 snapshot. See the
+> [updated analysis](pounce-issue-965-follow-up.md) before using this draft
+> to make a solver decision.
+
 Discussion: choose the initial browser AC OPF solver backend
 
 ## Issue body

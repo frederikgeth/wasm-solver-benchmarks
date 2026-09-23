@@ -56,9 +56,13 @@ must not be presented as a complete solver-memory comparison.
 
 ## Interpretation boundary
 
-Both paths solve the identical frozen JuMP/PowerModels `.nl` bytes from the
-same starting point and use exact Hessians, `tol = 1e-9`, `max_iter = 1000`,
-and no warm start. Ipopt uses MUMPS. POUNCE uses its built-in FERAL linear
+By default, both paths solve the identical frozen JuMP/PowerModels `.nl`
+bytes from the same starting point and use exact Hessians, `tol = 1e-9`,
+`max_iter = 1000`, and no warm start. The optional `--start-seeds` mode
+deterministically perturbs the initial vector, using the same vector for each
+backend at a given case/seed; POUNCE receives it in the NL start segment and
+Ipopt through its evaluator. The `pounce-identity` backend changes only
+FERAL scaling. Ipopt uses MUMPS. POUNCE uses its built-in FERAL linear
 solver with presolve disabled. This is an intentional comparison of the
 deployable browser stacks, not an isolation of nonlinear algorithms or linear
 solvers.
