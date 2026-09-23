@@ -4,6 +4,9 @@ This repository is a standalone experiment comparing browser builds of
 Ipopt/MUMPS and POUNCE on continuous, balanced AC optimal power flow. It does
 not integrate with Tellegen or PowerIO.
 
+The 23 September product decision and proposed PowerIO/Tellegen implementation
+stack are recorded in the [POUNCE handover](docs/pounce-powerio-tellegen-handover.md).
+
 The first milestone proved that one AMPL `.nl` model exported by JuMP can be
 parsed by POUNCE's evaluator and used to supply the callback contract expected
 by `ipopt-wasm`. The second milestone carries the same path through frozen

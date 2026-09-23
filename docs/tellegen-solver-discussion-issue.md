@@ -1,5 +1,10 @@
 # Proposed issue title
 
+> Decision update (23 September 2026): POUNCE has been selected as Tellegen's
+> first nonlinear AC OPF solver for its community support and Rust stack.
+> This earlier two-backend discussion draft is historical; see the
+> [implementation handover](pounce-powerio-tellegen-handover.md).
+
 > Later experiment update (23 September 2026): the POUNCE issue
 > [#965](https://github.com/jkitchin/pounce/issues/965) follow-up tested
 > identity scaling, native threading, and deterministic alternative starts.
