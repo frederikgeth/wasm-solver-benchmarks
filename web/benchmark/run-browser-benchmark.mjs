@@ -77,9 +77,9 @@ function parseArguments(argv) {
   if (!options.cases.length || options.cases.some((item) => !/^case[0-9]+(?:api|sad)?$/.test(item))) {
     throw new Error("--cases must contain case names such as case118, case118api, or case1354sad");
   }
-  const supportedBackends = new Set(["ipopt-wasm", "ipopt-wasm64", "pounce-wasm"]);
+  const supportedBackends = new Set(["ipopt-wasm", "ipopt-wasm64", "pounce-wasm", "pounce-identity"]);
   if (!options.backends.length || options.backends.some((item) => !supportedBackends.has(item))) {
-    throw new Error("--backends must contain ipopt-wasm, ipopt-wasm64, or pounce-wasm");
+    throw new Error("--backends must contain ipopt-wasm, ipopt-wasm64, pounce-wasm, or pounce-identity");
   }
   if (!["chrome", "edge"].includes(options.browser)) {
     throw new Error("--browser must be chrome or edge");
@@ -339,6 +339,10 @@ async function main() {
           pounce_presolve: false,
           ipopt_linear_solver: "mumps",
           pounce_linear_solver: "FERAL",
+          pounce_scaling_by_backend: {
+            "pounce-wasm": "default",
+            "pounce-identity": "identity",
+          },
         },
         cold_runs_per_pair: options.coldRuns,
         warmups_per_pair: options.warmups,

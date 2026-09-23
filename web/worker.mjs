@@ -144,7 +144,7 @@ async function runIpopt(smokeCase, totalStart, addressModel = "wasm32") {
   }
 }
 
-async function runPounce(smokeCase, totalStart) {
+async function runPounce(smokeCase, totalStart, scaling = null) {
   self.postMessage({ type: "phase", phase: "loading" });
   const loadStart = performance.now();
   const [wasmBytes, nl, col, row] = await Promise.all([
@@ -168,6 +168,7 @@ async function runPounce(smokeCase, totalStart) {
     "tol 1e-9",
     `max_iter ${smokeCase.maxIterations}`,
     "presolve no",
+    ...(scaling ? [`feral_scaling ${scaling}`] : []),
     "",
   ].join("\n"));
   const solveMilliseconds = performance.now() - solveStart;
@@ -180,7 +181,7 @@ async function runPounce(smokeCase, totalStart) {
 
   return {
     schema: "acopf-wasm-bench.smoke-result/v1",
-    backend: "pounce-wasm",
+    backend: scaling === "identity" ? "pounce-identity" : "pounce-wasm",
     environment: "browser-worker",
     case: smokeCase.label,
     model_sha256: smokeCase.modelSha256,
@@ -223,6 +224,7 @@ async function runPounce(smokeCase, totalStart) {
       tol: 1e-9,
       max_iter: smokeCase.maxIterations,
       presolve: false,
+      feral_scaling: scaling ?? "default",
     },
   };
 }
@@ -241,6 +243,8 @@ self.onmessage = async ({ data }) => {
       result = await runIpopt(smokeCase, totalStart, "memory64");
     } else if (backend === "pounce-wasm") {
       result = await runPounce(smokeCase, totalStart);
+    } else if (backend === "pounce-identity") {
+      result = await runPounce(smokeCase, totalStart, "identity");
     } else {
       throw new Error(`unknown backend ${backend}`);
     }

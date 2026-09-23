@@ -7,6 +7,8 @@ import { createPounceRunner } from "../pounce-runner.mjs";
 
 const root = fileURLToPath(new URL("../..", import.meta.url));
 const caseName = process.env.ACOPF_CASE ?? "case3";
+const scaling = process.env.ACOPF_POUNCE_SCALING ?? null;
+assert.ok(scaling === null || scaling === "identity", `unsupported POUNCE scaling ${scaling}`);
 const fixture = `${root}/fixtures/acopf/${caseName}/${caseName}-acopf`;
 const [wasm, nl, col, row] = await Promise.all([
   readFile(`${root}/target/wasm32-wasip1/release/acopf_pounce_browser_wasm.wasm`),
@@ -32,13 +34,14 @@ const result = runner.solve([
   "tol 1e-9",
   "max_iter 1000",
   "presolve no",
+  ...(scaling ? [`feral_scaling ${scaling}`] : []),
   "",
 ].join("\n"));
 assert.equal(result.x.length, summary.n_vars);
 assert.equal(result.g.length, summary.n_cons);
 const report = {
   schema: "acopf-wasm-bench.solver-result/v1",
-  backend: "pounce-wasm",
+  backend: scaling === "identity" ? "pounce-identity" : "pounce-wasm",
   environment: "node-with-browser-wasi-shim",
   case: mapping.case,
   model_sha256: mapping.artifacts.nl_sha256,
@@ -71,6 +74,7 @@ const report = {
     tol: 1e-9,
     max_iter: 1000,
     presolve: false,
+    feral_scaling: scaling ?? "default",
   },
 };
 

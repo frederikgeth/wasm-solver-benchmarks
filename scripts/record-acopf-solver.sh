@@ -12,12 +12,18 @@ esac
 case "$backend" in
   ipopt-wasm) runner="$benchmark_root/web/test/acopf-ipopt-smoke.mjs" ;;
   pounce-wasm) runner="$benchmark_root/web/test/acopf-pounce-smoke.mjs" ;;
+  pounce-identity) runner="$benchmark_root/web/test/acopf-pounce-smoke.mjs" ;;
   *) echo "unsupported backend: $backend" >&2; exit 2 ;;
 esac
 
 candidate_path="$benchmark_root/results/smoke/$case_name-$backend.json"
 validation_path="$benchmark_root/results/smoke/$case_name-$backend.validation.json"
 
-ACOPF_CASE="$case_name" ACOPF_RESULT_PATH="$candidate_path" "$benchmark_node" "$runner"
+case "$backend" in
+  pounce-identity)
+    ACOPF_CASE="$case_name" ACOPF_POUNCE_SCALING=identity ACOPF_RESULT_PATH="$candidate_path" "$benchmark_node" "$runner"
+    ;;
+  *) ACOPF_CASE="$case_name" ACOPF_RESULT_PATH="$candidate_path" "$benchmark_node" "$runner" ;;
+esac
 "$benchmark_root/scripts/validate-acopf-solution.sh" \
   "$case_name" "$candidate_path" "$validation_path"
